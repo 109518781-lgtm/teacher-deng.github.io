@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>平面向量最值题一步步讲解</title>
+<style>
+  :root{
+    --text:#222;
+    --muted:#666;
+    --line:#d9d9d9;
+    --accent:#1f4e79;
+    --bg:#f5f7fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+    line-height:1.75;
+  }
+  .toolbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    padding:14px;
+    background:rgba(245,247,251,.92);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid #e8edf5;
+  }
+  .btn{
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.secondary{background:#5b6b7f;}
+  .page{
+    width:210mm;
+    min-height:297mm;
+    margin:18px auto;
+    background:#fff;
+    padding:18mm 16mm 16mm;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+  }
+  h1,h2,h3{margin:0 0 10px;}
+  h1{
+    text-align:center;
+    font-size:24px;
+    color:var(--accent);
+    letter-spacing:1px;
+  }
+  .sub{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:18px;
+    font-size:13px;
+  }
+  .box{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    margin:12px 0;
+    background:#fbfcfe;
+  }
+  .tip{
+    border-left:4px solid var(--accent);
+    background:#f7fbff;
+    padding:10px 12px;
+    margin:12px 0;
+  }
+  h2{
+    margin-top:18px;
+    padding-bottom:6px;
+    border-bottom:2px solid #e9eef5;
+    font-size:18px;
+    color:#18344f;
+  }
+  h3{font-size:16px;color:#18344f;margin-top:16px;}
+  .q{
+    margin-top:16px;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+  }
+  .ans{
+    font-weight:700;
+    color:#b03a2e;
+    margin:8px 0;
+  }
+  .step{margin:6px 0;}
+  .math{
+    display:block;
+    margin:6px 0;
+    padding:8px 10px;
+    background:#fafafa;
+    border-radius:8px;
+    font-family:"Times New Roman","Cambria Math",serif;
+  }
+  ul{margin:6px 0 6px 20px;padding:0;}
+  li{margin:4px 0;}
+  .small{color:var(--muted);font-size:13px;}
+  .foot{
+    margin-top:24px;
+    padding-top:12px;
+    border-top:1px dashed var(--line);
+    color:var(--muted);
+    font-size:12px;
+  }
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .page{margin:0; box-shadow:none; width:auto; min-height:auto; page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <button class="btn" onclick="window.print()">打印本讲义</button>
+    <button class="btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">回到顶部</button>
+  </div>
+
+  <div class="page">
+    <h1>平面向量最值题：一步一步讲明白</h1>
+    <div class="sub">适合对“爪子定理、等和线、极化恒等式”还不熟、觉得抽象的学生</div>
+
+    <div class="tip">
+      <strong>先记住一句话：</strong>这类题不要一上来硬算。先看“谁固定、谁在动、能不能转成长度、能不能转成二次函数”。<br>
+      很多最值题，本质上只是在做这三件事：<strong>配方、投影、找几何意义</strong>。
+    </div>
+
+    <h2>一、先把三个工具讲懂</h2>
+
+    <div class="box">
+      <h3>1. 极化恒等式：把点积变成长度</h3>
+      <div class="step">最常用的两个式子：</div>
+      <div class="math">a·b = (|a+b|²-|a|²-|b|²)/2</div>
+      <div class="math">a·b = (|a|²+|b|²-|a-b|²)/2</div>
+      <div class="step">它的作用很简单：<strong>原本看不见的“夹角信息”，转成看得见的“长度信息”</strong>。</div>
+      <div class="step">比如知道 |a|、|b|、|a-b|，就能立刻求 a·b。</div>
+    </div>
+
+    <div class="box">
+      <h3>2. 等和线：|X-A|+|X-B| 的最小值</h3>
+      <div class="step">把它想成“从 A 走到 X，再从 X 走到 B”。</div>
+      <div class="step">那总路程最短什么时候出现？当然是 <strong>X 就落在 AB 这条直线上</strong>，最短路程就是：</div>
+      <div class="math">|X-A|+|X-B| ≥ |A-B|</div>
+      <div class="step">如果题目写成 |a-p|+|a-q| 的最小值，本质也是同一件事：<strong>中间点动，两个端点固定</strong>。</div>
+    </div>
+
+    <div class="box">
+      <h3>3. “爪子定理”这里怎么理解最省事</h3>
+      <div class="step">很多老师会把“从一个动点伸出两条向量去抓两个定点”的结构叫“爪子”。</div>
+      <div class="step">最常见形式是：</div>
+      <div class="math">PA·PB， 或者 MN·BN， 或者 (a-b)·(b-c)</div>
+      <div class="step">处理方法几乎都一样：</div>
+      <ul>
+        <li>先设坐标，把动点写成一个参数 t；</li>
+        <li>点积展开成关于 t 的二次式；</li>
+        <li>再配方，最值马上出来。</li>
+      </ul>
+      <div class="step">所以别怕它抽象，很多时候它就是一元二次函数。</div>
+    </div>
+
+    <h2>二、逐题讲解</h2>
+
+    <div class="q">
+      <h3>第1题</h3>
+      <div class="step">已知 |a|=|b|=a·b=c·(a+2b-2c)=2，求 |a-c| 的范围。</div>
+      <div class="ans">答案：A</div>
+      <div class="step"><strong>第1步：先把 a、b 放进坐标系。</strong></div>
+      <div class="step">因为 |a|=|b|=2，且 a·b=2，所以</div>
+      <div class="math">a·b=|a||b|cosθ = 4cosθ = 2</div>
+      <div class="math">cosθ = 1/2</div>
+      <div class="step">也就是 a、b 的夹角是 60°。不妨设</div>
+      <div class="math">a=(2,0), b=(1,√3)</div>
+      <div class="step">这样既满足 |a|=|b|=2，也满足 a·b=2。</div>
+
+      <div class="step"><strong>第2步：把关于 c 的条件化简。</strong></div>
+      <div class="step">由</div>
+      <div class="math">c·(a+2b-2c)=2</div>
+      <div class="step">代入 a+2b=(4, 2√3)，得</div>
+      <div class="math">(4,2√3)·c - 2|c|² = 2</div>
+      <div class="math">2|c|² - (4,2√3)·c + 2 = 0</div>
+      <div class="step">两边同时除以 2：</div>
+      <div class="math">|c|² - (2,√3)·c + 1 = 0</div>
+
+      <div class="step"><strong>第3步：配成“圆”的形式。</strong></div>
+      <div class="step">注意</div>
+      <div class="math">|c-(1,√3/2)|² = |c|² - (2,√3)·c + 1 + 3/4</div>
+      <div class="step">所以原式等价于</div>
+      <div class="math">|c-(1,√3/2)|² = 3/4</div>
+      <div class="step">这说明：<strong>点 c 落在一个圆上</strong>。</div>
+      <ul>
+        <li>圆心：O=(1, √3/2)</li>
+        <li>半径：r=√3/2</li>
+      </ul>
+
+      <div class="step"><strong>第4步：题目要的是 |a-c|。</strong></div>
+      <div class="step">也就是：固定点 a=(2,0) 到这个圆上动点 c 的距离范围。</div>
+      <div class="step">先算点 a 到圆心 O 的距离：</div>
+      <div class="math">|a-O| = |(2,0)-(1,√3/2)| = √(1²+(√3/2)²)=√7/2</div>
+      <div class="step">于是根据“点到圆上动点的距离范围”：</div>
+      <div class="math">|a-c| ∈ [|a-O|-r, |a-O|+r]</div>
+      <div class="math">|a-c| ∈ [(√7-√3)/2, (√7+√3)/2]</div>
+      <div class="step">所以选 A。</div>
+      <div class="small">这题最关键的突破口是：把条件配成圆，而不是硬算。</div>
+    </div>
+
+    <div class="q">
+      <h3>第2题</h3>
+      <div class="step">已知 |e|=1，b 与 e 的夹角是 60°，且 |b-te|≥|b-e| 对任意实数 t 恒成立，求 |a+2e|+|a-b| 的最小值。</div>
+      <div class="ans">答案：B = 2√3</div>
+      <div class="step"><strong>第1步：理解条件 |b-te|≥|b-e|。</strong></div>
+      <div class="step">te 表示过原点、方向为 e 的一条直线上的点。</div>
+      <div class="step">题目说：从 b 到这条直线上的所有点里，距离最小的那个恰好是 e。</div>
+      <div class="step">也就是说，<strong>e 是 b 在这条直线上的垂足投影点</strong>。</div>
+      <div class="step">所以 b 在 e 方向上的投影长度就是 1：</div>
+      <div class="math">b·e = 1</div>
+      <div class="step">又因为夹角是 60°，|e|=1：</div>
+      <div class="math">b·e = |b||e|cos60° = |b|/2 = 1</div>
+      <div class="math">|b| = 2</div>
+
+      <div class="step"><strong>第2步：把和式最小值看成等和线。</strong></div>
+      <div class="math">|a+2e| = |a-(-2e)|</div>
+      <div class="math">|a+2e|+|a-b| = |a-(-2e)|+|a-b|</div>
+      <div class="step">这是“点 a 到两个定点 -2e、b 的距离和”。最小值就是两定点间距离：</div>
+      <div class="math">min = |-2e-b| = |b+2e|</div>
+
+      <div class="step"><strong>第3步：算 |b+2e|。</strong></div>
+      <div class="math">|b+2e|² = |b|²+|2e|²+2b·2e = 4+4+4(b·e)=4+4+4=12</div>
+      <div class="math">|b+2e| = 2√3</div>
+    </div>
+
+    <div class="q">
+      <h3>第3题</h3>
+      <div class="step">已知 |a|=|b|=1，|c|=3，且 a·c=b·c，判断各选项。</div>
+      <div class="ans">成立的是：A、B、D</div>
+      <div class="step"><strong>第1步：把条件 a·c=b·c 改写。</strong></div>
+      <div class="math">(a-b)·c = 0</div>
+      <div class="step">所以</div>
+      <div class="math">a-b ⟂ c</div>
+
+      <div class="step"><strong>第2步：看 |a-b+c|。</strong></div>
+      <div class="math">|a-b+c|² = |a-b|²+|c|² = |a-b|²+9</div>
+      <div class="step">因为 a-b 与 c 垂直，所以没有交叉项。</div>
+      <div class="step">又因为 |a-b|∈[0,2]，所以</div>
+      <div class="math">|a-b+c| ∈ [3, √13]</div>
+      <div class="step">故 C 错，D 对。</div>
+
+      <div class="step"><strong>第3步：看 |a+b+c|。</strong></div>
+      <div class="step">由于 a、b 对 c 的投影相等，所以可以让 a、b 同向，也可以反向。</div>
+      <ul>
+        <li>a=b=c 方向时，|a+b+c|=1+1+3=5，故 B 对；</li>
+        <li>a=b 与 c 反向时，|a+b+c|=|-1-1+3|=1，故 A 对。</li>
+      </ul>
+    </div>
+
+    <div class="q">
+      <h3>第4题</h3>
+      <div class="step">已知 |a|=2|b|，|b|≠0，方程 x²+|a|x+a·b=0 有实根，求 a 与 b 的夹角范围。</div>
+      <div class="ans">答案：B = [π/3, π]</div>
+      <div class="step"><strong>第1步：方程有实根，看判别式。</strong></div>
+      <div class="math">Δ = |a|² - 4(a·b) ≥ 0</div>
+      <div class="step">又因为 |a|=2|b|，所以</div>
+      <div class="math">4|b|² - 4(|a||b|cosθ) ≥ 0</div>
+      <div class="math">4|b|² - 4(2|b|²cosθ) ≥ 0</div>
+      <div class="math">1 - 2cosθ ≥ 0</div>
+      <div class="math">cosθ ≤ 1/2</div>
+      <div class="math">θ ∈ [π/3, π]</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="q">
+      <h3>第5题（上）</h3>
+      <div class="step">在 △ABC 中，AB=4，AC=8，∠BAC=60°，M 为 BC 中点，N 在 AC 上运动，求 MN·BN 的最小值。</div>
+      <div class="ans">答案：15/4</div>
+      <div class="step"><strong>第1步：设坐标。</strong></div>
+      <div class="step">让 A=(0,0)，AC 在 x 轴上，则 C=(8,0)。</div>
+      <div class="step">因为 AB=4，且与 AC 夹角 60°，所以</div>
+      <div class="math">B=(4cos60°, 4sin60°)=(2, 2√3)</div>
+      <div class="step">M 是 BC 中点：</div>
+      <div class="math">M=((2+8)/2, (2√3+0)/2)=(5, √3)</div>
+      <div class="step">设 N=(t,0)，其中 0≤t≤8。</div>
+
+      <div class="step"><strong>第2步：写向量。</strong></div>
+      <div class="math">MN=(t-5, -√3)</div>
+      <div class="math">BN=(t-2, -2√3)</div>
+
+      <div class="step"><strong>第3步：点积展开。</strong></div>
+      <div class="math">MN·BN = (t-5)(t-2)+(-√3)(-2√3)</div>
+      <div class="math">= t²-7t+10+6 = t²-7t+16</div>
+      <div class="step">这就是“爪子定理”常见套路：最后就是一个二次函数。</div>
+
+      <div class="step"><strong>第4步：配方。</strong></div>
+      <div class="math">t²-7t+16 = (t-7/2)² + 15/4</div>
+      <div class="step">所以最小值是</div>
+      <div class="math">15/4</div>
+    </div>
+
+    <div class="q">
+      <h3>第5题（下）</h3>
+      <div class="step">矩形 ABCD 中，AB=2BC=2，P 在 CD 上运动，求 PA·PB − PA·BC 的最小值。</div>
+      <div class="ans">答案：1</div>
+      <div class="step"><strong>第1步：先把边长看清。</strong></div>
+      <div class="math">AB=2, BC=1</div>
+      <div class="step">设 A=(0,0)，B=(2,0)，C=(2,1)，D=(0,1)。</div>
+      <div class="step">P 在 CD 上，所以设 P=(x,1)，0≤x≤2。</div>
+
+      <div class="step"><strong>第2步：写向量。</strong></div>
+      <div class="math">PA=A-P=(-x,-1)</div>
+      <div class="math">PB=B-P=(2-x,-1)</div>
+      <div class="math">BC=(0,1)</div>
+
+      <div class="step"><strong>第3步：分别算两部分。</strong></div>
+      <div class="math">PA·PB = (-x)(2-x)+(-1)(-1)=x²-2x+1=(x-1)²</div>
+      <div class="math">PA·BC = (-x,-1)·(0,1)=-1</div>
+      <div class="step">所以原式</div>
+      <div class="math">(x-1)²-(-1)=(x-1)²+1</div>
+      <div class="step">最小值就是</div>
+      <div class="math">1</div>
+    </div>
+
+    <div class="q">
+      <h3>第6题</h3>
+      <div class="step">在 △ABC 中，AB=AC=2，BC=2√3，P 在 BC 上运动，求 PA·PB 的最小值。</div>
+      <div class="ans">答案：B = -3/4</div>
+      <div class="step"><strong>第1步：设坐标。</strong></div>
+      <div class="step">这是等腰三角形。让 B=(-√3,0)，C=(√3,0)。</div>
+      <div class="step">则 A 在中垂线上，且</div>
+      <div class="math">AB² = (√3)²+h² = 4</div>
+      <div class="math">h=1</div>
+      <div class="step">所以 A=(0,1)。</div>
+      <div class="step">设 P=(x,0)，其中 -√3≤x≤√3。</div>
+
+      <div class="step"><strong>第2步：写向量并点积。</strong></div>
+      <div class="math">PA=A-P=(-x,1)</div>
+      <div class="math">PB=B-P=(-√3-x,0)</div>
+      <div class="math">PA·PB = (-x)(-√3-x)+1·0 = x²+√3x</div>
+
+      <div class="step"><strong>第3步：配方。</strong></div>
+      <div class="math">x²+√3x = (x+√3/2)² - 3/4</div>
+      <div class="step">最小值为</div>
+      <div class="math">-3/4</div>
+    </div>
+
+    <div class="q">
+      <h3>第7题</h3>
+      <div class="step">△ABC 为等腰直角三角形，∠C=90°，直角边长为 2。P 在平面内，且 AP 为单位向量。点 D 满足 CD=DP，求 BC·BD 的最小值。</div>
+      <div class="ans">答案：B = 3</div>
+      <div class="step"><strong>第1步：设坐标。</strong></div>
+      <div class="step">取 C=(0,0)，A=(2,0)，B=(0,2)。</div>
+      <div class="step">因为 AP 是单位向量，所以</div>
+      <div class="math">|AP|=1</div>
+      <div class="step">说明 P 在以 A 为圆心、1 为半径的圆上。</div>
+
+      <div class="step"><strong>第2步：由 CD=DP 看出 D 是 CP 中点。</strong></div>
+      <div class="math">D = (C+P)/2 = P/2</div>
+      <div class="step">设 D=(u,v)。</div>
+
+      <div class="step"><strong>第3步：写点积。</strong></div>
+      <div class="math">BC = C-B = (0,-2)</div>
+      <div class="math">BD = D-B = (u, v-2)</div>
+      <div class="math">BC·BD = (0,-2)·(u,v-2) = -2(v-2)=4-2v</div>
+      <div class="step">要让它最小，就要让 v 最大。</div>
+
+      <div class="step"><strong>第4步：找 D 的最高点。</strong></div>
+      <div class="step">P 在圆 (x-2)²+y²=1 上，最高点是 P=(2,1)。</div>
+      <div class="step">所以 D=P/2=(1,1/2)，此时 v 最大为 1/2。</div>
+      <div class="math">min(BC·BD)=4-2×(1/2)=3</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="q">
+      <h3>第8题</h3>
+      <div class="step">已知 a,b,c 都是单位向量，且 |a-b|=1，求 (a-b)·(b-c) 的最大值。</div>
+      <div class="ans">答案：B = 1/2</div>
+      <div class="step"><strong>第1步：先用极化恒等式求 a·b。</strong></div>
+      <div class="math">|a-b|² = |a|²+|b|²-2a·b</div>
+      <div class="math">1 = 1+1-2a·b</div>
+      <div class="math">a·b = 1/2</div>
+
+      <div class="step"><strong>第2步：展开原式。</strong></div>
+      <div class="math">(a-b)·(b-c)=a·b-a·c-|b|²+b·c</div>
+      <div class="math">= 1/2-a·c-1+b·c</div>
+      <div class="math">= b·c-a·c-1/2</div>
+      <div class="step">这样看还不够直接，我们换个更聪明的方法。</div>
+
+      <div class="step"><strong>第3步：把 a-b 看成一个整体 u。</strong></div>
+      <div class="math">设 u=a-b，则 |u|=1</div>
+      <div class="math">(a-b)·(b-c)=u·b-u·c</div>
+      <div class="step">先算</div>
+      <div class="math">u·b=(a-b)·b=a·b-|b|²=1/2-1=-1/2</div>
+      <div class="step">所以</div>
+      <div class="math">原式 = -1/2 - u·c</div>
+      <div class="step">要最大，就要让 u·c 最小。因为 |u|=|c|=1，所以</div>
+      <div class="math">u·c ≥ -1</div>
+      <div class="step">最小时取 -1，于是</div>
+      <div class="math">max = -1/2 - (-1) = 1/2</div>
+    </div>
+
+    <div class="q">
+      <h3>第9题</h3>
+      <div class="step">已知 |a|=1，|b|=√2，a·b=1，|c|=2，求 (a+b)·c 的最大值。</div>
+      <div class="ans">答案：A = 2√5</div>
+      <div class="step"><strong>第1步：点积最大值来自同向。</strong></div>
+      <div class="math">(a+b)·c ≤ |a+b||c|</div>
+      <div class="step">所以关键是先算 |a+b|。</div>
+
+      <div class="step"><strong>第2步：用平方公式。</strong></div>
+      <div class="math">|a+b|² = |a|²+|b|²+2a·b = 1+2+2 = 5</div>
+      <div class="math">|a+b| = √5</div>
+      <div class="step">因此</div>
+      <div class="math">max (a+b)·c = |a+b||c| = √5×2 = 2√5</div>
+    </div>
+
+    <div class="q">
+      <h3>第10题（多选）</h3>
+      <div class="step">已知非零向量 a、b 的夹角为 θ，且 |a|=|2a-b|=2，判断各选项。</div>
+      <div class="ans">答案：A、C、D</div>
+      <div class="step"><strong>第1步：把条件平方展开。</strong></div>
+      <div class="math">|2a-b|² = |2a|²+|b|²-2(2a)·b</div>
+      <div class="math">4 = 16 + |b|² - 4a·b</div>
+      <div class="step">又因为 |a|=2，a·b=|a||b|cosθ=2|b|cosθ，所以</div>
+      <div class="math">4 = 16 + |b|² - 8|b|cosθ</div>
+      <div class="math">|b|² - 8|b|cosθ + 12 = 0</div>
+
+      <div class="step"><strong>先看 A：</strong>若 |b|=3</div>
+      <div class="math">9 - 24cosθ +12 = 0</div>
+      <div class="math">24cosθ=21</div>
+      <div class="math">cosθ=7/8</div>
+      <div class="step">所以 A 对。</div>
+
+      <div class="step"><strong>再看 B：</strong>若 a∥b</div>
+      <div class="step">这时 θ=0（反向不可能，因为会使上式无正根）。代入得</div>
+      <div class="math">|b|² - 8|b| +12 =0</div>
+      <div class="math">(|b|-2)(|b|-6)=0</div>
+      <div class="step">所以 |b| 可以是 2，也可以是 6，不唯一。</div>
+      <div class="step">故 B 错。</div>
+
+      <div class="step"><strong>再看 C：</strong>求 θ 的范围。</div>
+      <div class="step">把上式看成关于 |b| 的一元二次方程，要有实数解，判别式必须 ≥0：</div>
+      <div class="math">Δ = (8cosθ)² - 4×12 ≥ 0</div>
+      <div class="math">64cos²θ - 48 ≥ 0</div>
+      <div class="math">cos²θ ≥ 3/4</div>
+      <div class="step">又因为 |b| 的和为 8cosθ，要想有正根，必须 cosθ&gt;0。</div>
+      <div class="math">cosθ ≥ √3/2</div>
+      <div class="math">θ ∈ [0, π/6]</div>
+      <div class="step">所以 C 对。</div>
+
+      <div class="step"><strong>最后看 D：</strong>a·b 的最大值。</div>
+      <div class="step">当 θ=0，且 |b|=6 时，</div>
+      <div class="math">a·b = |a||b|cosθ = 2×6×1 = 12</div>
+      <div class="step">确实能取到，所以 D 对。</div>
+    </div>
+
+    <h2>三、最后帮学生做一个“不会乱”的总结</h2>
+    <div class="box">
+      <strong>看到最值题，按这个顺序想：</strong>
+      <ol>
+        <li>能不能设坐标？只要有“线段上动点”，优先设坐标。</li>
+        <li>能不能转成长度和？遇到 |x-p|+|x-q|，想到等和线。</li>
+        <li>能不能用极化恒等式？遇到 |a-b|、|a+b|、a·b 混在一起时优先用。</li>
+        <li>能不能配方？只要出现一个参数 t，点积展开后常常就是二次式。</li>
+      </ol>
+    </div>
+
+    <div class="tip">
+      <strong>一句最实用的话：</strong><br>
+      向量最值题，不是“技巧太神秘”，而是“你还没把它看成长度题、坐标题、二次函数题”。<br>
+      一旦看成这三类，它就会突然简单很多。
+    </div>
+
+    <div class="foot">本页已自带打印按钮。打印时默认按 A4 版式输出。</div>
+  </div>
+</body>
+</html>

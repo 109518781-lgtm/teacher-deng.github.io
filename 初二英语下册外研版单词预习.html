@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>赢未来国雅 - 英语单词互动学习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* 移动端优化 - 更大的触摸区域 */
+        button, .module-btn, .game-option, .action-btn {
+            touch-action: manipulation;
+        }
+        
+        /* 头部样式 - 移动端优化 */
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 18px 15px;
+            background: linear-gradient(90deg, #1a73e8, #6c8ef5);
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            color: #FFD700;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            line-height: 1.3;
+            text-align: center;
+        }
+        
+        .logo-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        /* 移动端汉堡菜单 */
+        .mobile-menu-btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 1.5rem;
+            padding: 8px 12px;
+            z-index: 100;
+        }
+        
+        /* 说明区域 - 移动端优化 */
+        .instructions {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #1a73e8;
+        }
+        
+        .instructions h2 {
+            color: #1a73e8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+        }
+        
+        .instructions h2 i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+        
+        .instruction-card {
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 8px;
+            border-top: 4px solid #6c8ef5;
+        }
+        
+        .instruction-card h3 {
+            color: #1a73e8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .instruction-card h3 i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        .instruction-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* 主内容区域 - 移动端优化 */
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        /* 模块选择 - 移动端优化 */
+        .module-selector {
+            flex: 1;
+            min-width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .module-selector h2 {
+            color: #1a73e8;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-selector h2 i {
+            margin-right: 10px;
+        }
+        
+        .module-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+        }
+        
+        .module-btn {
+            padding: 14px 10px;
+            background-color: #f0f7ff;
+            border: 2px solid #d0e3ff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1a73e8;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .module-btn.active {
+            background-color: #1a73e8;
+            color: white;
+            border-color: #1a73e8;
+        }
+        
+        /* 单词显示区域 - 移动端优化 */
+        .word-display {
+            flex: 2;
+            min-width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .word-display h2 {
+            color: #1a73e8;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 1.4rem;
+        }
+        
+        .word-count {
+            font-size: 0.95rem;
+            background-color: #f0f7ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: #1a73e8;
+            margin-top: 5px;
+        }
+        
+        .word-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 18px;
+            padding-right: 8px;
+        }
+        
+        /* 自定义滚动条 - 移动端优化 */
+        .word-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .word-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .word-list::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        
+        /* 单词卡片 - 移动端优化 */
+        .word-card {
+            background-color: #f9fafc;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-left: 4px solid #6c8ef5;
+            transition: all 0.3s ease;
+        }
+        
+        .word-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .word-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a73e8;
+            word-break: break-word;
+        }
+        
+        .phonetic {
+            color: #666;
+            font-style: italic;
+            margin-left: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .word-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #6c8ef5;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+            padding: 8px;
+            border-radius: 50%;
+            background-color: rgba(108, 142, 245, 0.1);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .word-details {
+            margin-top: 15px;
+        }
+        
+        .word-meaning, .word-example {
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            background-color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .word-meaning {
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .word-example {
+            border-left: 3px solid #FF9800;
+        }
+        
+        .part-of-speech {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        /* 游戏区域 - 移动端优化 */
+        .game-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .game-section h2 {
+            color: #1a73e8;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+        }
+        
+        .game-section h2 i {
+            margin-right: 10px;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .game-title-section h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .game-title-section p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .game-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 90px;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .game-area {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .game-question {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.5;
+            text-align: center;
+            width: 100%;
+            word-break: break-word;
+        }
+        
+        .game-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 15px;
+        }
+        
+        .game-option {
+            padding: 16px 20px;
+            background-color: white;
+            border: 2px solid #d0e3ff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-align: left;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            word-break: break-word;
+        }
+        
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .game-btn {
+            padding: 14px 24px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .game-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .game-btn.secondary {
+            background-color: #6c757d;
+        }
+        
+        /* 页脚 - 移动端优化 */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 15px;
+            color: #666;
+            font-size: 0.85rem;
+            border-top: 1px solid #ddd;
+            line-height: 1.5;
+        }
+        
+        /* 移动设备特定样式 */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            header {
+                padding: 15px 12px;
+                margin-bottom: 15px;
+            }
+            
+            .logo-text {
+                font-size: 1.6rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .instructions {
+                padding: 18px;
+                margin-bottom: 20px;
+            }
+            
+            .instructions h2 {
+                font-size: 1.3rem;
+            }
+            
+            .instructions-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            
+            .instruction-card {
+                padding: 16px;
+            }
+            
+            .main-content {
+                gap: 15px;
+            }
+            
+            .module-selector, .word-display, .game-section {
+                padding: 18px;
+            }
+            
+            .module-buttons {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 8px;
+            }
+            
+            .module-btn {
+                padding: 12px 8px;
+                font-size: 0.95rem;
+                min-height: 46px;
+            }
+            
+            .word-text {
+                font-size: 1.5rem;
+            }
+            
+            .word-list {
+                max-height: 350px;
+            }
+            
+            .game-question {
+                font-size: 1.3rem;
+            }
+            
+            .game-option {
+                padding: 14px 18px;
+                font-size: 1.05rem;
+            }
+            
+            .game-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 120px;
+            }
+            
+            .stat-box {
+                min-width: 80px;
+                padding: 10px 14px;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 2rem;
+            }
+            
+            .module-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .game-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .stat-box {
+                flex: none;
+                width: calc(33.333% - 8px);
+            }
+            
+            .game-controls {
+                flex-direction: column;
+            }
+            
+            .game-btn {
+                width: 100%;
+                min-width: unset;
+            }
+            
+            .word-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .word-text {
+                font-size: 1.4rem;
+            }
+            
+            .game-question {
+                font-size: 1.2rem;
+            }
+            
+            .stat-box {
+                padding: 8px 10px;
+            }
+            
+            .stat-value {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* 横屏优化 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .word-list {
+                max-height: 200px;
+            }
+            
+            .game-area {
+                min-height: 140px;
+                padding: 15px;
+            }
+            
+            .game-question {
+                margin-bottom: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .game-option {
+                padding: 10px 15px;
+                min-height: 50px;
+            }
+        }
+        
+        /* 防止iOS缩放 */
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-graduation-cap logo-icon"></i>
+                <div>
+                    <div class="logo-text">赢未来国雅</div>
+                    <div class="logo-subtitle">外研版八年级下册英语单词互动学习</div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 使用说明 -->
+        <section class="instructions">
+            <h2><i class="fas fa-info-circle"></i> 如何开始学习</h2>
+            <p>欢迎使用赢未来国雅英语单词互动学习系统！请按照以下步骤开始学习：</p>
+            
+            <div class="instructions-grid">
+                <div class="instruction-card">
+                    <h3><i class="fas fa-mouse-pointer"></i> 第一步：选择模块</h3>
+                    <p>点击左侧的模块按钮（如Module 1, Module 2等），选择你要学习的单元。</p>
+                </div>
+                
+                <div class="instruction-card">
+                    <h3><i class="fas fa-book-open"></i> 第二步：学习单词</h3>
+                    <p>查看所选模块的所有单词，点击发音按钮听单词读音，学习词性和中文意思。</p>
+                </div>
+                
+                <div class="instruction-card">
+                    <h3><i class="fas fa-gamepad"></i> 第三步：互动游戏</h3>
+                    <p>使用底部的游戏功能测试你的学习成果，通过选择正确的中文意思或英文单词来巩固记忆。</p>
+                </div>
+                
+                <div class="instruction-card">
+                    <h3><i class="fas fa-chart-line"></i> 第四步：跟踪进度</h3>
+                    <p>系统会记录你的游戏得分和正确率，帮助你了解自己的学习进度。</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="main-content">
+            <!-- 模块选择区域 -->
+            <section class="module-selector">
+                <h2><i class="fas fa-layer-group"></i> 选择学习模块</h2>
+                <div class="module-buttons" id="moduleButtons">
+                    <!-- 模块按钮将通过JavaScript动态生成 -->
+                </div>
+            </section>
+            
+            <!-- 单词显示区域 -->
+            <section class="word-display">
+                <h2>
+                    <span>单词列表</span>
+                    <div class="word-count" id="wordCount">共 0 个单词</div>
+                </h2>
+                <div class="word-list" id="wordList">
+                    <!-- 单词卡片将通过JavaScript动态生成 -->
+                </div>
+            </section>
+        </div>
+        
+        <!-- 游戏区域 -->
+        <section class="game-section">
+            <h2><i class="fas fa-gamepad"></i> 单词记忆游戏</h2>
+            
+            <div class="game-container">
+                <div class="game-header">
+                    <div class="game-title-section">
+                        <h3 id="gameTitle">选择正确的单词意思</h3>
+                        <p id="gameDescription">根据显示的英文单词，选择对应的中文意思</p>
+                    </div>
+                    
+                    <div class="game-stats">
+                        <div class="stat-box">
+                            <div class="stat-value" id="score">0</div>
+                            <div class="stat-label">得分</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="correctCount">0</div>
+                            <div class="stat-label">正确</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="questionCount">0/10</div>
+                            <div class="stat-label">进度</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-area">
+                    <div class="game-question" id="gameQuestion">点击"开始游戏"按钮开始</div>
+                    
+                    <div class="game-options" id="gameOptions">
+                        <!-- 游戏选项将通过JavaScript动态生成 -->
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button class="game-btn" id="startGameBtn">
+                            <i class="fas fa-play"></i> 开始游戏
+                        </button>
+                        <button class="game-btn secondary" id="resetGameBtn">
+                            <i class="fas fa-redo"></i> 重新开始
+                        </button>
+                        <button class="game-btn" id="speakWordBtn">
+                            <i class="fas fa-volume-up"></i> 朗读单词
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>© 2023 赢未来国雅英语学习平台 | 外研版初中英语八年级下册单词互动学习系统</p>
+            <p>设计用于教育目的，帮助学生掌握英语单词的发音、词性和中文意思</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #888;">适配手机、平板和电脑设备</p>
+        </footer>
+    </div>
+
+    <script>
+        // 单词数据
+        const wordData = {
+            "Module 1": [
+                {word: "smell", meaning: "闻；气味", partOfSpeech: "n./v.", example: "The smell of flowers is nice."},
+                {word: "soft", meaning: "柔软的", partOfSpeech: "adj.", example: "The bed is very soft."},
+                {word: "sour", meaning: "酸的", partOfSpeech: "adj.", example: "Lemons taste sour."},
+                {word: "cookie", meaning: "曲奇饼", partOfSpeech: "n.", example: "Would you like a cookie?"},
+                {word: "pizza", meaning: "比萨饼", partOfSpeech: "n.", example: "We had pizza for dinner."},
+                {word: "lovely", meaning: "令人愉快的", partOfSpeech: "adj.", example: "It's a lovely day today."},
+                {word: "sweet tooth", meaning: "对甜食的爱好", partOfSpeech: "n.", example: "She has a sweet tooth."},
+                {word: "salt", meaning: "盐", partOfSpeech: "n.", example: "Add some salt to the soup."},
+                {word: "jam", meaning: "果酱", partOfSpeech: "n.", example: "I like strawberry jam on toast."},
+                {word: "favourite", meaning: "特别喜爱的", partOfSpeech: "adj.", example: "What's your favourite colour?"},
+                {word: "jeans", meaning: "牛仔裤", partOfSpeech: "n.", example: "He wears jeans every day."},
+                {word: "nervous", meaning: "紧张的", partOfSpeech: "adj.", example: "She feels nervous before exams."},
+                {word: "pretty", meaning: "漂亮的", partOfSpeech: "adj.", example: "She looks pretty in that dress."},
+                {word: "proud", meaning: "自豪的", partOfSpeech: "adj.", example: "He is proud of his son."},
+                {word: "be proud of ...", meaning: "为……感到自豪", partOfSpeech: "phrase", example: "We are proud of our country."},
+                {word: "stranger", meaning: "陌生人", partOfSpeech: "n.", example: "Don't talk to strangers."},
+                {word: "message", meaning: "信息", partOfSpeech: "n.", example: "I sent him a message."},
+                {word: "sb. can't wait", meaning: "某人等不及了", partOfSpeech: "phrase", example: "I can't wait to see you."},
+                {word: "hobby", meaning: "业余爱好", partOfSpeech: "n.", example: "My hobby is collecting stamps."},
+                {word: "at school", meaning: "在学校", partOfSpeech: "phrase", example: "We learn English at school."}
+            ],
+            "Module 2": [
+                {word: "ever", meaning: "曾经", partOfSpeech: "adv.", example: "Have you ever been to Beijing?"},
+                {word: "enter", meaning: "参加", partOfSpeech: "v.", example: "He entered the competition."},
+                {word: "competition", meaning: "比赛", partOfSpeech: "n.", example: "She won first prize in the competition."},
+                {word: "prize", meaning: "奖品", partOfSpeech: "n.", example: "The prize is a trip to Paris."},
+                {word: "first prize", meaning: "一等奖", partOfSpeech: "phrase", example: "He won first prize in the race."},
+                {word: "dream", meaning: "梦想", partOfSpeech: "n.", example: "My dream is to become a doctor."},
+                {word: "afford", meaning: "买得起", partOfSpeech: "v.", example: "I can't afford a new car."},
+                {word: "invite", meaning: "邀请", partOfSpeech: "v.", example: "I'll invite my friends to the party."},
+                {word: "move", meaning: "搬家", partOfSpeech: "v.", example: "They moved to a new house."},
+                {word: "send", meaning: "发送", partOfSpeech: "v.", example: "I'll send you an email."},
+                {word: "Germany", meaning: "德国", partOfSpeech: "n.", example: "He lives in Germany."},
+                {word: "France", meaning: "法国", partOfSpeech: "n.", example: "Paris is the capital of France."},
+                {word: "tower", meaning: "塔", partOfSpeech: "n.", example: "The Eiffel Tower is in Paris."},
+                {word: "ancient", meaning: "古代的", partOfSpeech: "adj.", example: "We saw ancient buildings in Rome."},
+                {word: "king", meaning: "国王", partOfSpeech: "n.", example: "The king lived in a palace."},
+                {word: "queen", meaning: "女王", partOfSpeech: "n.", example: "The queen gave a speech."},
+                {word: "Arabic", meaning: "阿拉伯语", partOfSpeech: "n.", example: "He speaks Arabic."},
+                {word: "mix", meaning: "混合", partOfSpeech: "v.", example: "Mix flour and water to make dough."},
+                {word: "miss", meaning: "想念", partOfSpeech: "v.", example: "I miss my family when I'm away."},
+                {word: "count", meaning: "数数", partOfSpeech: "v.", example: "The child can count to ten."},
+                {word: "count down", meaning: "倒计时", partOfSpeech: "phrase", example: "We count down to the new year."}
+            ],
+            "Module 3": [
+                {word: "earth", meaning: "地球", partOfSpeech: "n.", example: "The Earth goes around the Sun."},
+                {word: "moon", meaning: "月亮", partOfSpeech: "n.", example: "The moon is bright tonight."},
+                {word: "planet", meaning: "行星", partOfSpeech: "n.", example: "Mars is a planet in our solar system."},
+                {word: "reach", meaning: "到达", partOfSpeech: "v.", example: "We reached the top of the mountain."},
+                {word: "model", meaning: "模型", partOfSpeech: "n.", example: "He built a model airplane."},
+                {word: "spaceship", meaning: "宇宙飞船", partOfSpeech: "n.", example: "The spaceship landed on Mars."},
+                {word: "project", meaning: "项目", partOfSpeech: "n.", example: "Our science project is about space."},
+                {word: "latest", meaning: "最新的", partOfSpeech: "adj.", example: "This is the latest news."},
+                {word: "discover", meaning: "发现", partOfSpeech: "v.", example: "Scientists discover new things every day."},
+                {word: "astronaut", meaning: "宇航员", partOfSpeech: "n.", example: "The astronaut went to the moon."},
+                {word: "space travel", meaning: "太空旅行", partOfSpeech: "phrase", example: "Space travel is exciting."},
+                {word: "environment", meaning: "环境", partOfSpeech: "n.", example: "We should protect the environment."},
+                {word: "solar system", meaning: "太阳系", partOfSpeech: "phrase", example: "Our solar system has eight planets."},
+                {word: "group", meaning: "组", partOfSpeech: "n.", example: "We work in groups in class."},
+                {word: "galaxy", meaning: "星系", partOfSpeech: "n.", example: "The Milky Way is our galaxy."},
+                {word: "universe", meaning: "宇宙", partOfSpeech: "n.", example: "The universe is very big."},
+                {word: "light", meaning: "光", partOfSpeech: "n.", example: "Light travels very fast."},
+                {word: "impossible", meaning: "不可能的", partOfSpeech: "adj.", example: "It's impossible to finish in one day."},
+                {word: "communicate", meaning: "交流", partOfSpeech: "v.", example: "We communicate by email."}
+            ],
+            "Module 4": [
+                {word: "cough", meaning: "咳嗽", partOfSpeech: "n./v.", example: "He has a bad cough."},
+                {word: "fever", meaning: "发烧", partOfSpeech: "n.", example: "She has a high fever."},
+                {word: "headache", meaning: "头痛", partOfSpeech: "n.", example: "I have a headache."},
+                {word: "stomach ache", meaning: "胃痛", partOfSpeech: "n.", example: "He has a stomach ache."},
+                {word: "toothache", meaning: "牙痛", partOfSpeech: "n.", example: "She went to the dentist for her toothache."},
+                {word: "ill", meaning: "生病的", partOfSpeech: "adj.", example: "He is ill and can't come to school."},
+                {word: "catch a cold", meaning: "感冒", partOfSpeech: "phrase", example: "I think I'm catching a cold."},
+                {word: "health", meaning: "健康", partOfSpeech: "n.", example: "Good health is important."},
+                {word: "heart", meaning: "心脏", partOfSpeech: "n.", example: "Your heart pumps blood around your body."},
+                {word: "active", meaning: "活跃的", partOfSpeech: "adj.", example: "Children should be active every day."},
+                {word: "take part in sth.", meaning: "参加某活动", partOfSpeech: "phrase", example: "I want to take part in the competition."},
+                {word: "in excellent condition", meaning: "状态极佳", partOfSpeech: "phrase", example: "The car is in excellent condition."},
+                {word: "sleepy", meaning: "困倦的", partOfSpeech: "adj.", example: "I feel sleepy after lunch."},
+                {word: "daily", meaning: "每日的", partOfSpeech: "adj.", example: "Daily exercise is good for you."},
+                {word: "weak", meaning: "虚弱的", partOfSpeech: "adj.", example: "She felt weak after her illness."},
+                {word: "exercise", meaning: "锻炼", partOfSpeech: "n.", example: "Regular exercise keeps you healthy."},
+                {word: "feel awful", meaning: "感觉不舒服", partOfSpeech: "phrase", example: "I feel awful today."},
+                {word: "all over", meaning: "浑身", partOfSpeech: "phrase", example: "My body aches all over."},
+                {word: "perhaps", meaning: "也许", partOfSpeech: "adv.", example: "Perhaps we can go tomorrow."}
+            ],
+            "Module 5": [
+                {word: "cartoon", meaning: "卡通片", partOfSpeech: "n.", example: "Children like watching cartoons."},
+                {word: "handsome", meaning: "英俊的", partOfSpeech: "adj.", example: "He is a handsome actor."},
+                {word: "smart", meaning: "聪明的", partOfSpeech: "adj.", example: "She is a smart student."},
+                {word: "sky", meaning: "天空", partOfSpeech: "n.", example: "The sky is blue today."},
+                {word: "fight", meaning: "打架；战斗", partOfSpeech: "v./n.", example: "They fight for their country."},
+                {word: "cool", meaning: "酷的", partOfSpeech: "adj.", example: "That's a cool car!"},
+                {word: "hero", meaning: "英雄", partOfSpeech: "n.", example: "He is a hero in the story."},
+                {word: "humorous", meaning: "幽默的", partOfSpeech: "adj.", example: "He tells humorous stories."},
+                {word: "can't help doing sth.", meaning: "忍不住做某事", partOfSpeech: "phrase", example: "I can't help laughing at his jokes."},
+                {word: "lesson", meaning: "课；教训", partOfSpeech: "n.", example: "We have an English lesson now."},
+                {word: "ugly", meaning: "丑陋的", partOfSpeech: "adj.", example: "The monster is ugly."},
+                {word: "win the heart of sb.", meaning: "赢得某人的心", partOfSpeech: "phrase", example: "He won the heart of the audience."},
+                {word: "schoolbag", meaning: "书包", partOfSpeech: "n.", example: "Put your books in your schoolbag."},
+                {word: "clever", meaning: "聪明的", partOfSpeech: "adj.", example: "The clever fox escaped."},
+                {word: "heaven", meaning: "天堂", partOfSpeech: "n.", example: "They believe they will go to heaven."},
+                {word: "expect", meaning: "期待", partOfSpeech: "v.", example: "I expect to see you tomorrow."},
+                {word: "artist", meaning: "艺术家", partOfSpeech: "n.", example: "He is a famous artist."},
+                {word: "invent", meaning: "发明", partOfSpeech: "v.", example: "He invented a new machine."},
+                {word: "copy", meaning: "复制", partOfSpeech: "v.", example: "Please copy this sentence."},
+                {word: "own", meaning: "自己的", partOfSpeech: "adj.", example: "This is my own room."},
+                {word: "private", meaning: "私人的", partOfSpeech: "adj.", example: "This is a private conversation."},
+                {word: "create", meaning: "创造", partOfSpeech: "v.", example: "She created a beautiful painting."},
+                {word: "satisfy", meaning: "使满意", partOfSpeech: "v.", example: "The result satisfied everyone."}
+            ]
+        };
+
+        // 游戏状态变量
+        let currentModule = "Module 1";
+        let currentWords = [];
+        let gameActive = false;
+        let gameScore = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 0;
+        let currentQuestionIndex = 0;
+        let currentQuestion = null;
+        let gameQuestions = [];
+        
+        // DOM元素
+        const moduleButtonsEl = document.getElementById('moduleButtons');
+        const wordListEl = document.getElementById('wordList');
+        const wordCountEl = document.getElementById('wordCount');
+        const gameQuestionEl = document.getElementById('gameQuestion');
+        const gameOptionsEl = document.getElementById('gameOptions');
+        const startGameBtn = document.getElementById('startGameBtn');
+        const resetGameBtn = document.getElementById('resetGameBtn');
+        const speakWordBtn = document.getElementById('speakWordBtn');
+        const scoreEl = document.getElementById('score');
+        const correctCountEl = document.getElementById('correctCount');
+        const questionCountEl = document.getElementById('questionCount');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        
+        // 初始化模块按钮
+        function initModuleButtons() {
+            moduleButtonsEl.innerHTML = '';
+            
+            for (const moduleName in wordData) {
+                const button = document.createElement('button');
+                button.className = 'module-btn';
+                button.textContent = moduleName;
+                button.dataset.module = moduleName;
+                
+                if (moduleName === currentModule) {
+                    button.classList.add('active');
+                }
+                
+                // 为移动设备添加触摸反馈
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                button.addEventListener('click', () => {
+                    // 移除所有按钮的active类
+                    document.querySelectorAll('.module-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    
+                    // 为当前按钮添加active类
+                    button.classList.add('active');
+                    
+                    // 切换到选中的模块
+                    switchModule(moduleName);
+                    
+                    // 在移动设备上滚动到单词列表
+                    if (window.innerWidth <= 768) {
+                        setTimeout(() => {
+                            wordListEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300);
+                    }
+                });
+                
+                moduleButtonsEl.appendChild(button);
+            }
+        }
+        
+        // 切换模块
+        function switchModule(moduleName) {
+            currentModule = moduleName;
+            currentWords = wordData[moduleName] || [];
+            
+            // 更新单词列表
+            updateWordList();
+            
+            // 更新单词计数
+            wordCountEl.textContent = `共 ${currentWords.length} 个单词`;
+            
+            // 重置游戏状态（如果游戏正在运行）
+            if (gameActive) {
+                resetGame();
+            }
+        }
+        
+        // 更新单词列表
+        function updateWordList() {
+            wordListEl.innerHTML = '';
+            
+            if (currentWords.length === 0) {
+                wordListEl.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">该模块暂无单词数据</p>';
+                return;
+            }
+            
+            currentWords.forEach(wordObj => {
+                const wordCard = document.createElement('div');
+                wordCard.className = 'word-card';
+                
+                // 为短语和单词设置不同的音标显示方式
+                const isPhrase = wordObj.word.includes(' ');
+                const phoneticText = isPhrase ? '' : `/${wordObj.word.toLowerCase().replace(/[aeiou]/g, '')}/`;
+                
+                wordCard.innerHTML = `
+                    <div class="word-header">
+                        <div>
+                            <span class="word-text">${wordObj.word}</span>
+                            ${phoneticText ? `<span class="phonetic">${phoneticText}</span>` : ''}
+                        </div>
+                        <div class="word-actions">
+                            <button class="action-btn speak-btn" title="朗读单词">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="word-details">
+                        <div class="word-meaning">
+                            <span class="part-of-speech">${wordObj.partOfSpeech}</span>
+                            ${wordObj.meaning}
+                        </div>
+                        ${wordObj.example ? `<div class="word-example">例句: ${wordObj.example}</div>` : ''}
+                    </div>
+                `;
+                
+                // 添加发音功能
+                const speakBtn = wordCard.querySelector('.speak-btn');
+                
+                // 为移动设备添加触摸反馈
+                speakBtn.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.9)';
+                });
+                
+                speakBtn.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                    speakWord(wordObj.word);
+                });
+                
+                speakBtn.addEventListener('click', () => {
+                    speakWord(wordObj.word);
+                });
+                
+                wordListEl.appendChild(wordCard);
+            });
+        }
+        
+        // 发音功能
+        function speakWord(text) {
+            if ('speechSynthesis' in window) {
+                // 停止任何正在进行的语音
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                utterance.volume = 1;
+                
+                // 移动设备上调整语速
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    utterance.rate = 0.7;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('您的浏览器不支持语音合成功能，请尝试使用Chrome或Edge浏览器');
+            }
+        }
+        
+        // 初始化游戏
+        function initGame() {
+            // 为移动设备优化按钮触摸反馈
+            const gameButtons = [startGameBtn, resetGameBtn, speakWordBtn];
+            
+            gameButtons.forEach(btn => {
+                btn.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.97)';
+                });
+                
+                btn.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            startGameBtn.addEventListener('click', startGame);
+            resetGameBtn.addEventListener('click', resetGame);
+            speakWordBtn.addEventListener('click', speakCurrentQuestionWord);
+            
+            // 初始时禁用重置按钮
+            resetGameBtn.disabled = true;
+            
+            // 为移动设备添加游戏选项触摸反馈
+            gameOptionsEl.addEventListener('touchstart', function(e) {
+                if (e.target.classList.contains('game-option')) {
+                    e.target.style.transform = 'scale(0.98)';
+                }
+            });
+            
+            gameOptionsEl.addEventListener('touchend', function(e) {
+                if (e.target.classList.contains('game-option')) {
+                    e.target.style.transform = 'scale(1)';
+                }
+            });
+        }
+        
+        // 开始游戏
+        function startGame() {
+            if (currentWords.length === 0) {
+                alert('请先选择一个有单词的模块！');
+                return;
+            }
+            
+            // 重置游戏状态
+            gameActive = true;
+            gameScore = 0;
+            correctAnswers = 0;
+            totalQuestions = Math.min(10, currentWords.length);
+            currentQuestionIndex = 0;
+            
+            // 创建游戏问题
+            createGameQuestions();
+            
+            // 显示第一个问题
+            showNextQuestion();
+            
+            // 更新游戏按钮状态
+            startGameBtn.disabled = true;
+            resetGameBtn.disabled = false;
+            startGameBtn.innerHTML = '<i class="fas fa-play"></i> 游戏中...';
+            
+            // 更新分数显示
+            updateGameStats();
+            
+            // 在移动设备上滚动到游戏区域
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    document.querySelector('.game-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
+        
+        // 创建游戏问题
+        function createGameQuestions() {
+            gameQuestions = [];
+            
+            // 随机选择单词
+            const shuffledWords = [...currentWords].sort(() => Math.random() - 0.5);
+            const selectedWords = shuffledWords.slice(0, totalQuestions);
+            
+            // 为每个单词创建一个问题
+            selectedWords.forEach(wordObj => {
+                // 随机决定问题类型：英译中或中译英
+                const isEnglishToChinese = Math.random() > 0.5;
+                
+                if (isEnglishToChinese) {
+                    // 英译中：显示英文单词，选择中文意思
+                    const correctAnswer = wordObj.meaning;
+                    
+                    // 收集错误选项
+                    let wrongAnswers = [];
+                    for (const w of shuffledWords) {
+                        if (w.meaning !== correctAnswer && wrongAnswers.length < 3) {
+                            wrongAnswers.push(w.meaning);
+                        }
+                    }
+                    
+                    // 合并选项并打乱顺序
+                    const allAnswers = [correctAnswer, ...wrongAnswers.slice(0, 3)];
+                    const shuffledAnswers = [...allAnswers].sort(() => Math.random() - 0.5);
+                    
+                    gameQuestions.push({
+                        type: 'en-to-zh',
+                        question: wordObj.word,
+                        correctAnswer,
+                        answers: shuffledAnswers,
+                        wordObj
+                    });
+                } else {
+                    // 中译英：显示中文意思，选择英文单词
+                    const correctAnswer = wordObj.word;
+                    
+                    // 收集错误选项
+                    let wrongAnswers = [];
+                    for (const w of shuffledWords) {
+                        if (w.word !== correctAnswer && wrongAnswers.length < 3) {
+                            wrongAnswers.push(w.word);
+                        }
+                    }
+                    
+                    // 合并选项并打乱顺序
+                    const allAnswers = [correctAnswer, ...wrongAnswers.slice(0, 3)];
+                    const shuffledAnswers = [...allAnswers].sort(() => Math.random() - 0.5);
+                    
+                    gameQuestions.push({
+                        type: 'zh-to-en',
+                        question: wordObj.meaning,
+                        correctAnswer,
+                        answers: shuffledAnswers,
+                        wordObj
+                    });
+                }
+            });
+        }
+        
+        // 显示下一个问题
+        function showNextQuestion() {
+            if (currentQuestionIndex >= gameQuestions.length) {
+                endGame();
+                return;
+            }
+            
+            currentQuestion = gameQuestions[currentQuestionIndex];
+            
+            // 更新问题显示
+            if (currentQuestion.type === 'en-to-zh') {
+                gameQuestionEl.textContent = `"${currentQuestion.question}" 的中文意思是什么？`;
+            } else {
+                gameQuestionEl.textContent = `"${currentQuestion.question}" 对应的英文单词是什么？`;
+            }
+            
+            // 更新选项
+            updateGameOptions();
+            
+            // 更新进度显示
+            questionCountEl.textContent = `${currentQuestionIndex + 1}/${totalQuestions}`;
+        }
+        
+        // 更新游戏选项
+        function updateGameOptions() {
+            gameOptionsEl.innerHTML = '';
+            
+            currentQuestion.answers.forEach((answer, index) => {
+                const option = document.createElement('div');
+                option.className = 'game-option';
+                option.textContent = `${index + 1}. ${answer}`;
+                option.dataset.answer = answer;
+                
+                option.addEventListener('click', () => {
+                    // 检查答案
+                    checkAnswer(answer);
+                });
+                
+                // 为移动设备添加触摸反馈
+                option.addEventListener('touchstart', function() {
+                    if (!gameActive) return;
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                option.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                gameOptionsEl.appendChild(option);
+            });
+        }
+        
+        // 检查答案
+        function checkAnswer(selectedAnswer) {
+            const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+            
+            // 更新分数
+            if (isCorrect) {
+                gameScore += 10;
+                correctAnswers++;
+            }
+            
+            // 显示答案反馈
+            const options = document.querySelectorAll('.game-option');
+            options.forEach(option => {
+                if (option.dataset.answer === currentQuestion.correctAnswer) {
+                    option.style.backgroundColor = '#d4edda';
+                    option.style.borderColor = '#c3e6cb';
+                    option.style.color = '#155724';
+                } else if (option.dataset.answer === selectedAnswer && !isCorrect) {
+                    option.style.backgroundColor = '#f8d7da';
+                    option.style.borderColor = '#f5c6cb';
+                    option.style.color = '#721c24';
+                }
+                
+                // 禁用所有选项
+                option.style.pointerEvents = 'none';
+            });
+            
+            // 更新分数显示
+            updateGameStats();
+            
+            // 延迟后显示下一个问题
+            setTimeout(() => {
+                currentQuestionIndex++;
+                showNextQuestion();
+            }, 1500);
+        }
+        
+        // 朗读当前问题单词
+        function speakCurrentQuestionWord() {
+            if (currentQuestion && currentQuestion.wordObj) {
+                speakWord(currentQuestion.wordObj.word);
+            } else {
+                speakWord("Please start the game first");
+            }
+        }
+        
+        // 更新游戏统计
+        function updateGameStats() {
+            scoreEl.textContent = gameScore;
+            correctCountEl.textContent = correctAnswers;
+        }
+        
+        // 结束游戏
+        function endGame() {
+            gameActive = false;
+            
+            // 显示游戏结果
+            const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            gameQuestionEl.innerHTML = `
+                游戏结束！<br>
+                你的得分: <strong>${gameScore}</strong><br>
+                正确率: <strong>${accuracy}%</strong> (${correctAnswers}/${totalQuestions})<br>
+                <small>点击"重新开始"按钮再次游戏</small>
+            `;
+            
+            // 清空选项
+            gameOptionsEl.innerHTML = '';
+            
+            // 更新按钮状态
+            startGameBtn.disabled = false;
+            startGameBtn.innerHTML = '<i class="fas fa-play"></i> 开始游戏';
+            
+            // 在移动设备上滚动到结果区域
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    gameQuestionEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
+        
+        // 重置游戏
+        function resetGame() {
+            gameActive = false;
+            gameScore = 0;
+            correctAnswers = 0;
+            totalQuestions = 0;
+            currentQuestionIndex = 0;
+            
+            // 重置显示
+            gameQuestionEl.textContent = '点击"开始游戏"按钮开始';
+            gameOptionsEl.innerHTML = '';
+            
+            // 更新按钮状态
+            startGameBtn.disabled = false;
+            resetGameBtn.disabled = true;
+            startGameBtn.innerHTML = '<i class="fas fa-play"></i> 开始游戏';
+            
+            // 重置统计
+            updateGameStats();
+            questionCountEl.textContent = '0/10';
+        }
+        
+        // 移动端菜单功能
+        function initMobileMenu() {
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    // 简单的菜单功能：滚动到顶部
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        }
+        
+        // 检测设备类型
+        function detectDevice() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                document.body.classList.add('mobile-device');
+                console.log('移动设备检测：已启用移动端优化');
+            }
+        }
+        
+        // 防止移动端缩放
+        function preventZoom() {
+            document.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+            
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        }
+        
+        // 初始化应用
+        function initApp() {
+            detectDevice();
+            initMobileMenu();
+            initModuleButtons();
+            switchModule(currentModule);
+            initGame();
+            
+            // 防止移动端双击缩放
+            preventZoom();
+            
+            // 添加加载完成提示
+            setTimeout(() => {
+                console.log('赢未来国雅英语学习系统已加载完成！');
+                console.log('当前设备：', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? '移动设备' : '电脑');
+            }, 500);
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+        
+        // 处理窗口大小变化
+        window.addEventListener('resize', function() {
+            // 可以在这里添加响应式调整
+        });
+    </script>
+</body>
+</html>

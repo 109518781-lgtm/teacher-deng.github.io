@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>赢未来国雅 · 新概念即学即练</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f4faf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #1a2c3e;
+            padding: 24px 20px 48px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .hero {
+            background: linear-gradient(135deg, #1a6b46, #2e8b5e);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            color: white;
+        }
+        .hero h1 { font-size: 1.7rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .hero p { margin-top: 8px; opacity: 0.92; font-size: 0.9rem; }
+        .summary-section { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+        .summary-card {
+            flex: 1; min-width: 260px; background: white; border-radius: 28px;
+            padding: 20px 24px; border: 1px solid #deede7;
+        }
+        .summary-card h3 {
+            font-size: 1.2rem; font-weight: 700; border-left: 5px solid #2e8b5e;
+            padding-left: 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+        .highlight { background: #fef7e0; padding: 12px 16px; border-radius: 20px; line-height: 1.5; font-size: 0.9rem; }
+        .tag {
+            display: inline-block; background: #e1f0ea; color: #1a6b46; border-radius: 40px;
+            padding: 4px 14px; font-size: 0.75rem; font-weight: 600; margin-right: 8px; margin-bottom: 8px;
+        }
+        .phrase-list { margin-top: 12px; }
+        .questions-container {
+            background: white; border-radius: 28px; padding: 24px;
+            border: 1px solid #deede7;
+        }
+        .questions-header {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e2ece6;
+        }
+        .questions-header h2 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+        .question-item {
+            background: #fefefe; border-radius: 20px; padding: 18px;
+            margin-bottom: 18px; border: 1px solid #e8f0ec;
+        }
+        .question-text { font-weight: 600; margin-bottom: 14px; line-height: 1.45; font-size: 0.95rem; }
+        .hover-word {
+            border-bottom: 1px dashed #2e8b5e; cursor: help; position: relative; display: inline-block;
+        }
+        .tooltip-def {
+            display: none; position: absolute; background: #2c3e33; color: white;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; white-space: nowrap;
+            z-index: 200; bottom: 140%; left: 0; pointer-events: none;
+        }
+        .hover-word:hover .tooltip-def { display: block; }
+        @media (max-width: 640px) { .tooltip-def { white-space: normal; max-width: 160px; } }
+        .options { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 8px; }
+        .opt-btn {
+            background: #f2f6f4; border-radius: 40px; padding: 8px 20px;
+            border: 1px solid #cde0d8; cursor: pointer; font-size: 0.85rem;
+            transition: all 0.15s; user-select: none;
+        }
+        .opt-btn:hover:not(.disabled) { background: #e2ece6; }
+        .opt-btn.selected { background: #cde8de; border-color: #2e8b5e; color: #1a5a3c; font-weight: 500; }
+        .opt-btn.disabled { cursor: not-allowed; opacity: 0.7; }
+        .feedback { margin-top: 12px; padding: 10px 14px; border-radius: 18px; font-size: 0.85rem; line-height: 1.4; }
+        .correct-fb { background: #dcfce7; color: #15803d; border-left: 4px solid #15803d; }
+        .wrong-fb { background: #ffe6e5; color: #b91c1c; border-left: 4px solid #b91c1c; }
+        .score-area {
+            background: #eaf3ef; border-radius: 28px; padding: 14px;
+            margin-top: 20px; text-align: center; font-weight: bold;
+        }
+        .download-section { text-align: center; margin-top: 32px; }
+        .download-btn {
+            background: #2e8b5e; color: white; border: none; padding: 12px 32px;
+            border-radius: 40px; cursor: pointer; font-size: 1rem; font-weight: 600;
+        }
+        .download-btn:hover { background: #1f6e46; transform: translateY(-2px); }
+        footer { text-align: center; margin-top: 32px; font-size: 0.7rem; color: #6c8b7c; }
+        .progress-stats { background: #eef3f0; border-radius: 20px; padding: 8px 16px; font-size: 0.85rem; }
+        @media (max-width: 700px) { body { padding: 16px; } .summary-card { padding: 16px; } .opt-btn { padding: 6px 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1><i class="fas fa-leaf"></i> 赢未来国雅 · 新概念即学即练</h1>
+        <p>📖 新概念第1册同步 | 鼠标悬停查词 | 每道题选择后立即获得解析 | 答案不可修改</p>
+    </div>
+
+    <!-- 课文原文 + 词汇短语总结 -->
+    <div class="summary-section">
+        <div class="summary-card">
+            <h3><i class="fas fa-book-open"></i> 课文原文 · Lesson 79-80</h3>
+            <div class="highlight">
+                <strong>📖 Shopping List (购物清单)</strong><br>
+                <em>Carol: What are you doing, Tom?<br>
+                Tom: I'm making a shopping list.<br>
+                Carol: What do we need?<br>
+                Tom: We need a lot of things. We need some vegetables, fruit, milk and bread.<br>
+                Carol: And we haven't got any tea or coffee.<br>
+                Tom: I'll add them to the list.</em><br><br>
+                🔑 <strong>语法聚焦</strong>：现在进行时 / 情态动词 need / 可数不可数名词 / 一般将来时 will
+            </div>
+        </div>
+        <div class="summary-card">
+            <h3><i class="fas fa-list-ul"></i> 词汇 & 短语总结</h3>
+            <div class="highlight">
+                <strong>📌 核心词汇（含第二大题）</strong><br>
+                <span class="tag hover-word">shop<span class="tooltip-def">商店/购物</span></span>
+                <span class="tag hover-word">list<span class="tooltip-def">清单</span></span>
+                <span class="tag hover-word">head<span class="tooltip-def">头</span></span>
+                <span class="tag hover-word">hope<span class="tooltip-def">希望</span></span>
+                <span class="tag hover-word">thing<span class="tooltip-def">事情</span></span>
+                <span class="tag hover-word">money<span class="tooltip-def">钱</span></span>
+                <span class="tag hover-word">fruit<span class="tooltip-def">水果</span></span>
+                <span class="tag hover-word">newspaper<span class="tooltip-def">报纸</span></span>
+                <span class="tag hover-word">chemist<span class="tooltip-def">药剂师</span></span>
+                <span class="tag hover-word">vegetable<span class="tooltip-def">蔬菜</span></span>
+                <div class="phrase-list">
+                    <strong>🔗 高频短语</strong><br>
+                    • make a shopping list &nbsp; • be late for &nbsp; • go shopping<br>
+                    • take care of &nbsp; • enjoy doing &nbsp; • had better do &nbsp; • so...that
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 所有题目区域 -->
+    <div class="questions-container">
+        <div class="questions-header">
+            <h2><i class="fas fa-puzzle-piece"></i> 在线练习 · 智能闯关</h2>
+            <div class="progress-stats" id="progressStats">已完成: 0 / 48</div>
+        </div>
+        <div id="questionsList"></div>
+        <div id="scoreArea" class="score-area" style="display: none;"></div>
+    </div>
+
+    <div class="download-section">
+        <button id="downloadBtn" class="download-btn"><i class="fas fa-download"></i> 下载学习报告</button>
+    </div>
+    <footer>✨ 鼠标悬停蓝色虚线单词查看释义 | 点击选项后立即锁定答案 | 每道题都有详细解析</footer>
+</div>
+
+<script>
+    // ======================= 完整题库（含第二大题拼写选择）=======================
+    const questions = [
+        // === 第一大题：单词辨音 (1-5) ===
+        { id: 1, stem: "单词辨音：选出划线部分读音不同的单词 (a) catch (b) can (c) basketball (d) plan", options: ["catch", "can", "basketball", "plan"], correct: "basketball", explanation: "basketball中a发/ɑː/，其他发/æ/。", point: "语音辨析" },
+        { id: 2, stem: "单词辨音：选出划线部分读音不同的单词 (a) high (b) sight (c) light (d) list", options: ["high", "sight", "light", "list"], correct: "list", explanation: "high/sight/light中igh发/aɪ/，list中i发/ɪ/。", point: "语音辨析" },
+        { id: 3, stem: "单词辨音：选出划线部分读音不同的单词 (a) worry (b) hope (c) throw (d) go", options: ["worry", "hope", "throw", "go"], correct: "worry", explanation: "worry中o发/ʌ/，其他发/əʊ/。", point: "语音辨析" },
+        { id: 4, stem: "单词辨音：选出划线部分读音不同的单词 (a) need (b) tea (c) great (d) meat", options: ["need", "tea", "great", "meat"], correct: "great", explanation: "great中ea发/eɪ/，其他发/iː/。", point: "语音辨析" },
+        { id: 5, stem: "单词辨音：选出划线部分读音不同的单词 (a) half (b) last (c) hard (d) want", options: ["half", "last", "hard", "want"], correct: "want", explanation: "want中a发/ɒ/，其他发/ɑː/。", point: "语音辨析" },
+        
+        // === 第二大题：单词拼写（原填空改为选择题）===
+        { id: 6, stem: "【原第二大题】shop (购物n.) — 选择正确单词", options: ["shop", "ship", "shopping", "stop"], correct: "shop", explanation: "shop 商店/购物。ship是船，shopping是购物名词形式。", point: "词汇拼写" },
+        { id: 7, stem: "【原第二大题】l_st (清单n.) — 选择正确单词", options: ["list", "lost", "last", "least"], correct: "list", explanation: "list 清单。lost丢失的，last最后的。", point: "词汇拼写" },
+        { id: 8, stem: "【原第二大题】h_d (头n.) — 选择正确单词", options: ["head", "hand", "heart", "hard"], correct: "head", explanation: "head 头。hand手，heart心。", point: "词汇拼写" },
+        { id: 9, stem: "【原第二大题】h_p (希望v.) — 选择正确单词", options: ["hope", "help", "happy", "hop"], correct: "hope", explanation: "hope 希望。help帮助，happy快乐。", point: "词汇拼写" },
+        { id: 10, stem: "【原第二大题】th_ng (事情n.) — 选择正确单词", options: ["thing", "think", "thank", "thin"], correct: "thing", explanation: "thing 事情。think思考，thank感谢。", point: "词汇拼写" },
+        { id: 11, stem: "【原第二大题】m_n_y (钱n.) — 选择正确单词", options: ["money", "monkey", "month", "many"], correct: "money", explanation: "money 钱。monkey猴子，month月份。", point: "词汇拼写" },
+        { id: 12, stem: "【原第二大题】fr_t (水果n.) — 选择正确单词", options: ["fruit", "fruits", "froot", "freight"], correct: "fruit", explanation: "fruit 水果。", point: "词汇拼写" },
+        { id: 13, stem: "【原第二大题】newsp.p (报纸n.) — 选择正确单词", options: ["newspaper", "news", "paper", "news paper"], correct: "newspaper", explanation: "newspaper 报纸。", point: "词汇拼写" },
+        { id: 14, stem: "【原第二大题】ch_m_st (化学家/药剂师) — 选择正确单词", options: ["chemist", "chemical", "chemistry", "chemist's"], correct: "chemist", explanation: "chemist 药剂师/化学家。", point: "词汇拼写" },
+        { id: 15, stem: "【原第二大题】v_g_t_bl (蔬菜n.) — 选择正确单词", options: ["vegetable", "vegetables", "vegetation", "veggie"], correct: "vegetable", explanation: "vegetable 蔬菜。", point: "词汇拼写" },
+        
+        // === 第三大题：语法词汇 (16-35) ===
+        { id: 16, stem: "I must ______ to the bank today.", options: ["go", "goes", "went", "going"], correct: "go", explanation: "must是情态动词，后接动词原形。", point: "情态动词" },
+        { id: 17, stem: "Need I ______ a bottle of beer?", options: ["buy", "buys", "buying", "bought"], correct: "buy", explanation: "need作情态动词时，后接动词原形。", point: "情态动词need" },
+        { id: 18, stem: "How much water ______ there in the bottle?", options: ["is", "are", "have", "has"], correct: "is", explanation: "water不可数，be动词用is。", point: "主谓一致" },
+        { id: 19, stem: "Clever boys need never work ______?", options: ["need they", "needn't they", "do they", "don't they"], correct: "need they", explanation: "need情态动词，反意疑问重复need。", point: "反意疑问句" },
+        { id: 20, stem: "It was my first try. I ______ to do better next time.", options: ["hope", "suppose", "think", "feel"], correct: "hope", explanation: "hope to do 希望做某事。", point: "动词辨析" },
+        { id: 21, stem: "My father ______ to London last year.", options: ["went", "has gone", "has been", "goes"], correct: "went", explanation: "last year 一般过去时。", point: "一般过去时" },
+        { id: 22, stem: "Don't be late. You ______ be there on time.", options: ["must", "may", "can", "need"], correct: "must", explanation: "must表示必须。", point: "情态动词" },
+        { id: 23, stem: "You'd better ______ to see the doctor.", options: ["go", "to go", "going", "went"], correct: "go", explanation: "had better do sth. 固定搭配。", point: "固定搭配" },
+        { id: 24, stem: "My brother enjoys ______ to music.", options: ["listening", "listen", "listens", "to listen"], correct: "listening", explanation: "enjoy doing sth. 享受做某事。", point: "非谓语动词" },
+        { id: 25, stem: "Do you know ______ a computer?", options: ["where to get", "where get", "to where get", "how get"], correct: "where to get", explanation: "疑问词+不定式作宾语。", point: "疑问词+不定式" },
+        { id: 26, stem: "I ______ two hours on my homework tomorrow.", options: ["will spend", "spent", "spend", "have spent"], correct: "will spend", explanation: "tomorrow将来时，spend time on sth.。", point: "一般将来时" },
+        { id: 27, stem: "We'll listen to a talk ______ British history.", options: ["on", "about", "of", "with"], correct: "on", explanation: "a talk on... 关于...的演讲。", point: "介词搭配" },
+        { id: 28, stem: "It's not good to be late ______ school.", options: ["for", "to", "at", "in"], correct: "for", explanation: "be late for 迟到。", point: "固定短语" },
+        { id: 29, stem: "I have received a letter from my parents ______.", options: ["just", "yet", "just now", "already"], correct: "just", explanation: "just 刚刚，与现在完成时连用。", point: "现在完成时" },
+        { id: 30, stem: "This book ______ Lucy's. Look! Her name is on the cover.", options: ["must be", "may be", "can't be", "mustn't be"], correct: "must be", explanation: "肯定推测用must be。", point: "情态动词推测" },
+        { id: 31, stem: "Of all these subjects, I like Chinese ______.", options: ["best", "better", "more", "well"], correct: "best", explanation: "of all 最高级范围。", point: "最高级" },
+        { id: 32, stem: "Don't worry, I'll take good care ______ Polly.", options: ["of", "for", "with", "to"], correct: "of", explanation: "take care of 照顾。", point: "动词短语" },
+        { id: 33, stem: "He hurt her ______ badly ______ she had to see a doctor.", options: ["so...that", "too...that", "such...that", "very...that"], correct: "so...that", explanation: "so+adj/adv+that 如此...以至于。", point: "状语从句" },
+        { id: 34, stem: "She always thinks of ______ more than herself.", options: ["others", "other", "the other", "another"], correct: "others", explanation: "others 其他人(泛指)。", point: "代词" },
+        { id: 35, stem: "He ______ the bus and found a seat next to the window.", options: ["got on", "gets on", "got off", "gets off"], correct: "got on", explanation: "and found 并列过去时，上车用got on。", point: "动词短语时态" },
+        
+        // === 阅读理解 (36-38) ===
+        { id: 36, stem: "【阅读】In big cities, people can ______.", options: ["go to museums and plays", "only see films", "find cheap houses", "avoid traffic"], correct: "go to museums and plays", explanation: "原文：You can go to museums, plays and films。", point: "细节理解" },
+        { id: 37, stem: "Which statement is TRUE about big cities?", options: ["They are not always clean and safe.", "Everyone loves them.", "Jobs are easy to find.", "No problems."], correct: "They are not always clean and safe.", explanation: "文章指出保持城市安全和干净很困难。", point: "推理判断" },
+        { id: 38, stem: "What does the writer suggest before moving to a big city?", options: ["Think about problems", "Find a job first", "Sell your house", "Go to school"], correct: "Think about problems", explanation: "最后一句：应该考虑生活问题。", point: "主旨推断" }
+    ];
+    
+    // 生词库（悬停用）
+    const vocabMap = {
+        "shop":"商店","list":"清单","head":"头","hope":"希望","thing":"事情","money":"钱","fruit":"水果",
+        "newspaper":"报纸","chemist":"药剂师","vegetable":"蔬菜","must":"必须","need":"需要","bank":"银行",
+        "water":"水","bottle":"瓶子","clever":"聪明的","London":"伦敦","doctor":"医生","music":"音乐",
+        "catch":"抓住","can":"能够","basketball":"篮球","plan":"计划","high":"高的","sight":"视力","light":"光"
+    };
+    
+    let userAnswers = {};
+    
+    function addHoverToText(text) {
+        if (!text) return text;
+        let newText = text;
+        Object.keys(vocabMap).forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            if (regex.test(newText) && !newText.includes(`<span class="hover-word">${word}`)) {
+                newText = newText.replace(regex, match => `<span class="hover-word">${match}<span class="tooltip-def">${vocabMap[word]}</span></span>`);
+            }
+        });
+        return newText;
+    }
+    
+    function updateProgress() {
+        const answered = Object.keys(userAnswers).length;
+        document.getElementById("progressStats").innerHTML = `已完成: ${answered} / ${questions.length}`;
+        if (answered === questions.length) {
+            let correct = questions.filter(q => userAnswers[q.id] === q.correct).length;
+            let percent = Math.round((correct / questions.length) * 100);
+            document.getElementById("scoreArea").style.display = "block";
+            document.getElementById("scoreArea").innerHTML = `<i class="fas fa-trophy"></i> 恭喜！已完成全部！正确率: ${correct}/${questions.length} (${percent}%)`;
+        }
+    }
+    
+    function showFeedback(q, userAnswer, isCorrect) {
+        const fbDiv = document.getElementById(`fb-${q.id}`);
+        const detailDiv = document.getElementById(`detail-${q.id}`);
+        let analysis = `<strong>🎯 考点：${q.point}</strong><br/>📖 ${q.explanation}<br/><strong>🔍 选项分析：</strong><br/>`;
+        q.options.forEach(opt => {
+            let mark = opt === q.correct ? '✅ 正确答案' : '❌ 干扰项';
+            let userMark = userAnswer === opt ? ' (你的选择)' : '';
+            analysis += `• ${opt} ：${mark}${userMark}<br/>`;
+        });
+        if (isCorrect) {
+            fbDiv.innerHTML = `<div class="correct-fb">✅ 正确！</div>`;
+            analysis += `<span style="color:#2b7a4b;">✔ 很棒！</span>`;
+        } else {
+            fbDiv.innerHTML = `<div class="wrong-fb">❌ 错误。正确答案是“${q.correct}”。${q.explanation}</div>`;
+            analysis += `<span style="color:#b91c1c;">⚠️ 你的答案：${userAnswer}，错误。</span>`;
+        }
+        detailDiv.style.display = "block";
+        detailDiv.innerHTML = analysis;
+    }
+    
+    function renderQuestions() {
+        let html = '';
+        questions.forEach((q, idx) => {
+            let stem = addHoverToText(q.stem);
+            let optsHtml = '';
+            q.options.forEach(opt => {
+                let optDisplay = addHoverToText(opt);
+                let isSelected = userAnswers[q.id] === opt;
+                let disabled = userAnswers[q.id] ? 'disabled' : '';
+                optsHtml += `<div class="opt-btn ${isSelected ? 'selected' : ''} ${disabled}" data-qid="${q.id}" data-val="${opt}">${optDisplay}</div>`;
+            });
+            html += `
+                <div class="question-item">
+                    <div class="question-text">${idx+1}. ${stem}</div>
+                    <div class="options" id="opts-${q.id}">${optsHtml}</div>
+                    <div class="feedback" id="fb-${q.id}"></div>
+                    <div class="detail-exp" id="detail-${q.id}" style="display:none; background:#f4f9fc; border-radius:16px; padding:10px; margin-top:10px;"></div>
+                </div>
+            `;
+        });
+        document.getElementById("questionsList").innerHTML = html;
+        
+        document.querySelectorAll('.opt-btn:not(.disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const qid = parseInt(this.getAttribute('data-qid'));
+                if (userAnswers[qid]) return;
+                const val = this.getAttribute('data-val');
+                const q = questions.find(qq => qq.id === qid);
+                userAnswers[qid] = val;
+                const isCorrect = val === q.correct;
+                const parentDiv = this.closest('.question-item');
+                parentDiv.querySelectorAll('.opt-btn').forEach(opt => opt.classList.add('disabled'));
+                this.classList.add('selected');
+                showFeedback(q, val, isCorrect);
+                updateProgress();
+            });
+        });
+        
+        questions.forEach(q => {
+            if (userAnswers[q.id]) {
+                showFeedback(q, userAnswers[q.id], userAnswers[q.id] === q.correct);
+            }
+        });
+    }
+    
+    function downloadReport() {
+        let correct = questions.filter(q => userAnswers[q.id] === q.correct).length;
+        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>学习报告</title></head><body><h1>学习报告</h1><p>时间: ${new Date().toLocaleString()}</p><p>正确率: ${correct}/${questions.length}</p><ul>`;
+        questions.forEach(q => {
+            let user = userAnswers[q.id] || '未答';
+            let mark = user === q.correct ? '✓' : '✗';
+            html += `<li><strong>${q.id}. ${q.stem}</strong><br>你的答案: ${user} ${mark} | 正确答案: ${q.correct}<br>解析: ${q.explanation}</li>`;
+        });
+        html += `</ul></body></html>`;
+        const blob = new Blob([html], { type: "text/html" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "NCE_Report.html";
+        link.click();
+    }
+    
+    renderQuestions();
+    updateProgress();
+    document.getElementById("downloadBtn").addEventListener("click", downloadReport);
+</script>
+</body>
+</html>

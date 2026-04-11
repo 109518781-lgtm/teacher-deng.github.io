@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 中考英语 Unit 3 Food Matters (考点笔记版)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #fef9ef;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            color: #3e2c1a;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .stats-bar {
+            background: white;
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-text {
+            background: #f1f0e5;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #5a4a2a;
+        }
+        .accuracy-badge {
+            background: #fff0df;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #b86f2c, #e6a45e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 38px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .section-title {
+            background: #fff4e6;
+            padding: 18px 26px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-left: 8px solid #e68a2e;
+            color: #7b4a1e;
+        }
+        .sub-title {
+            background: #fdf8f0;
+            padding: 8px 26px;
+            font-size: 0.85rem;
+            color: #a9713c;
+            border-bottom: 1px solid #f0e2d0;
+            font-style: italic;
+        }
+        .question-item {
+            padding: 20px 26px;
+            border-bottom: 1px solid #f0e6da;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.02rem;
+            margin-bottom: 16px;
+            line-height: 1.45;
+            color: #4a341a;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 12px;
+        }
+        .option-btn {
+            background: #fffbf5;
+            border: 1.5px solid #f0dbb8;
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #5a3e1f;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #fbeedc;
+            border-color: #d9983a;
+            transform: scale(0.97);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: #fefaf5;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 5px solid #efc48c;
+        }
+        .feedback.correct {
+            background: #eef6e6;
+            border-left-color: #5e8c3a;
+        }
+        .feedback.wrong {
+            background: #ffece8;
+            border-left-color: #c95a3a;
+        }
+        .correct-answer-badge {
+            font-weight: bold;
+            background: #f2e6d5;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .section-footer {
+            padding: 16px 26px;
+            background: #fffaf3;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #efe2cf;
+            font-weight: 500;
+        }
+        .global-download {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px;
+        }
+        .download-btn {
+            background: #b95f1a;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 48px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .download-btn:hover {
+            background: #8f4713;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            .option-btn { padding: 5px 14px; font-size: 0.8rem; }
+            .section-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="stats-bar">
+        <h1>🍜 赢未来国雅 · 即学即练 | U3 饮食真味</h1>
+        <div style="display: flex; gap: 12px;">
+            <div class="progress-text" id="progressCounter">已完成 0 / 30</div>
+            <div class="accuracy-badge" id="accuracyDisplay">正确率: --%</div>
+        </div>
+    </div>
+    <div id="quizRoot"></div>
+    <div class="global-download" id="downloadBtnContainer"></div>
+</div>
+
+<script>
+    // ======================= 外研七下 Unit 3 Food matters =======================
+    // 主要考点基于 Understanding ideas (八宝粥、皮蛋瘦肉粥、家常味道)
+    // 完形填空围绕课文情感与食物记忆；短文填空基于 Developing ideas (冰激凌历史、肉夹馍、文化桥梁)
+    // 总题数: 短语·语法融合 14题 + 完形填空 8题 + 短文填空 8题 = 30题
+    // 每道题显示正确答案 + 考点笔记（包含所有选项辨析）
+
+    // ---------- 1. 短语·语法融合 (Understanding ideas核心考点) ----------
+    const mixedChoice = [
+        { text: "The taste and smell of a certain food can often ________ back memories.", options: ["A. bring", "B. take", "C. carry", "D. fetch"], correct: "A", note: "🔍 考点笔记：bring back 带回/唤起回忆。A.bring正确；B.take带走；C.carry搬运；D.fetch去取回。" },
+        { text: "I always grow hungry ________ of them! (指八宝粥)", options: ["A. think", "B. to think", "C. thinking", "D. thought"], correct: "C", note: "🔍 考点笔记：grow hungry thinking of... 想到……就变饿。现在分词作伴随状语。A.think原形；B.to think不定式；C.thinking正确；D.thought过去式。" },
+        { text: "I often wake up ________ the smell of porridge in the morning.", options: ["A. to", "B. for", "C. with", "D. by"], correct: "A", note: "🔍 考点笔记：wake up to sth. 醒来时闻到/听到。A.to正确；B.for为了；C.with伴随；D.by通过。" },
+        { text: "Each kind of porridge tastes great ________ its own way.", options: ["A. on", "B. by", "C. in", "D. with"], correct: "C", note: "🔍 考点笔记：in one's own way 以自己独特的方式。A.on；B.by；C.in正确；D.with。" },
+        { text: "When I fall ill, my mother always makes plain rice porridge ________ me.", options: ["A. to", "B. for", "C. with", "D. of"], correct: "B", note: "🔍 考点笔记：make sth. for sb. 为某人做某物。A.to方向；B.for正确；C.with伴随；D.of所属。" },
+        { text: "For me, plain porridge is better medicine ________ a pill.", options: ["A. as", "B. to", "C. than", "D. then"], correct: "C", note: "🔍 考点笔记：better than 比……更好。A.as作为；B.to朝向；C.than比正确；D.then然后。" },
+        { text: "Stir the eggs until they become golden ________.", options: ["A. colour", "B. yellow", "C. red", "D. brown"], correct: "B", note: "🔍 考点笔记：golden yellow 金黄色。A.colour颜色；B.yellow正确；C.red红色；D.brown棕色。课文原文描述。" },
+        { text: "Turn ________ the heat when the eggs feel firm but not hard.", options: ["A. on", "B. off", "C. up", "D. down"], correct: "B", note: "🔍 考点笔记：turn off 关闭（火/电器）。A.on打开；B.off关闭正确；C.up调高；D.down调低。" },
+        { text: "We should eat as many fruit and vegetables as ________.", options: ["A. possible", "B. possibly", "C. can", "D. able"], correct: "A", note: "🔍 考点笔记：as many as possible 尽可能多。A.possible正确；B.possibly副词；C.can能；D.able能。" },
+        { text: "Eating carrots will give you better ________.", options: ["A. eyesight", "B. hearing", "C. taste", "D. smell"], correct: "A", note: "🔍 考点笔记：eyesight 视力。胡萝卜对视力好。A.eyesight正确；B.hearing听力；C.taste味觉；D.smell嗅觉。" },
+        { text: "Many people see ice cream ________ a Western dessert.", options: ["A. as", "B. for", "C. to", "D. with"], correct: "A", note: "🔍 考点笔记：see...as... 把……看作。A.as正确；B.for为了；C.to朝向；D.with伴随。" },
+        { text: "In the Zhou Dynasty, Chinese people began to ________ winter ice to enjoy in summer.", options: ["A. store", "B. sell", "C. make", "D. buy"], correct: "A", note: "🔍 考点笔记：store 储存。A.store正确；B.sell卖；C.make制作；D.buy买。" },
+        { text: "People often compare roujiamo ________ hamburgers.", options: ["A. with", "B. to", "C. for", "D. as"], correct: "B", note: "🔍 考点笔记：compare A to B 把A比作B。A.with比较；B.to比作正确；C.for为了；D.as作为。" },
+        { text: "Food is a bridge ________ cultures.", options: ["A. among", "B. between", "C. with", "D. of"], correct: "B", note: "🔍 考点笔记：bridge between cultures 文化之间的桥梁。A.among三者以上之间；B.between两者之间正确；C.with；D.of。" }
+    ];
+
+    // ---------- 2. 完形填空 (8空) 基于 Understanding ideas 食物记忆与家的味道 ----------
+    const clozeOptions = [
+        { text: "My mother often makes porridge, and I always wake up ________ the sweet smell.", options: ["A. to", "B. for", "C. at", "D. in"], correct: "A", note: "🔍 考点笔记：wake up to 醒来时闻到。A.to正确；B.for为了；C.at在；D.in在……里。" },
+        { text: "When I study away from home, the taste of porridge ________ me of my family.", options: ["A. remembers", "B. reminds", "C. recalls", "D. thinks"], correct: "B", note: "🔍 考点笔记：remind sb. of sth. 使某人想起。A.remembers记住；B.reminds提醒/使想起正确；C.recalls回想；D.thinks认为。" },
+        { text: "My mother's plain rice porridge is simple, but it's the best food in the ________.", options: ["A. world", "B. house", "C. kitchen", "D. city"], correct: "A", note: "🔍 考点笔记：in the world 在世界上。A.world正确；B.house房子；C.kitchen厨房；D.city城市。" },
+        { text: "It is better medicine than a ________, because it cures my heart.", options: ["A. pill", "B. candy", "C. soup", "D. dish"], correct: "A", note: "🔍 考点笔记：pill 药片。A.pill正确；B.candy糖果；C.soup汤；D.dish菜肴。原文 'better medicine than a pill'。" },
+        { text: "You need to beat the eggs, then ________ them with tomatoes.", options: ["A. mix", "B. add", "C. put", "D. cook"], correct: "A", note: "🔍 考点笔记：mix A with B 将A和B混合。A.mix正确；B.add添加；C.put放置；D.cook烹饪。" },
+        { text: "Scrambled eggs with tomatoes is a ________ dish in many Chinese families.", options: ["A. common", "B. rare", "C. strange", "D. expensive"], correct: "A", note: "🔍 考点笔记：common 普通的/常见的。A.common正确；B.rare稀有的；C.strange奇怪的；D.expensive昂贵的。" },
+        { text: "Turn off the heat when the eggs feel ________ but not hard.", options: ["A. firm", "B. soft", "C. strong", "D. weak"], correct: "A", note: "🔍 考点笔记：firm 结实的/紧实的。A.firm正确；B.soft软；C.strong强壮；D.weak虚弱。原文描述。" },
+        { text: "Food can ________ back the sweetest memories of our childhood.", options: ["A. bring", "B. take", "C. get", "D. put"], correct: "A", note: "🔍 考点笔记：bring back 带回/唤起。A.bring正确；B.take带走；C.get得到；D.put放。" }
+    ];
+
+    // ---------- 3. 短文填空 (Developing ideas 拓展: 冰淇淋历史、肉夹馍、文化桥梁) ----------
+    const shortPassages = [
+        { text: "In the Zhou Dynasty, people began to ________ winter ice to enjoy in summer.", options: ["A. store", "B. hide", "C. collect", "D. keep"], correct: "A", note: "🔍 考点笔记：store 储存。A.store正确；B.hide隐藏；C.collect收集；D.keep保持。课文原词。" },
+        { text: "Marco Polo tasted binglao and carried the idea all the way ________ to Europe.", options: ["A. back", "B. forward", "C. away", "D. off"], correct: "A", note: "🔍 考点笔记：carry back 带回。A.back正确；B.forward向前；C.away离开；D.off脱离。" },
+        { text: "Roujiamo is often ________ to hamburgers, but it has a long history in China.", options: ["A. compared", "B. connected", "C. cooked", "D. added"], correct: "A", note: "🔍 考点笔记：compare to 比作。A.compared正确；B.connected连接；C.cooked烹饪；D.added添加。" },
+        { text: "Food is not just something to eat; it is a ________ between cultures.", options: ["A. bridge", "B. wall", "C. window", "D. door"], correct: "A", note: "🔍 考点笔记：bridge 桥梁。A.bridge正确；B.wall墙；C.window窗户；D.door门。课文原句。" },
+        { text: "When foods cross borders, ________ things can happen.", options: ["A. sweet", "B. sour", "C. bitter", "D. salty"], correct: "A", note: "🔍 考点笔记：sweet things 美好的事情（双关）。A.sweet正确；B.sour酸；C.bitter苦；D.salty咸。" },
+        { text: "A balanced diet is important ________ us to stay healthy.", options: ["A. for", "B. to", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：important for sb. 对某人重要。A.for正确；B.to朝向；C.of的；D.with伴随。" },
+        { text: "We had better not eat ________ junk food because it's full of fat and sugar.", options: ["A. too much", "B. too many", "C. much too", "D. many too"], correct: "A", note: "🔍 考点笔记：too much + 不可数名词。A.too much正确；B.too many可数；C.much too太；D.错误搭配。" },
+        { text: "The taste of home-cooked food ________ me of my mother's love.", options: ["A. reminds", "B. remembers", "C. recalls", "D. reviews"], correct: "A", note: "🔍 考点笔记：remind sb. of sth. 使某人想起。A.reminds正确；B.remembers记得；C.recalls回想；D.reviews复习。" }
+    ];
+
+    // 构建完整题目列表 (14+8+8=30)
+    let allQuestions = [];
+    mixedChoice.forEach((item, idx) => {
+        allQuestions.push({ id: `mix_${idx}`, type: "📖 短语·语法融合", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    clozeOptions.forEach((item, idx) => {
+        allQuestions.push({ id: `cloze_${idx}`, type: "📝 完形填空 (课文情节)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    shortPassages.forEach((item, idx) => {
+        allQuestions.push({ id: `short_${idx}`, type: "✍️ 短文填空 (Developing ideas)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+
+    const TOTAL = allQuestions.length;
+    let userAnswers = new Array(TOTAL).fill(null);
+    let locked = new Array(TOTAL).fill(false);
+    let feedbackArr = new Array(TOTAL).fill(null);
+
+    function updateStatsAndRender() {
+        let answeredCount = userAnswers.filter(a => a !== null).length;
+        let correctCount = 0;
+        for (let i = 0; i < TOTAL; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === allQuestions[i].correct) correctCount++;
+        }
+        let percent = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+        document.getElementById('progressCounter').innerText = `已完成 ${answeredCount} / ${TOTAL}`;
+        document.getElementById('accuracyDisplay').innerHTML = `正确率: ${answeredCount === 0 ? '--' : percent + '%'}`;
+        renderAllSections();
+    }
+
+    function renderAllSections() {
+        const root = document.getElementById('quizRoot');
+        if (!root) return;
+        const groups = {
+            "📖 短语·语法融合": [],
+            "📝 完形填空 (课文情节)": [],
+            "✍️ 短文填空 (Developing ideas)": []
+        };
+        allQuestions.forEach((q, idx) => {
+            if (q.type === "📖 短语·语法融合") groups["📖 短语·语法融合"].push({ ...q, originalIndex: idx });
+            else if (q.type === "📝 完形填空 (课文情节)") groups["📝 完形填空 (课文情节)"].push({ ...q, originalIndex: idx });
+            else groups["✍️ 短文填空 (Developing ideas)"].push({ ...q, originalIndex: idx });
+        });
+        let html = '';
+        for (let [sectionName, items] of Object.entries(groups)) {
+            if (items.length === 0) continue;
+            html += `<div class="section-card"><div class="section-title">${sectionName} (${items.length}题)</div>`;
+            if (sectionName.includes("完形填空")) html += `<div class="sub-title">⭐ 基于课文《Food memories》家的味道与美食情感</div>`;
+            if (sectionName.includes("短文填空")) html += `<div class="sub-title">🌱 拓展自 Developing ideas (冰酪历史、肉夹馍、饮食文化桥梁)</div>`;
+            for (let item of items) {
+                const idx = item.originalIndex;
+                const selected = userAnswers[idx];
+                const isLocked = locked[idx];
+                const fb = feedbackArr[idx];
+                html += `<div class="question-item">
+                            <div class="question-text">${item.text}</div>
+                            <div class="options" id="options-${idx}">`;
+                item.options.forEach(opt => {
+                    const optLetter = opt.charAt(0);
+                    const isSelected = (selected === optLetter);
+                    let disabledAttr = isLocked ? 'disabled' : '';
+                    let extraStyle = (isSelected && isLocked) ? 'style="background:#f0e2ce; border-color:#b86f2c;"' : '';
+                    html += `<button class="option-btn" data-idx="${idx}" data-val="${optLetter}" ${disabledAttr} ${extraStyle}>${opt}</button>`;
+                });
+                html += `</div><div class="feedback ${fb ? (fb.correctFlag ? 'correct' : 'wrong') : ''}" id="fb-${idx}">`;
+                if (fb) {
+                    html += `<div class="correct-answer-badge">✔️ 正确答案：${item.correct}</div>`;
+                    html += `<div><strong>📘 考点笔记</strong><br>${item.note}</div>`;
+                    html += `<div style="margin-top:6px; font-size:0.8rem;">${fb.correctFlag ? '✅ 你的回答正确' : '❌ 你的回答错误'}</div>`;
+                } else {
+                    html += `<div style="opacity:0.8;">🍲 点击选项，显示正确答案及考点笔记（含所有选项辨析）。</div>`;
+                }
+                html += `</div></div>`;
+            }
+            let answeredInSec = 0, correctInSec = 0;
+            items.forEach(it => {
+                const ans = userAnswers[it.originalIndex];
+                if (ans !== null) {
+                    answeredInSec++;
+                    if (ans === allQuestions[it.originalIndex].correct) correctInSec++;
+                }
+            });
+            let secRate = answeredInSec === 0 ? '暂无' : `${Math.round((correctInSec/answeredInSec)*100)}%`;
+            html += `<div class="section-footer">📊 本区正确率：${secRate} (${correctInSec}/${answeredInSec})</div></div>`;
+        }
+        root.innerHTML = html;
+        for (let i = 0; i < TOTAL; i++) {
+            const btns = document.querySelectorAll(`.option-btn[data-idx="${i}"]`);
+            btns.forEach(btn => {
+                btn.removeEventListener('click', handler);
+                btn.addEventListener('click', handler);
+            });
+        }
+    }
+
+    function handler(e) {
+        const btn = e.currentTarget;
+        const idx = parseInt(btn.getAttribute('data-idx'));
+        if (locked[idx]) return;
+        const selectedVal = btn.getAttribute('data-val');
+        const question = allQuestions[idx];
+        const isCorrect = (selectedVal === question.correct);
+        userAnswers[idx] = selectedVal;
+        locked[idx] = true;
+        feedbackArr[idx] = { correctFlag: isCorrect };
+        updateStatsAndRender();
+        const fbDiv = document.getElementById(`fb-${idx}`);
+        if (fbDiv) fbDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function downloadReport() {
+        let report = "【赢未来国雅·即学即练】学习报告 (Unit 3 饮食真味·考点笔记版)\n";
+        report += `生成时间: ${new Date().toLocaleString()}\n`;
+        report += `单元：外研七下 Unit 3 Food matters (食物记忆与文化)\n`;
+        report += `总题数: ${TOTAL}\n`;
+        let answered = userAnswers.filter(a => a !== null).length;
+        let correct = 0;
+        for (let i=0;i<TOTAL;i++) if(userAnswers[i] && userAnswers[i] === allQuestions[i].correct) correct++;
+        let percentTotal = answered===0?0:Math.round((correct/answered)*100);
+        report += `完成数量: ${answered} / ${TOTAL}\n`;
+        report += `正确率: ${percentTotal}%\n`;
+        report += `========================================\n\n`;
+        for (let i=0;i<TOTAL;i++) {
+            const q = allQuestions[i];
+            const userAns = userAnswers[i] || "未作答";
+            const correctAns = q.correct;
+            const isRight = (userAns === correctAns);
+            report += `【${i+1}】${q.type}\n`;
+            report += `题目: ${q.text}\n`;
+            report += `我的答案: ${userAns}\n`;
+            report += `正确答案: ${correctAns}\n`;
+            report += `考点笔记(选项全解): ${q.note}\n`;
+            report += `结果: ${isRight ? "✓ 正确" : "✗ 错误"}\n`;
+            report += `----------------------------------------\n`;
+        }
+        const blob = new Blob([report], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = "英语U3_饮食真味_考点笔记报告.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function addDownloadButton() {
+        const container = document.getElementById('downloadBtnContainer');
+        container.innerHTML = '';
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.innerText = '📥 下载学习报告 (含考点笔记)';
+        btn.addEventListener('click', downloadReport);
+        container.appendChild(btn);
+    }
+
+    function init() {
+        addDownloadButton();
+        updateStatsAndRender();
+    }
+    init();
+</script>
+</body>
+</html>

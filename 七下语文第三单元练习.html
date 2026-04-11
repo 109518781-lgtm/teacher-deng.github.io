@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 七下语文第三单元精练</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f7f3;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 20px;
+            color: #1e2f2c;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2b7a4b, #1e5a3a);
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 32px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .title-section p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 6px;
+        }
+
+        .progress-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 48px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .progress-card span:first-child {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .progress-card .counter {
+            font-size: 1.9rem;
+            font-weight: 800;
+        }
+
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .page-nav {
+            flex: 1.2;
+            min-width: 240px;
+            background: white;
+            border-radius: 32px;
+            padding: 20px 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .page-nav h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-left: 5px solid #2b7a4b;
+            padding-left: 14px;
+            margin-bottom: 18px;
+            color: #1a3e32;
+        }
+
+        .page-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .page-btn {
+            background: #f8faf7;
+            border: 1px solid #dde8e0;
+            border-radius: 60px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #2c5a47;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn:hover {
+            background: #e9f3ed;
+            border-color: #9bc0ab;
+            transform: translateX(4px);
+        }
+
+        .page-btn.active {
+            background: #2b7a4b;
+            border-color: #2b7a4b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(43, 122, 75, 0.2);
+        }
+
+        .page-status {
+            margin-left: auto;
+            font-size: 0.7rem;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 40px;
+            padding: 2px 8px;
+        }
+
+        .quiz-area {
+            flex: 3;
+            min-width: 280px;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 28px 28px 32px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #e6f0ea;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2b7a4b, #328f58);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .question-card {
+            background: #fefefe;
+            border-radius: 28px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eef3ef;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.45;
+            margin-bottom: 20px;
+            color: #1c2f2a;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fafdfb;
+            padding: 12px 18px;
+            border-radius: 48px;
+            border: 1px solid #e2ede6;
+            cursor: pointer;
+            transition: 0.1s linear;
+        }
+
+        .option:hover:not(.locked-option) {
+            background: #eef6f1;
+            border-color: #bdd8cb;
+        }
+
+        .option-letter {
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #cde0d6;
+        }
+
+        .locked-option {
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: #f9f9f9;
+            border-left: 5px solid;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #e6f9ef;
+            border-left-color: #2b7a4b;
+            color: #155a3a;
+        }
+
+        .feedback.wrong {
+            background: #fff0f0;
+            border-left-color: #dc6b5c;
+            color: #a03d2e;
+        }
+
+        .report-footer {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-btn {
+            background: #1f543f;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .download-btn:hover {
+            background: #0f3e2e;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 780px) {
+            body { padding: 16px; }
+            .quiz-area { padding: 20px; }
+            .question-card { padding: 18px; }
+            .page-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header">
+        <div class="title-section">
+            <h1>📖 赢未来国雅 · 即学即练</h1>
+            <p>七下语文第三单元 | 一课一练 · 中考题型智能闯关</p>
+        </div>
+        <div class="progress-card">
+            <span>已完成</span>
+            <span class="counter" id="completedCounter">0</span>
+            <span>/ <span id="totalCounter">0</span></span>
+        </div>
+    </div>
+
+    <div class="two-columns">
+        <div class="page-nav">
+            <h3>📚 第三单元 · 逐课复习</h3>
+            <div class="page-buttons" id="pageNavContainer"></div>
+            <div style="margin-top: 20px; font-size: 0.7rem; color: #6f8b7c; padding-left: 10px;">✅ 单选/多选均有标识 | 即时解析 | 锁定答案</div>
+        </div>
+
+        <div class="quiz-area" id="quizArea">
+            <div class="quiz-header">
+                <span class="page-title" id="currentPageTitle">第11课《山地回忆》</span>
+                <span class="question-count-badge" id="pageQCount"></span>
+            </div>
+            <div id="questionsContainer"></div>
+            <div class="report-footer">
+                <button class="download-btn" id="downloadReportBtn">📥 下载学习报告</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // 基于附件 七年级下册语文第三单元1.pdf 内容命题
+    // 涵盖课文: 山地回忆、台阶、阿长与山海经、卖油翁（含文言文考点）
+    // 以及阅读答题模板（理解词语/句子含义及效果）
+    // 每个区域4~5题，包含字音、成语、文学常识、文言实词翻译、阅读模板记忆等
+    // 支持单选/多选，即时解析锁定
+    // --------------------------------------------------------------
+    const QUESTION_SET = [
+        // ========== 第11课《山地回忆》 page0 ==========
+        { id: 1, pageId: 0, type: "字音字形", question: "下列加点字注音和字形全部正确的一项是？", options: ["A. 土靛(diàn) 玉黍(shǔ) 破绽(zhàn)", "B. 袄襟(jīn) 剪裁(cái) 爬山越岭(lǐng)", "C. 盈余(yín) 震别(biè) 别扭(biè)", "D. 破绽(dìng) 剪栽 盈余(róng)"], correct: "A,B", multiple: true, explanation: "A项正确；B项正确；C项盈余yíng；D项破绽zhàn，剪裁。故选AB。" },
+        { id: 2, pageId: 0, type: "文学常识", question: "关于《山地回忆》及作者孙犁，下列说法正确的有？（多选）", options: ["A. 孙犁是“荷花淀派”创始人，原名孙树勋。", "B. 代表作有长篇小说《风云初记》、中篇《铁木前传》。", "C. 本文是一篇回忆性散文，展现军民鱼水深情。", "D. 孙犁小说语言华丽铺陈，极具戏剧冲突。"], correct: "A,B,C", multiple: true, explanation: "A、B、C均正确；D错误，孙犁语言清新自然、朴素淡雅。" },
+        { id: 3, pageId: 0, type: "词语理解", question: "下列句子中加点词语使用正确的一项是？", options: ["A. 这件衣服破绽百出，没法穿了。", "B. 红军战士爬山越岭，历经千辛万苦。", "C. 他做事总是精益求精，从不敷衍。", "D. 他的演讲言外之意非常隐晦。"], correct: "B,C", multiple: true, explanation: "B爬山越岭符合语境；C精益求精正确；A破绽比喻漏洞，不能用于衣服物理破损；D言外之意指话里暗含的意思，用在此处正确，但最好语境需完整，BC最妥。" },
+        // 第12课《台阶》 page1
+        { id: 4, pageId: 1, type: "字音字形", question: "下列加点字读音及字形完全正确的一组是？", options: ["A. 啃(kěn) 撬(qiào) 门槛(kǎn)", "B. 晌午(shǎng) 烦躁(zào) 头颅(lú)", "C. 糟糕(zāo) 醒悟(xǐng) 蹦(bèng)跳", "D. 磕碰(kē) 厚道(hòu) 微不足到(dào)"], correct: "A,B,C", multiple: true, explanation: "A、B、C全部正确；D项微不足道，非‘到’。故选ABC。" },
+        { id: 5, pageId: 1, type: "成语运用", question: "下列句子中加点成语使用恰当的一项是？", options: ["A. 父亲在大庭广众之下造台阶，毫不羞涩。", "B. 这点小事微不足道，不要耿耿于怀。", "C. 他的话言外之意是让我们知难而退。", "D. 他自言自语，仿佛在思考人生。"], correct: "B,C,D", multiple: true, explanation: "A大庭广众指公开场合，但父亲在自家院子，不贴切；B、C、D均正确。" },
+        { id: 6, pageId: 1, type: "文学常识", question: "下列关于《台阶》及作者李森祥的说法，正确的一项是？", options: ["A. 李森祥是浙江衢州人，处女作《半个月亮爬上来》。", "B. 小说以农村、军营生活为主要题材，塑造朴实的农民形象。", "C. 《台阶》通过父亲造高台阶的故事，表现农民艰辛与自尊。", "D. 李森祥是当代著名诗人，擅长抒情。"], correct: "A,B,C", multiple: true, explanation: "A、B、C均符合课文注释；D李森祥是小说家，并非诗人。" },
+        // 《阿长与〈山海经〉》+《卖油翁》核心考点 page2
+        { id: 7, pageId: 2, type: "文学常识", question: "关于鲁迅及《阿长与〈山海经〉》，说法正确的有？", options: ["A. 鲁迅原名周树人，浙江绍兴人，代表作《呐喊》《彷徨》。", "B. 《朝花夕拾》是散文集，本文选自其中。", "C. 阿长是鲁迅的保姆，作者对她怀有复杂情感，先抑后扬。", "D. 《山海经》是一部地理志怪著作，鲁迅称之为‘古之巫书’。", "E. 文中长妈妈买来《山海经》表现了她的朴实善良。"], correct: "A,B,C,D,E", multiple: true, explanation: "所有选项均符合课文及文学常识，正确。" },
+        { id: 8, pageId: 2, type: "文言实词", question: "下列《卖油翁》加点词解释全部正确的一组是？", options: ["A. 自矜(夸耀) 释担(放下) 睨之(斜眼看)", "B. 颔之(点头) 忿然(恼怒) 轻吾射(轻视)", "C. 酌油(倒油) 沥之(注入) 遣之(打发)", "D. 但手熟尔(罢了) 以此自矜(因为) 惟手熟(只)"], correct: "A,B,C,D", multiple: true, explanation: "四项解释均与课下注释一致，全部正确。" },
+        { id: 9, pageId: 2, type: "句子翻译", question: "下列对‘我亦无他，惟手熟尔’翻译正确的一项是？", options: ["A. 我也没有别的，只是手热罢了。", "B. 我也没有别的奥妙，只是手法技艺熟练罢了。", "C. 我也没他人帮助，只是手熟练。", "D. 我没有其他，只有手熟悉。"], correct: "B", multiple: false, explanation: "B项准确译出‘无他’（没有奥妙）、‘惟手熟尔’（只是手法熟练罢了）。" },
+        { id: 10, pageId: 2, type: "内容理解", question: "《卖油翁》中体现“熟能生巧”主旨的句子是？", options: ["A. 公亦以此自矜", "B. 但手熟尔", "C. 尔安敢轻吾射", "D. 以我酌油知之"], correct: "B", multiple: false, explanation: "‘但手熟尔’（只是手法熟练罢了）直接点明主旨，熟能生巧。" },
+        // 文言文一词多义/虚词专项 page3
+        { id: 11, pageId: 3, type: "文言虚词", question: "下列句子中“以”字用法与其他三项不同的是？", options: ["A. 以我酌油知之", "B. 以钱覆其口", "C. 公亦以此自矜", "D. 徐以杓酌油沥之"], correct: "C", multiple: false, explanation: "A、B、D中‘以’均为‘用’；C项‘以’意为‘凭借’，故C不同。" },
+        { id: 12, pageId: 3, type: "文言句式", question: "下列句子与‘尝射于家圃’句式相同的一项是？", options: ["A. 睨之久而不去", "B. 但手熟尔", "C. 乃取一葫芦置于地", "D. 尔安敢轻吾射"], correct: "C", multiple: false, explanation: "‘尝射于家圃’是状语后置（于家圃射）；C项‘置于地’也是状语后置，结构相同。" },
+        // 阅读答题模板——理解词语含义及表达效果 page4
+        { id: 13, pageId: 4, type: "阅读答题模板", question: "理解词语含义时，以下哪些角度是正确的？（多选）", options: ["A. 揣摩本义和语境义", "B. 分析指代义", "C. 把握修辞义和感情色彩", "D. 只考虑字典义，忽略语境"], correct: "A,B,C", multiple: true, explanation: "理解词语含义需要结合语境、指代、修辞和感情色彩，D项错误。" },
+        { id: 14, pageId: 4, type: "词语表达效果", question: "下列分析加点词语表达效果的角度，正确的是？（多选）", options: ["A. ‘紧紧地抱着’——动词生动写出人物内心的紧张与珍视。", "B. ‘苍老的脸’——外貌描写突出父亲的辛劳与衰老。", "C. ‘叹息’——拟人化表达情感。", "D. 词语表达效果只包括情感性作用。"], correct: "A,B,C", multiple: true, explanation: "词语表达效果包括精确性、形象性、情感性、结构性等多方面，D项过于片面。" },
+        // 细节描写精彩片段赏析 page5
+        { id: 15, pageId: 5, type: "细节描写", question: "下列片段中属于细节描写并表现父爱的一项是？（多选）", options: ["A. 父亲站在寒风中，高高的颧骨、深陷的眼睛，在人群里寻找我。", "B. 父亲亮起黄白的灯，站在一角细细端详中堂牡丹画。", "C. 奶奶翻着食谱，嘴里喃喃自语。", "D. 妈妈把茶端到书桌上说：‘提提神。’"], correct: "A,B", multiple: true, explanation: "A外貌和动作细节表现父爱；B动作细节体现父亲对家的珍视；C是奶奶；D是母爱。选AB。" },
+        { id: 16, pageId: 5, type: "句子赏析", question: "‘梦里，你依旧是坐在那间朝阳的房子里，背对着阳光，带着老花镜，倚在躺椅上’这句话运用的表达方式和效果是？", options: ["A. 外貌描写，表现奶奶年迈", "B. 细节描写，营造温馨怀旧的氛围，表现对奶奶的思念", "C. 环境描写，突出房屋破旧", "D. 议论，点明主旨"], correct: "B", multiple: false, explanation: "该句为细节描写，通过动作、神态营造温馨画面，表达对奶奶的深切怀念。B正确。" },
+        // 卖油翁对比拓展与主旨 page6
+        { id: 17, pageId: 6, type: "文言主旨", question: "《卖油翁》告诉我们的道理是？（多选）", options: ["A. 熟能生巧", "B. 实践出真知", "C. 骄傲自满必败", "D. 尺有所短，寸有所长"], correct: "A,B,D", multiple: true, explanation: "文章通过卖油翁倒油技艺，说明熟能生巧、实践出真知，也告诫人不可骄傲，各有长短。C过于绝对，但包含谦虚之意。ABD最贴切。" },
+        { id: 18, pageId: 6, type: "人物形象", question: "下列对陈尧咨和卖油翁形象分析正确的有？", options: ["A. 陈尧咨骄傲自大，但最后被折服，有通达一面。", "B. 卖油翁身怀绝技却谦虚内敛。", "C. 卖油翁是主要人物，陈尧咨起衬托作用。", "D. 陈尧咨因射箭技术高超而始终看不起卖油翁。"], correct: "A,B,C", multiple: true, explanation: "D错误，陈尧咨最后‘笑而遣之’，已经认可了卖油翁的道理。" },
+        // 叙事性散文文体知识 page7
+        { id: 19, pageId: 7, type: "文体知识", question: "关于叙事性散文的特点，下列说法正确的有？（多选）", options: ["A. 以写人记事为中心，带有抒情成分。", "B. 刻画人物追求性格完整，与小说相同。", "C. 通过富有特征的细节、人生片段来寄情写意。", "D. 不要求全面细致描写人物命运。"], correct: "A,C,D", multiple: true, explanation: "叙事散文与小说不同，不追求人物性格完整，B项错误。" },
+        // 综合文学常识（鲁迅、欧阳修等）page8
+        { id: 20, pageId: 8, type: "文学常识", question: "下列关于欧阳修的说法，正确的有？", options: ["A. 字永叔，号醉翁，晚号六一居士。", "B. 北宋政治家、文学家，谥号文忠。", "C. 是唐宋八大家之一，与韩愈、柳宗元等合称。", "D. 代表作笔记体小说《卖油翁》，选自《归田录》。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合历史事实及课文注释。" }
+    ];
+
+    const TOTAL_QS = QUESTION_SET.length;
+    document.getElementById('totalCounter').innerText = TOTAL_QS;
+
+    // 页面分组 (每课4~5题)
+    const pagesData = [
+        { id: 0, name: "📖 第11课《山地回忆》", questions: [] },
+        { id: 1, name: "🏠 第12课《台阶》", questions: [] },
+        { id: 2, name: "📚 阿长与《山海经》+《卖油翁》基础", questions: [] },
+        { id: 3, name: "📜 文言文专项·虚词句式", questions: [] },
+        { id: 4, name: "✍️ 阅读答题模板·词语理解", questions: [] },
+        { id: 5, name: "✨ 细节描写·片段赏析", questions: [] },
+        { id: 6, name: "🏹 卖油翁·主旨与人物", questions: [] },
+        { id: 7, name: "📝 叙事散文·文体知识", questions: [] },
+        { id: 8, name: "🌟 文学常识大综合", questions: [] }
+    ];
+
+    QUESTION_SET.forEach(q => {
+        const page = pagesData.find(p => p.id === q.pageId);
+        if(page) page.questions.push(q);
+    });
+
+    let userAnswers = {}; // { qid: { selectedValues, isCorrect } }
+    let currentPageId = 0;
+
+    function renderNav() {
+        const container = document.getElementById('pageNavContainer');
+        container.innerHTML = '';
+        pagesData.forEach(page => {
+            const answeredCount = page.questions.filter(q => userAnswers[q.id] && userAnswers[q.id].selectedValues).length;
+            const totalCount = page.questions.length;
+            const btn = document.createElement('div');
+            btn.className = `page-btn ${currentPageId === page.id ? 'active' : ''}`;
+            btn.innerHTML = `<span>${page.name}</span><span class="page-status">${answeredCount}/${totalCount}</span>`;
+            btn.onclick = () => {
+                currentPageId = page.id;
+                renderNav();
+                renderQuestionsForPage();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    function checkCorrect(q, selectedVals) {
+        const correctSet = q.correct.split(',').map(s => s.trim());
+        if(q.multiple) {
+            if(selectedVals.length !== correctSet.length) return false;
+            return selectedVals.every(v => correctSet.includes(v)) && correctSet.every(c => selectedVals.includes(c));
+        } else {
+            return selectedVals.length === 1 && selectedVals[0] === q.correct;
+        }
+    }
+
+    function renderQuestionsForPage() {
+        const currentPage = pagesData.find(p => p.id === currentPageId);
+        document.getElementById('currentPageTitle').innerHTML = currentPage.name;
+        const qCount = currentPage.questions.length;
+        document.getElementById('pageQCount').innerText = `${qCount} 题`;
+        const container = document.getElementById('questionsContainer');
+        if(qCount === 0) { container.innerHTML = '<div style="padding:40px;text-align:center;">✨ 精选题目，马上解锁</div>'; updateGlobalProgress(); return; }
+        let html = '';
+        currentPage.questions.forEach((q, idx) => {
+            const answer = userAnswers[q.id];
+            const selected = answer ? answer.selectedValues : [];
+            const isAnswered = !!answer;
+            const isCorrect = answer ? answer.isCorrect : false;
+            html += `<div class="question-card" data-qid="${q.id}">
+                        <div class="question-text"><strong>${idx+1}. 【${q.type}】${q.multiple ? '（多选）' : '（单选）'}</strong> ${q.question}</div>
+                        <div class="options" id="options-${q.id}">`;
+            q.options.forEach(opt => {
+                const letter = opt.charAt(0);
+                const text = opt.substring(1).trim();
+                const lockedClass = isAnswered ? 'locked-option' : '';
+                let checkedStyle = '';
+                if(isAnswered && selected.includes(letter)) checkedStyle = 'style="background:#e0f0e6;border-color:#2b7a4b;"';
+                html += `<div class="option ${lockedClass}" data-qid="${q.id}" data-value="${letter}" ${checkedStyle}>
+                            <span class="option-letter">${letter}</span>
+                            <span class="option-text">${text}</span>
+                        </div>`;
+            });
+            let fbHtml = '';
+            if(isAnswered) {
+                const fbClass = isCorrect ? 'correct' : 'wrong';
+                fbHtml = `<div class="feedback show ${fbClass}"><strong>${isCorrect ? '✓ 回答正确' : '✗ 回答错误'}</strong><br>你的答案：${selected.join(',')} | 正确答案：${q.correct}<br>📖 解析：${q.explanation}</div>`;
+            } else {
+                fbHtml = `<div class="feedback"></div>`;
+            }
+            html += `</div>${fbHtml}</div>`;
+        });
+        container.innerHTML = html;
+        // 绑定点击事件（未锁定的）
+        document.querySelectorAll('.option:not(.locked-option)').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const qid = parseInt(el.dataset.qid);
+                const questionObj = QUESTION_SET.find(q => q.id === qid);
+                if(!questionObj) return;
+                const selectedVal = el.dataset.value;
+                let currentSelected = userAnswers[qid] ? [...userAnswers[qid].selectedValues] : [];
+                if(questionObj.multiple) {
+                    if(currentSelected.includes(selectedVal)) {
+                        currentSelected = currentSelected.filter(v => v !== selectedVal);
+                    } else {
+                        currentSelected.push(selectedVal);
+                    }
+                } else {
+                    currentSelected = [selectedVal];
+                }
+                const isCorrect = checkCorrect(questionObj, currentSelected);
+                userAnswers[qid] = { selectedValues: currentSelected, isCorrect: isCorrect };
+                renderQuestionsForPage();
+                updateGlobalProgress();
+                renderNav();
+            });
+        });
+        updateGlobalProgress();
+    }
+
+    function updateGlobalProgress() {
+        const answered = Object.keys(userAnswers).length;
+        document.getElementById('completedCounter').innerText = answered;
+        if(answered === TOTAL_QS) {
+            const correctCount = Object.values(userAnswers).filter(a => a.isCorrect).length;
+            const rate = Math.round((correctCount/TOTAL_QS)*100);
+            let tipDiv = document.getElementById('completeToast');
+            if(!tipDiv) {
+                tipDiv = document.createElement('div');
+                tipDiv.id = 'completeToast';
+                tipDiv.style = 'background:#2b7a4b;color:white;text-align:center;padding:8px;border-radius:30px;margin-top:12px;';
+                document.querySelector('.report-footer').prepend(tipDiv);
+            }
+            tipDiv.innerText = `🎉 恭喜！全单元通关！总正确率 ${rate}% (${correctCount}/${TOTAL_QS}) 继续加油！`;
+        }
+    }
+
+    // 下载报告
+    document.getElementById('downloadReportBtn').addEventListener('click', () => {
+        let report = '【赢未来国雅·即学即练】七下语文第三单元学习报告\n';
+        report += `生成时间：${new Date().toLocaleString()}\n已完成：${Object.keys(userAnswers).length}/${TOTAL_QS}\n`;
+        const correctTotal = Object.values(userAnswers).filter(a => a.isCorrect).length;
+        const rate = Object.keys(userAnswers).length===0?0:Math.round((correctTotal/Object.keys(userAnswers).length)*100);
+        report += `当前正确率：${rate}% (${correctTotal}/${Object.keys(userAnswers).length})\n\n详细答题记录：\n`;
+        QUESTION_SET.forEach(q => {
+            const ans = userAnswers[q.id];
+            const userChoice = ans ? ans.selectedValues.join(',') : '未作答';
+            const status = ans ? (ans.isCorrect ? '✔' : '✘') : '⚪';
+            report += `\n[${status}] 【${q.type}】${q.question}\n    你的答案: ${userChoice}   正确答案: ${q.correct}\n    解析: ${q.explanation}\n`;
+        });
+        const blob = new Blob([report], {type: 'text/plain'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = '七下语文第三单元学习报告.txt';
+        link.click();
+        URL.revokeObjectURL(link.href);
+    });
+
+    renderNav();
+    renderQuestionsForPage();
+    updateGlobalProgress();
+</script>
+</body>
+</html>

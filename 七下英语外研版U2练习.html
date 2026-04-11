@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 中考英语 Unit 2 运动精神（考点笔记版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0f7f0;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            color: #1a2e1f;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .stats-bar {
+            background: white;
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 16px rgba(0, 32, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-text {
+            background: #e9f5e9;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2a6b2f;
+        }
+        .accuracy-badge {
+            background: #fff0df;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #2a7a2a, #5fad5f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 38px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .section-title {
+            background: #edf5ea;
+            padding: 18px 26px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-left: 8px solid #4caf50;
+            color: #2c4a2a;
+        }
+        .sub-title {
+            background: #f9fbf5;
+            padding: 8px 26px;
+            font-size: 0.85rem;
+            color: #5a7a55;
+            border-bottom: 1px solid #d9e8d9;
+            font-style: italic;
+        }
+        .question-item {
+            padding: 20px 26px;
+            border-bottom: 1px solid #e2efe2;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.02rem;
+            margin-bottom: 16px;
+            line-height: 1.45;
+            color: #1f3b1a;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 12px;
+        }
+        .option-btn {
+            background: #fafefa;
+            border: 1.5px solid #c8e0c8;
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1f3b1c;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #d9f0d9;
+            border-color: #5fbb5f;
+            transform: scale(0.97);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: #f8faf5;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 5px solid #bcd0b5;
+        }
+        .feedback.correct {
+            background: #e6f4ea;
+            border-left-color: #2e7d32;
+        }
+        .feedback.wrong {
+            background: #ffefef;
+            border-left-color: #d32f2f;
+        }
+        .correct-answer-badge {
+            font-weight: bold;
+            background: #e9ecef;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .note-box {
+            background: #fef7e0;
+            padding: 10px 14px;
+            border-radius: 16px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            border-left: 3px solid #ffb74d;
+            color: #5d4a1a;
+        }
+        .section-footer {
+            padding: 16px 26px;
+            background: #fafef8;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #ddebe0;
+            font-weight: 500;
+        }
+        .global-download {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px;
+        }
+        .download-btn {
+            background: #2c6e2c;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 48px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .download-btn:hover {
+            background: #1f551f;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            .option-btn { padding: 5px 14px; font-size: 0.8rem; }
+            .section-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="stats-bar">
+        <h1>⚡ 赢未来国雅 · 即学即练 | U2 永不放弃</h1>
+        <div style="display: flex; gap: 12px;">
+            <div class="progress-text" id="progressCounter">已完成 0 / 30</div>
+            <div class="accuracy-badge" id="accuracyDisplay">正确率: --%</div>
+        </div>
+    </div>
+    <div id="quizRoot"></div>
+    <div class="global-download" id="downloadBtnContainer"></div>
+</div>
+
+<script>
+    // ======================= 外研七下 Unit 2 运动精神/挑战与坚持 =======================
+    // 主要考点基于 Understanding ideas (张顺马拉松、Bethany Hamilton、女足精神)
+    // 完形填空围绕课文情节；短文填空基于 Developing ideas 拓展 (中国女足、纪录、坚持)
+    // 总题数: 短语·语法融合 14题 + 完形填空 8题 + 短文填空 8题 = 30题
+    // 每道题显示正确答案 + 考点笔记（包含所有选项辨析）
+
+    // ---------- 1. 短语·语法融合 (Understanding ideas核心考点) ----------
+    const mixedChoice = [
+        { text: "Zhang Shun was the oldest and ________ runner to finish the 2022 Beijing Marathon.", options: ["A. slow", "B. slower", "C. slowest", "D. the slowest"], correct: "C", note: "🔍 考点笔记：最高级用法。A.slow原级；B.slower比较级；C.slowest最高级（与the oldest并列，省略the）；D.the slowest也可，但并列中常省略。最佳C。" },
+        { text: "People watched him ________ slowly across the finishing line.", options: ["A. move", "B. to move", "C. moving", "D. moved"], correct: "A", note: "🔍 考点笔记：watch sb. do sth. 观看动作全过程。A.move正确；B.to move不定式；C.moving表正在做；D.moved过去分词。强调完整过程用do。" },
+        { text: "Neither of the twins ________ giving up; they always fight to the end.", options: ["A. like", "B. likes", "C. liking", "D. are like"], correct: "B", note: "🔍 考点笔记：neither of + 复数名词，谓语用单数。A.like复数；B.likes单数正确；C.liking分词；D.are like结构错误。" },
+        { text: "Even ________, the team’s best player hurt her foot badly.", options: ["A. bad", "B. worse", "C. worst", "D. the worst"], correct: "B", note: "🔍 考点笔记：even worse 更糟糕的是（固定短语）。A.bad原级；B.worse比较级正确；C.worst最高级；D.the worst搭配错误。" },
+        { text: "She paid no attention ________ the pain and continued to play.", options: ["A. to", "B. on", "C. at", "D. for"], correct: "A", note: "🔍 考点笔记：pay attention to 注意。A.to正确；B.on错误；C.at错误；D.for错误。" },
+        { text: "The amazing victory led people ________ back at the team’s early days.", options: ["A. look", "B. to look", "C. looking", "D. looked"], correct: "B", note: "🔍 考点笔记：lead sb. to do sth. 引导某人做某事。A.look原形；B.to look正确；C.looking动名词；D.looked过去式。" },
+        { text: "Both of the teams played hard, but China lost 2-1 ________ the USA.", options: ["A. to", "B. with", "C. for", "D. against"], correct: "A", note: "🔍 考点笔记：lose to ... 输给……。A.to正确；B.with伴随；C.for为了；D.against对抗。" },
+        { text: "They took every chance ________ and improve. Finally they succeeded.", options: ["A. learn", "B. to learn", "C. learning", "D. learned"], correct: "B", note: "🔍 考点笔记：take chance to do sth. 抓住机会做某事。A.learn原形；B.to learn不定式正确；C.learning动名词；D.learned过去式。" },
+        { text: "Known ________ the Steel Roses of China, the women’s football team inspires us.", options: ["A. as", "B. for", "C. to", "D. with"], correct: "A", note: "🔍 考点笔记：be known as 作为……而出名。A.as正确；B.for因……闻名；C.to对……所知；D.with伴随。" },
+        { text: "Should she keep going, ________ give up surfing? Bethany chose to fight.", options: ["A. and", "B. or", "C. but", "D. so"], correct: "B", note: "🔍 考点笔记：选择疑问句用or连接。A.and和；B.or或者/还是正确；C.but但是；D.so所以。" },
+        { text: "Thanks ________ their shining spirit, they will rise to every challenge.", options: ["A. to", "B. for", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：thanks to 多亏；由于。A.to正确；B.for为了；C.of……的；D.with伴随。" },
+        { text: "We should not lose ________ when facing difficulties. Just keep running.", options: ["A. heart", "B. mind", "C. courage", "D. hope"], correct: "A", note: "🔍 考点笔记：lose heart 灰心；气馁。A.heart正确；B.mind心思；C.courage勇气（lose courage也可，但课文固定lose heart）；D.hope希望。" },
+        { text: "As a child, Bethany Hamilton’s dream was ________ a surfer, and she worked hard.", options: ["A. become", "B. to become", "C. becoming", "D. became"], correct: "B", note: "🔍 考点笔记：dream was to become 梦想是成为……（不定式作表语）。A.become原形；B.to become正确；C.becoming动名词；D.became过去式。" },
+        { text: "He broke his own record and felt proud ________ himself.", options: ["A. of", "B. in", "C. for", "D. at"], correct: "A", note: "🔍 考点笔记：be proud of 为……感到骄傲。A.of正确；B.in在……里；C.for为了；D.at在……点。" }
+    ];
+
+    // ---------- 2. 完形填空 (8空) 基于 Understanding ideas 马拉松+冲浪精神 ----------
+    const clozeOptions = [
+        { text: "Bethany Hamilton lost her left arm in a shark attack, but she didn't lose ________.", options: ["A. way", "B. heart", "C. mind", "D. hope"], correct: "B", note: "🔍 考点笔记：lose heart 灰心。A.way道路；B.heart正确；C.mind介意；D.hope希望（lose hope也可，但课文固定lose heart）。" },
+        { text: "She asked herself, “Should I keep going, ________ give up?”", options: ["A. and", "B. or", "C. but", "D. so"], correct: "B", note: "🔍 考点笔记：选择疑问句or。A.and；B.or正确；C.but；D.so。" },
+        { text: "People watched her ________ bravely in the competition.", options: ["A. surf", "B. to surf", "C. surfing", "D. surfed"], correct: "A", note: "🔍 考点笔记：watch sb. do sth. 观看全过程。A.surf正确；B.to surf不定式；C.surfing正在冲浪；D.surfed过去式。" },
+        { text: "The key ________ success is not giving up, as Bethany showed.", options: ["A. of", "B. to", "C. for", "D. with"], correct: "B", note: "🔍 考点笔记：the key to ... ……的关键。A.of；B.to正确；C.for；D.with。" },
+        { text: "Zhang Shun was the slowest runner, ________ it didn't matter to him.", options: ["A. and", "B. so", "C. but", "D. or"], correct: "C", note: "🔍 考点笔记：转折连词but。A.and和；B.so所以；C.but但是正确；D.or或者。" },
+        { text: "He said, “If possible, I will ________ running every day.”", options: ["A. keep", "B. stop", "C. finish", "D. enjoy"], correct: "A", note: "🔍 考点笔记：keep running 一直跑。A.keep正确；B.stop停止；C.finish完成；D.enjoy享受。" },
+        { text: "The Chinese women’s football team ________ every chance to learn and improve.", options: ["A. made", "B. took", "C. got", "D. did"], correct: "B", note: "🔍 考点笔记：take every chance 抓住每一次机会。A.made制作；B.took正确；C.got得到；D.did做。" },
+        { text: "They rise to every challenge thanks ________ their shining spirit.", options: ["A. to", "B. for", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：thanks to 多亏。A.to正确；B.for；C.of；D.with。" }
+    ];
+
+    // ---------- 3. 短文填空 (Developing ideas 拓展: 女足、纪录、坚持、名言) ----------
+    const shortPassages = [
+        { text: "The Chinese Women’s National Football Team is known ________ the Steel Roses of China.", options: ["A. for", "B. as", "C. to", "D. with"], correct: "B", note: "🔍 考点笔记：be known as 作为……而出名。A.for因……闻名；B.as作为正确；C.to对……所知；D.with伴随。" },
+        { text: "They fought on and ________ three goals in the last 25 minutes, winning the game.", options: ["A. scored", "B. kicked", "C. made", "D. did"], correct: "A", note: "🔍 考点笔记：score goals 进球。A.scored正确；B.kicked踢；C.made制作；D.did做。" },
+        { text: "He fell behind at first, but he didn’t lose heart. ________, he tried his best and crossed the finishing line.", options: ["A. Instead", "B. But", "C. However", "D. So"], correct: "A", note: "🔍 考点笔记：instead 相反/反而。A.Instead正确；B.But但是；C.However然而；D.So所以。" },
+        { text: "________ of his family members tried to stop him from running the marathon.", options: ["A. None", "B. No one", "C. Neither", "D. Either"], correct: "A", note: "🔍 考点笔记：none of + 名词复数，没有一个。A.None正确；B.No one不能接of；C.Neither两者都不；D.Either两者之一。" },
+        { text: "She worked hard to ride the waves of her dream. Nothing is ________ if you keep going.", options: ["A. possible", "B. impossible", "C. possibly", "D. impassible"], correct: "B", note: "🔍 考点笔记：impossible 不可能的。A.possible可能；B.impossible不可能正确；C.possibly副词；D.impassible无感情。" },
+        { text: "The marathon runner said, 'If ________, I will keep running every day.'", options: ["A. possible", "B. possibly", "C. can", "D. ability"], correct: "A", note: "🔍 考点笔记：if possible 如果可能的话。A.possible正确；B.possibly副词；C.can能；D.ability能力。" },
+        { text: "People wondered about the key ________ the team’s success. The answer is teamwork.", options: ["A. of", "B. to", "C. for", "D. with"], correct: "B", note: "🔍 考点笔记：the key to ... ……的关键。A.of；B.to正确；C.for；D.with。" },
+        { text: "We don't stop playing because we grow old; we grow old because we stop ________. (Shaw)", options: ["A. play", "B. to play", "C. playing", "D. played"], correct: "C", note: "🔍 考点笔记：stop doing sth. 停止做某事。A.play原形；B.to play不定式；C.playing正确；D.played过去分词。" }
+    ];
+
+    // 构建完整题目列表 (14+8+8=30)
+    let allQuestions = [];
+    mixedChoice.forEach((item, idx) => {
+        allQuestions.push({ id: `mix_${idx}`, type: "📖 短语·语法融合", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    clozeOptions.forEach((item, idx) => {
+        allQuestions.push({ id: `cloze_${idx}`, type: "📝 完形填空 (课文情节)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    shortPassages.forEach((item, idx) => {
+        allQuestions.push({ id: `short_${idx}`, type: "✍️ 短文填空 (Developing ideas)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+
+    const TOTAL = allQuestions.length;
+    let userAnswers = new Array(TOTAL).fill(null);
+    let locked = new Array(TOTAL).fill(false);
+    let feedbackArr = new Array(TOTAL).fill(null);
+
+    function updateStatsAndRender() {
+        let answeredCount = userAnswers.filter(a => a !== null).length;
+        let correctCount = 0;
+        for (let i = 0; i < TOTAL; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === allQuestions[i].correct) correctCount++;
+        }
+        let percent = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+        document.getElementById('progressCounter').innerText = `已完成 ${answeredCount} / ${TOTAL}`;
+        document.getElementById('accuracyDisplay').innerHTML = `正确率: ${answeredCount === 0 ? '--' : percent + '%'}`;
+        renderAllSections();
+    }
+
+    function renderAllSections() {
+        const root = document.getElementById('quizRoot');
+        if (!root) return;
+        const groups = {
+            "📖 短语·语法融合": [],
+            "📝 完形填空 (课文情节)": [],
+            "✍️ 短文填空 (Developing ideas)": []
+        };
+        allQuestions.forEach((q, idx) => {
+            if (q.type === "📖 短语·语法融合") groups["📖 短语·语法融合"].push({ ...q, originalIndex: idx });
+            else if (q.type === "📝 完形填空 (课文情节)") groups["📝 完形填空 (课文情节)"].push({ ...q, originalIndex: idx });
+            else groups["✍️ 短文填空 (Developing ideas)"].push({ ...q, originalIndex: idx });
+        });
+        let html = '';
+        for (let [sectionName, items] of Object.entries(groups)) {
+            if (items.length === 0) continue;
+            html += `<div class="section-card"><div class="section-title">${sectionName} (${items.length}题)</div>`;
+            if (sectionName.includes("完形填空")) html += `<div class="sub-title">⭐ 基于课文故事语境 (马拉松/贝萨尼/永不放弃)</div>`;
+            if (sectionName.includes("短文填空")) html += `<div class="sub-title">🌱 拓展自 Developing ideas (女足精神、纪录、名言)</div>`;
+            for (let item of items) {
+                const idx = item.originalIndex;
+                const selected = userAnswers[idx];
+                const isLocked = locked[idx];
+                const fb = feedbackArr[idx];
+                html += `<div class="question-item">
+                            <div class="question-text">${item.text}</div>
+                            <div class="options" id="options-${idx}">`;
+                item.options.forEach(opt => {
+                    const optLetter = opt.charAt(0);
+                    const isSelected = (selected === optLetter);
+                    let disabledAttr = isLocked ? 'disabled' : '';
+                    let extraStyle = (isSelected && isLocked) ? 'style="background:#c8e6c9; border-color:#2e7d32;"' : '';
+                    html += `<button class="option-btn" data-idx="${idx}" data-val="${optLetter}" ${disabledAttr} ${extraStyle}>${opt}</button>`;
+                });
+                html += `</div><div class="feedback ${fb ? (fb.correctFlag ? 'correct' : 'wrong') : ''}" id="fb-${idx}">`;
+                if (fb) {
+                    html += `<div class="correct-answer-badge">✔️ 正确答案：${item.correct}</div>`;
+                    html += `<div><strong>📘 考点笔记</strong><br>${item.note}</div>`;
+                    html += `<div style="margin-top:6px; font-size:0.8rem;">${fb.correctFlag ? '✅ 你的回答正确' : '❌ 你的回答错误'}</div>`;
+                } else {
+                    html += `<div style="opacity:0.8;">🏅 点击选项，显示正确答案及考点笔记（含所有选项辨析）。</div>`;
+                }
+                html += `</div></div>`;
+            }
+            let answeredInSec = 0, correctInSec = 0;
+            items.forEach(it => {
+                const ans = userAnswers[it.originalIndex];
+                if (ans !== null) {
+                    answeredInSec++;
+                    if (ans === allQuestions[it.originalIndex].correct) correctInSec++;
+                }
+            });
+            let secRate = answeredInSec === 0 ? '暂无' : `${Math.round((correctInSec/answeredInSec)*100)}%`;
+            html += `<div class="section-footer">📊 本区正确率：${secRate} (${correctInSec}/${answeredInSec})</div></div>`;
+        }
+        root.innerHTML = html;
+        for (let i = 0; i < TOTAL; i++) {
+            const btns = document.querySelectorAll(`.option-btn[data-idx="${i}"]`);
+            btns.forEach(btn => {
+                btn.removeEventListener('click', handler);
+                btn.addEventListener('click', handler);
+            });
+        }
+    }
+
+    function handler(e) {
+        const btn = e.currentTarget;
+        const idx = parseInt(btn.getAttribute('data-idx'));
+        if (locked[idx]) return;
+        const selectedVal = btn.getAttribute('data-val');
+        const question = allQuestions[idx];
+        const isCorrect = (selectedVal === question.correct);
+        userAnswers[idx] = selectedVal;
+        locked[idx] = true;
+        feedbackArr[idx] = { correctFlag: isCorrect };
+        updateStatsAndRender();
+        const fbDiv = document.getElementById(`fb-${idx}`);
+        if (fbDiv) fbDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function downloadReport() {
+        let report = "【赢未来国雅·即学即练】学习报告 (Unit 2 运动精神·考点笔记版)\n";
+        report += `生成时间: ${new Date().toLocaleString()}\n`;
+        report += `单元：外研七下 Unit 2 永不放弃 / Amazing people in sports\n`;
+        report += `总题数: ${TOTAL}\n`;
+        let answered = userAnswers.filter(a => a !== null).length;
+        let correct = 0;
+        for (let i=0;i<TOTAL;i++) if(userAnswers[i] && userAnswers[i] === allQuestions[i].correct) correct++;
+        let percentTotal = answered===0?0:Math.round((correct/answered)*100);
+        report += `完成数量: ${answered} / ${TOTAL}\n`;
+        report += `正确率: ${percentTotal}%\n`;
+        report += `========================================\n\n`;
+        for (let i=0;i<TOTAL;i++) {
+            const q = allQuestions[i];
+            const userAns = userAnswers[i] || "未作答";
+            const correctAns = q.correct;
+            const isRight = (userAns === correctAns);
+            report += `【${i+1}】${q.type}\n`;
+            report += `题目: ${q.text}\n`;
+            report += `我的答案: ${userAns}\n`;
+            report += `正确答案: ${correctAns}\n`;
+            report += `考点笔记(选项全解): ${q.note}\n`;
+            report += `结果: ${isRight ? "✓ 正确" : "✗ 错误"}\n`;
+            report += `----------------------------------------\n`;
+        }
+        const blob = new Blob([report], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = "英语U2_运动精神_考点笔记报告.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function addDownloadButton() {
+        const container = document.getElementById('downloadBtnContainer');
+        container.innerHTML = '';
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.innerText = '📥 下载学习报告 (含考点笔记)';
+        btn.addEventListener('click', downloadReport);
+        container.appendChild(btn);
+    }
+
+    function init() {
+        addDownloadButton();
+        updateStatsAndRender();
+    }
+    init();
+</script>
+</body>
+</html>
