@@ -1,59 +1,174 @@
-name: Generate Directory Listing
+name: 自动生成文件列表
 
 on:
   push:
     branches: [ "main", "master" ]
+  workflow_dispatch:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
-      # 用 PHP 脚本生成目录列表（GitHub Actions 自带 PHP）
-      - name: Generate index.html
+      - name: 生成文件列表页面
         run: |
-          echo '<!DOCTYPE html>
-          <html>
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
           <head>
-              <title>复习资料列表</title>
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+              <title>学生复习资料</title>
               <style>
-                  body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
-                  h1 { color: #333; }
-                  ul { list-style: none; padding: 0; }
-                  li { margin: 10px 0; padding: 8px; background: #f5f5f5; border-radius: 5px; }
-                  a { text-decoration: none; color: #0366d6; font-size: 18px; }
-                  a:hover { text-decoration: underline; }
-                  .file-icon { margin-right: 10px; }
+                  * { box-sizing: border-box; }
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                      background: #f5f7fa;
+                      margin: 0;
+                      padding: 20px;
+                  }
+                  .container {
+                      max-width: 800px;
+                      margin: 0 auto;
+                  }
+                  h1 {
+                      text-align: center;
+                      color: #1a1a2e;
+                      font-size: 28px;
+                      margin-bottom: 10px;
+                  }
+                  .subtitle {
+                      text-align: center;
+                      color: #666;
+                      margin-bottom: 30px;
+                      font-size: 14px;
+                  }
+                  .file-list {
+                      background: white;
+                      border-radius: 16px;
+                      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                      overflow: hidden;
+                  }
+                  .file-item {
+                      display: flex;
+                      align-items: center;
+                      padding: 14px 20px;
+                      border-bottom: 1px solid #eee;
+                      transition: background 0.2s;
+                  }
+                  .file-item:hover {
+                      background: #f8f9fa;
+                  }
+                  .file-icon {
+                      font-size: 22px;
+                      margin-right: 15px;
+                  }
+                  .file-link {
+                      flex: 1;
+                      text-decoration: none;
+                      color: #333;
+                      font-size: 16px;
+                      word-break: break-word;
+                  }
+                  .file-link:hover {
+                      color: #0366d6;
+                      text-decoration: underline;
+                  }
+                  .empty-tip {
+                      text-align: center;
+                      padding: 50px;
+                      color: #999;
+                  }
+                  .footer {
+                      text-align: center;
+                      margin-top: 30px;
+                      padding: 20px;
+                      color: #999;
+                      font-size: 12px;
+                  }
+                  @media (max-width: 600px) {
+                      body { padding: 12px; }
+                      .file-item { padding: 12px 15px; }
+                      .file-link { font-size: 14px; }
+                  }
               </style>
           </head>
           <body>
-              <h1>📚 学生复习资料</h1>
-              <p>点击文件名开始复习：</p>
-              <ul>' > index.html
+              <div class="container">
+                  <h1>📚 学生复习资料</h1>
+                  <div class="subtitle">点击文件名开始复习</div>
+                  <div class="file-list" id="fileList"></div>
+                  <div class="footer">
+                      ⏰ 最后更新：<span id="updateTime"></span>
+                  </div>
+              </div>
+              <script>
+                  // 由 GitHub Actions 自动生成的文件数据
+                  const files = __FILE_LIST_PLACEHOLDER__;
+                  
+                  const container = document.getElementById("fileList");
+                  
+                  if (!files || files.length === 0) {
+                      container.innerHTML = '<div class="empty-tip">📭 暂无复习资料，请上传 HTML 文件</div>';
+                  } else {
+                      let html = '';
+                      for (let i = 0; i < files.length; i++) {
+                          const file = files[i];
+                          // 去掉 .html 后缀作为显示名称
+                          let displayName = file.replace(/\.html$/i, '');
+                          html += `
+                              <div class="file-item">
+                                  <span class="file-icon">📘</span>
+                                  <a href="${file}" class="file-link" target="_blank">${displayName}</a>
+                              </div>
+                          `;
+                      }
+                      container.innerHTML = html;
+                  }
+                  
+                  document.getElementById("updateTime").innerText = new Date().toLocaleString("zh-CN");
+              </script>
+          </body>
+          </html>
+          EOF
           
-          # 遍历所有 .html 文件，生成链接
-          for file in *.html; do
-              if [ "$file" != "index.html" ]; then
-                  filename=$(basename "$file" .html)
-                  echo "<li><a href=\"$file\">📄 $filename</a></li>" >> index.html
-              fi
-          done
+          # 用 Python 扫描所有 HTML 文件并生成 JSON
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import json
           
-          echo '</ul></body></html>' >> index.html
+          # 获取所有 .html 文件（排除 index.html）
+          html_files = [f for f in os.listdir('.') if f.endswith('.html') and f != 'index.html']
+          
+          # 按文件名排序（数字在前，中文按拼音）
+          html_files.sort()
+          
+          # 读取生成的 HTML
+          with open('index.html', 'r', encoding='utf-8') as f:
+              content = f.read()
+          
+          # 替换占位符
+          json_data = json.dumps(html_files, ensure_ascii=False)
+          content = content.replace('__FILE_LIST_PLACEHOLDER__', json_data)
+          
+          # 写回文件
+          with open('index.html', 'w', encoding='utf-8') as f:
+              f.write(content)
+          
+          print(f"✅ 已生成文件列表，共找到 {len(html_files)} 个 HTML 文件")
+          print("文件列表：")
+          for f in html_files:
+              print(f"  - {f}")
+          PYTHON_SCRIPT
 
-      # 提交生成的 index.html 到仓库
-      - name: Commit and push
+      - name: 提交生成的 index.html
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate directory listing"
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 自动更新文件列表"
           git push
