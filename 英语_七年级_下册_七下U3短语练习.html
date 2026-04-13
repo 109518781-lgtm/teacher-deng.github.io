@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 短语即学即练 | 外研版七下U3 Food matters</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fefaf0;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', 'PingFang SC', 'Microsoft YaHei', system-ui;
+            padding: 20px;
+            color: #2c3e2f;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .progress-header {
+            background: white;
+            border-radius: 40px;
+            padding: 18px 28px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #f3e5c9;
+        }
+
+        .title-section h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c07a2e, #e5a443);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .title-section p {
+            color: #b97f3a;
+            font-size: 0.85rem;
+        }
+
+        .stats {
+            background: #fff0df;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #b45f1b;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 36px;
+            margin-bottom: 44px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f3e5cf;
+        }
+
+        .section-title {
+            background: #fef2e0;
+            padding: 20px 30px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-bottom: 3px solid #f3bc6e;
+            color: #a6531e;
+        }
+
+        .section-title small {
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: #bc7a3a;
+            margin-left: 15px;
+        }
+
+        .quiz-area {
+            padding: 28px 32px;
+        }
+
+        .question-item {
+            background: #fffef8;
+            border-radius: 28px;
+            margin-bottom: 32px;
+            padding: 22px 26px;
+            border: 1px solid #f0e2ce;
+            transition: all 0.2s;
+        }
+
+        .question-text {
+            font-weight: 650;
+            font-size: 1.05rem;
+            margin-bottom: 18px;
+            color: #3b2a1f;
+            line-height: 1.4;
+            background: #fff9ef;
+            padding: 10px 16px;
+            border-radius: 28px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fefef7;
+            border: 1px solid #ecdcaa;
+            border-radius: 60px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option:hover:not(.disabled-opt) {
+            background: #fff3e2;
+            border-color: #e5b86b;
+            transform: translateX(4px);
+        }
+
+        .option.disabled-opt {
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        .option input {
+            accent-color: #e68a2e;
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            pointer-events: none;
+        }
+
+        .option label {
+            flex: 1;
+            font-weight: 500;
+            cursor: pointer;
+            color: #5a3e24;
+        }
+
+        .disabled-opt label {
+            cursor: default;
+        }
+
+        .feedback {
+            background: #fffaf2;
+            border-radius: 24px;
+            padding: 18px 20px;
+            margin-top: 14px;
+            border-left: 6px solid #f3bc6e;
+            font-size: 0.92rem;
+        }
+
+        .feedback-correct {
+            border-left-color: #2e7d32;
+            background: #e8f5e9;
+        }
+
+        .feedback-wrong {
+            border-left-color: #d32f2f;
+            background: #ffefef;
+        }
+
+        .explanation {
+            margin-top: 6px;
+            font-weight: 500;
+            color: #3a2a1a;
+        }
+
+        .note-box {
+            background: #fff2e0;
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            border-left: 3px solid #ffa559;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            background: #f0dfc3;
+            padding: 3px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 8px;
+            margin-right: 10px;
+        }
+
+        .section-summary {
+            margin: 16px 28px 28px 28px;
+            padding: 18px 24px;
+            background: #fef8ef;
+            border-radius: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .accuracy {
+            background: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+
+        .download-btn {
+            background: #c27e3a;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .download-btn:hover {
+            background: #9b5e24;
+            transform: scale(0.98);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #b87a3a;
+        }
+
+        @media (max-width: 680px) {
+            .quiz-area {
+                padding: 16px;
+            }
+            .question-item {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="progress-header">
+        <div class="title-section">
+            <h1>🍜 赢未来国雅 · 短语即学即练</h1>
+            <p>外研版七年级下册 Unit 3 Food matters | 全短语覆盖 + 考点笔记</p>
+        </div>
+        <div class="stats" id="globalStats">📊 已完成 0 / 0 题</div>
+    </div>
+    <div id="app"></div>
+    <footer>✨ 每道题选择后即刻锁定，显示正确答案 + 考点笔记 | 支持下载完整学习报告</footer>
+</div>
+
+<script>
+    // ==============================================================
+    // 基于【外研版七下U3 Food matters】全部重点短语 (新附件)
+    // 涵盖：signature dish, bring back, start with, fall ill, a balanced diet, 
+    //       junk food, compare...to, as many as possible, turn off, add...to 等
+    // 题型：中英互译 · 一词多义 · 语境运用
+    // 每题均含：正确答案 + 考点笔记（无冗长选项对比）
+    // ==============================================================
+    const questionsDB = [
+        // =================== START OUT 板块 ===================
+        { id: "so1", section: "start_out", type: "中英互译", question: "短语 'signature dish' 的最佳中文意思是？", options: ["招牌菜", "签名盘子", "特色食谱", "经典甜点"], correct: 0, explanation: "signature dish 指餐厅最具代表性的菜肴，signature 意为“标志性的”。", note: "📌 考点：dish 菜肴，signature dish 强调独特与知名度，常用于介绍地方美食。" },
+        { id: "so2", section: "start_out", type: "语境运用", question: "Fish and chips is a traditional British ______. 横线处最佳选项？", options: ["signature dish", "junk food", "balanced diet", "fast snack"], correct: 0, explanation: "炸鱼薯条是英国代表性食物，因此用 signature dish。", note: "📌 考点：junk food 指不健康食品；balanced diet 均衡饮食；signature dish 为特色菜。" },
+        { id: "so3", section: "start_out", type: "中英互译", question: "“bring back” 在句子 “The smell brings back memories.” 中的含义？", options: ["带回", "归还", "使回忆起", "拿回来"], correct: 2, explanation: "bring back memories 表示“唤起回忆”，是固定搭配。", note: "📌 考点：bring back 可指“带回某物”，但接 memories 时意为“使回忆起”。" },
+        // =================== UNDERSTANDING IDEAS 核心短语 ===================
+        { id: "ui1", section: "understanding", type: "语境运用", question: "I always grow hungry thinking of them. 句中 'grow hungry' 意思是？", options: ["种植饥饿", "变得饥饿", "长大饥饿", "感到饥饿"], correct: 1, explanation: "grow 作系动词，意为“逐渐变得”，grow hungry = become hungry。", note: "📌 考点：系动词 grow + adj. 表渐变，类似 get/become。" },
+        { id: "ui2", section: "understanding", type: "一词多义", question: "Each kind of porridge tastes great in its own way. 'in its own way' 的含义？", options: ["以自己的方式", "在它的路上", "独立地", "凭自己"], correct: 0, explanation: "in its own way 意为“以其独特的方式”。", note: "📌 考点：in a way 在某种程度上；in the way 挡路；in its own way 强调独特性。" },
+        { id: "ui3", section: "understanding", type: "中英互译", question: "“fall ill” 的正确翻译是？", options: ["生病", "摔倒生病", "病倒", "得重病"], correct: 0, explanation: "fall ill 固定搭配，意为“生病”，尤指突发疾病。", note: "📌 考点：fall + adj. 表状态变化，fall asleep 入睡，fall silent 安静下来。" },
+        { id: "ui4", section: "understanding", type: "语境运用", question: "It's better medicine than a pill! 句中 'better than' 表达什么关系？", options: ["比……更好", "优于", "胜过", "比……有益"], correct: 0, explanation: "better than 是比较级，表示“比……更好”，此处强调粥比药片更好。", note: "📌 考点：比较级 better than 反义 worse than；much better 程度加深。" },
+        { id: "ui5", section: "understanding", type: "中英互译", question: "“the taste of home” 指的是？", options: ["家的味道", "家乡风味", "家庭品味", "故乡美食"], correct: 0, explanation: "the taste of home 直译“家的味道”，喻指思乡的食物记忆。", note: "📌 考点：taste 可指味道，也引申为体验；类似 smell of home。" },
+        { id: "ui6", section: "understanding", type: "语境运用", question: "The connection with food remains strong. 'remains' 在此意思是？", options: ["留下", "剩余", "保持不变", "继续存在"], correct: 2, explanation: "remain 系动词，“仍然是，保持”，描述状态持续。", note: "📌 考点：remain + adj. 保持某种状态，同 stay/keep，但更正式。" },
+        { id: "ui7", section: "understanding", type: "中英互译", question: "“add...to...” 在菜谱中的意思是？", options: ["把……添加到……", "增加……到", "向……加入", "添加……在"], correct: 0, explanation: "add A to B 将A加入B中，烹饪常用短语。", note: "📌 考点：add to 增加；add up 加起来；add...to... 为固定搭配。" },
+        { id: "ui8", section: "understanding", type: "语境运用", question: "Turn off the heat when the eggs feel firm. 'turn off the heat' 指的是？", options: ["关火", "关闭加热", "熄火", "停止加热"], correct: 0, explanation: "烹饪专用短语，关闭炉火。", note: "📌 考点：turn off 关闭（电器/开关）；turn on 打开；turn down 调低。" },
+        { id: "ui9", section: "understanding", type: "一词多义", question: "Stir it until it becomes golden yellow. 'until' 表示？", options: ["直到", "在……之前", "到……为止", "除非"], correct: 0, explanation: "until 连词，表示动作持续到某个时间点。", note: "📌 考点：not...until 直到……才；延续性动词 + until。" },
+        { id: "ui10", section: "understanding", type: "中英互译", question: "“away from home” 的最佳翻译是？", options: ["远离家乡", "离家出走", "不在家", "离家远"], correct: 0, explanation: "away from home 表示“远离家乡，在外求学/生活”。", note: "📌 考点：study away from home 离家求学；get away from 摆脱。" },
+        // =================== DEVELOPING IDEAS 拓展短语 ===================
+        { id: "di1", section: "developing", type: "中英互译", question: "“a balanced diet” 指什么？", options: ["均衡饮食", "平衡餐", "营养均衡", "合理膳食"], correct: 0, explanation: "balanced diet 指各类营养素均衡摄入的饮食模式。", note: "📌 考点：keep a balanced diet 保持均衡饮食；反义 unbalanced diet。" },
+        { id: "di2", section: "developing", type: "语境运用", question: "The book suggested people eat different foods. 'suggest' 用法正确的是？", options: ["建议", "暗示", "表明", "提议"], correct: 0, explanation: "suggest + that 从句表示“建议”，从句用(should) do。", note: "📌 考点：suggest doing sth. 建议做某事；suggest 表“暗示”时从句用陈述语气。" },
+        { id: "di3", section: "developing", type: "中英互译", question: "“junk food” 通常指？", options: ["垃圾食品", "不健康食品", "速食", "废弃食物"], correct: 0, explanation: "junk food 高热量低营养食品，如汉堡、薯片。", note: "📌 考点：对比 fast food 快餐；junk food 含贬义，强调不健康。" },
+        { id: "di4", section: "developing", type: "一词多义", question: "We should eat as many fruit and vegetables as possible. 'as many as possible' 含义？", options: ["尽可能多", "和多一样多", "尽可能多地", "尽量多"], correct: 0, explanation: "as many as possible 后接可数名词，表示最大数量。", note: "📌 考点：as much as possible 修饰不可数名词；as soon as possible 尽快。" },
+        { id: "di5", section: "developing", type: "语境运用", question: "Eating carrots will give you better eyesight. 'better' 在此是？", options: ["更好的", "改善", "好转", "较佳"], correct: 0, explanation: "better 是 good 的比较级，修饰名词 eyesight。", note: "📌 考点：比较级修饰名词；much better 好得多；better than 比……好。" },
+        { id: "di6", section: "developing", type: "中英互译", question: "“compare...to...” 在 “People compare roujiamo to hamburgers.” 中的意思是？", options: ["把……比作……", "把……和……比较", "对比……与……", "类比"], correct: 0, explanation: "compare A to B 表示比喻，把A比作B。", note: "📌 考点：compare with 强调对比差异；compare to 强调相似比喻。" },
+        { id: "di7", section: "developing", type: "语境运用", question: "When foods cross borders, sweet things can happen. 'cross borders' 指的是？", options: ["跨越国界", "穿越边境", "跨境", "过境"], correct: 0, explanation: "cross borders 指食物文化跨国传播。", note: "📌 考点：across borders 同义；food across borders 跨境美食。" },
+        { id: "di8", section: "developing", type: "中英互译", question: "“in modern times” 的正确翻译？", options: ["在现代", "当代", "现今", "摩登时代"], correct: 0, explanation: "in modern times 表示“现代，当代”。", note: "📌 考点：in ancient times 在古代；in recent times 近期。" },
+        { id: "di9", section: "developing", type: "语境运用", question: "The history of foods is never simple. 这句话体现了什么？", options: ["食物历史复杂", "食物很简单", "食物文化多元", "食物渊源深厚"], correct: 0, explanation: "强调食物历史充满文化交流与变迁，并非单一。", note: "📌 考点：food history 融合文化、贸易和移民，理解深层含义。" },
+        { id: "di10", section: "developing", type: "一词多义", question: "“do magic” 在文中可能的意思是？", options: ["变魔术", "施展魔法", "创造奇迹", "产生神奇效果"], correct: 0, explanation: "do magic 指表演魔术或产生奇妙作用，文中指食物的神奇。", note: "📌 考点：perform magic 同义；do magic tricks 变戏法。" },
+        { id: "di11", section: "developing", type: "中英互译", question: "“in a positive tone” 意思是？", options: ["以积极的语气", "正面语调", "乐观口吻", "肯定态度"], correct: 0, explanation: "tone 指语气、口吻，positive tone 积极向上的语气。", note: "📌 考点：写作常用；in a friendly tone 友好的语气；tone of voice 嗓音语调。" },
+        { id: "di12", section: "developing", type: "语境运用", question: "Sometimes totally different cultures have similar dishes. 'similar' 反义词是？", options: ["different", "same", "alike", "identical"], correct: 0, explanation: "similar 意为“相似的”，反义词 different。", note: "📌 考点：be similar to 与……相似；be different from 与……不同。" },
+        { id: "di13", section: "developing", type: "中英互译", question: "“start with” 在食谱中的意思是？", options: ["以……开始", "从……出发", "始于", "开端用"], correct: 0, explanation: "start with 表示步骤的第一步。", note: "📌 考点：begin with 同义；to start with 首先。" },
+        { id: "di14", section: "developing", type: "语境运用", question: "I wake up to the smell of porridge. 'wake up to' 意思是？", options: ["被……唤醒", "意识到", "醒来闻到", "醒来时"], correct: 0, explanation: "wake up to the smell 意为“被……气味唤醒”。", note: "📌 考点：wake up 醒来；wake up to sth. 也引申为“意识到”。" },
+        { id: "di15", section: "developing", type: "中英互译", question: "“be high in” 的营养学含义？", options: ["富含", "高含量", "在……方面高", "高度"], correct: 0, explanation: "be high in 表示某营养物质含量高。", note: "📌 考点：be rich in 同义；be low in 含量低；be high in fiber 高纤维。" },
+        { id: "di16", section: "developing", type: "语境运用", question: "I like fruits such as apples and bananas. 'such as' 的作用？", options: ["列举例子", "例如", "比如", "像"], correct: 0, explanation: "such as 用于列举同类事物中的例子。", note: "📌 考点：for example 通常后接完整句子；such as 后接名词/短语。" },
+        { id: "di17", section: "developing", type: "中英互译", question: "“in fact” 在文中的含义？", options: ["事实上", "实际上", "其实", "确切地说"], correct: 0, explanation: "in fact 用于强调真实情况或补充信息。", note: "📌 考点：同义 as a matter of fact, actually；常作插入语。" }
+    ];
+
+    let userAnswers = {};
+    let lockedQuestions = {};
+
+    function initAnswers() {
+        questionsDB.forEach(q => {
+            userAnswers[q.id] = null;
+            lockedQuestions[q.id] = false;
+        });
+    }
+
+    function computeCompleted() {
+        let count = 0;
+        for (let id in userAnswers) if (userAnswers[id] !== null) count++;
+        return count;
+    }
+
+    function updateGlobalStats() {
+        const total = questionsDB.length;
+        const done = computeCompleted();
+        document.getElementById('globalStats').innerHTML = `📊 已完成 ${done} / ${total} 题`;
+    }
+
+    function renderSection(sectionKey, sectionTitle, desc) {
+        const filtered = questionsDB.filter(q => q.section === sectionKey);
+        if (filtered.length === 0) return '';
+        let html = `<div class="section-card" data-section="${sectionKey}">
+                        <div class="section-title">${sectionTitle} <small>${desc}</small></div>
+                        <div class="quiz-area" id="quiz-area-${sectionKey}">`;
+        filtered.forEach(q => {
+            const selectedIdx = userAnswers[q.id] !== null ? userAnswers[q.id] : -1;
+            const isLocked = lockedQuestions[q.id];
+            html += `<div class="question-item" data-qid="${q.id}">
+                        <div class="question-text"><span class="badge">${q.type}</span> ${q.question}</div>
+                        <div class="options" id="opts-${q.id}">`;
+            q.options.forEach((opt, idx) => {
+                const checkedAttr = (selectedIdx === idx) ? 'checked' : '';
+                const disabledAttr = isLocked ? 'disabled' : '';
+                html += `<div class="option ${isLocked ? 'disabled-opt' : ''}" data-opt-index="${idx}" data-qid="${q.id}">
+                            <input type="radio" name="q_${q.id}" value="${idx}" id="q_${q.id}_${idx}" ${checkedAttr} ${disabledAttr}>
+                            <label for="q_${q.id}_${idx}">${String.fromCharCode(65+idx)}. ${opt}</label>
+                         </div>`;
+            });
+            html += `</div><div class="feedback" id="fb-${q.id}" style="display: none;"></div></div>`;
+        });
+        html += `</div><div class="section-summary" id="summary-${sectionKey}"><span>📌 本区进度</span><span class="accuracy" id="acc-${sectionKey}">0% 正确率</span></div></div>`;
+        return html;
+    }
+
+    function showFeedback(qid, selectedIdx, isCorrect) {
+        const fbDiv = document.getElementById(`fb-${qid}`);
+        if (!fbDiv) return;
+        const q = questionsDB.find(qq => qq.id === qid);
+        const correctLetter = String.fromCharCode(65 + q.correct);
+        const correctText = q.options[q.correct];
+        fbDiv.style.display = 'block';
+        fbDiv.innerHTML = `<div class="${isCorrect ? 'feedback-correct' : 'feedback-wrong'}" style="padding: 8px; border-radius: 20px;">
+            <strong>${isCorrect ? '✅ 回答正确！' : '❌ 回答错误'}</strong><br/>
+            <div class="explanation">📖 解析：${q.explanation}</div>
+            <div class="note-box">📘 考点笔记：${q.note}<br/>✔ 正确答案：${correctLetter}. ${correctText}</div>
+        </div>`;
+    }
+
+    function lockOptions(qid) {
+        const container = document.getElementById(`opts-${qid}`);
+        if (!container) return;
+        container.querySelectorAll('.option').forEach(opt => {
+            opt.classList.add('disabled-opt');
+            const radio = opt.querySelector('input');
+            if (radio) radio.disabled = true;
+        });
+    }
+
+    function updateSectionAccuracy() {
+        const sections = ['start_out', 'understanding', 'developing'];
+        sections.forEach(sec => {
+            const secQuestions = questionsDB.filter(q => q.section === sec);
+            let answered = 0, correct = 0;
+            secQuestions.forEach(q => {
+                const ans = userAnswers[q.id];
+                if (ans !== null) {
+                    answered++;
+                    if (ans === q.correct) correct++;
+                }
+            });
+            const accuracy = answered === 0 ? 0 : Math.round((correct / answered) * 100);
+            const accSpan = document.getElementById(`acc-${sec}`);
+            if (accSpan) accSpan.innerText = `${accuracy}% 正确率 (${correct}/${answered})`;
+        });
+        updateGlobalStats();
+    }
+
+    function bindEvents() {
+        document.querySelectorAll('.options').forEach(container => {
+            container.addEventListener('change', (e) => {
+                const radio = e.target;
+                if (!radio.matches('input[type="radio"]')) return;
+                const qid = radio.name.split('_')[1];
+                if (lockedQuestions[qid]) return;
+                const selectedVal = parseInt(radio.value);
+                const q = questionsDB.find(qq => qq.id === qid);
+                if (!q) return;
+                const isCorrect = (selectedVal === q.correct);
+                userAnswers[qid] = selectedVal;
+                lockedQuestions[qid] = true;
+                showFeedback(qid, selectedVal, isCorrect);
+                lockOptions(qid);
+                updateSectionAccuracy();
+            });
+        });
+    }
+
+    function generateReport() {
+        let report = "📚 赢未来国雅·短语即学即练 学习报告\n";
+        report += `生成时间：${new Date().toLocaleString()}\n总题数：${questionsDB.length}\n已完成：${computeCompleted()}\n\n`;
+        let totalCorrect = 0;
+        let details = [];
+        questionsDB.forEach(q => {
+            const userChoice = userAnswers[q.id];
+            const isCorrect = (userChoice !== null && userChoice === q.correct);
+            if (isCorrect) totalCorrect++;
+            const userAnswerText = userChoice !== null ? q.options[userChoice] : "未作答";
+            const correctAnswerText = q.options[q.correct];
+            details.push(`\n【${q.section.toUpperCase()} | ${q.type}】${q.question}\n我的答案：${userAnswerText}\n正确答案：${correctAnswerText}\n解析：${q.explanation}\n笔记：${q.note}\n状态：${isCorrect ? "✓" : "✗"}\n`);
+        });
+        const totalRate = Math.round((totalCorrect / questionsDB.length) * 100);
+        report += `总体正确率：${totalRate}% (${totalCorrect}/${questionsDB.length})\n\n========== 详细记录 ==========\n${details.join('---\n')}`;
+        const blob = new Blob([report], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = "U3_phrase_report.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function addDownloadButtons() {
+        ['start_out', 'understanding', 'developing'].forEach(sec => {
+            const sumDiv = document.getElementById(`summary-${sec}`);
+            if (sumDiv && !sumDiv.querySelector('.sec-download')) {
+                const btn = document.createElement('button');
+                btn.innerText = '📄 下载学习报告';
+                btn.className = 'download-btn sec-download';
+                btn.style.marginLeft = '15px';
+                btn.addEventListener('click', () => generateReport());
+                sumDiv.appendChild(btn);
+            }
+        });
+        if (!document.querySelector('.global-extra-download')) {
+            const extra = document.createElement('div');
+            extra.style.display = 'flex';
+            extra.style.justifyContent = 'center';
+            extra.style.margin = '20px 0 10px';
+            const btnAll = document.createElement('button');
+            btnAll.innerText = '📑 下载完整学习报告（全短语）';
+            btnAll.className = 'download-btn';
+            btnAll.style.padding = '12px 28px';
+            btnAll.addEventListener('click', generateReport);
+            extra.appendChild(btnAll);
+            document.getElementById('app').appendChild(extra);
+        }
+    }
+
+    function renderApp() {
+        const appDiv = document.getElementById('app');
+        const startHtml = renderSection('start_out', '🍽️ Starting out · 美食基础认知', '招牌菜 / 跨境食物');
+        const underHtml = renderSection('understanding', '🥘 Understanding ideas (核心短语篇)', '味道记忆 / 烹饪动作');
+        const devHtml = renderSection('developing', '🌍 Developing ideas (拓展提升)', '均衡饮食 / 文化对比');
+        appDiv.innerHTML = startHtml + underHtml + devHtml;
+        bindEvents();
+        updateSectionAccuracy();
+        addDownloadButtons();
+        updateGlobalStats();
+    }
+
+    initAnswers();
+    renderApp();
+</script>
+</body>
+</html>
