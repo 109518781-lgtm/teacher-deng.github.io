@@ -1,4 +1,4 @@
-name: 自动生成文件列表
+name: 自动生成按科目分类的文件列表
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 生成文件列表页面
+      - name: 生成分类文件列表页面
         run: |
           cat > index.html << 'EOF'
           <!DOCTYPE html>
@@ -22,17 +22,17 @@ jobs:
           <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-              <title>学生复习资料</title>
+              <title>学生复习资料 - 按科目分类</title>
               <style>
                   * { box-sizing: border-box; }
                   body {
                       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                      background: #f5f7fa;
+                      background: #f0f2f5;
                       margin: 0;
                       padding: 20px;
                   }
                   .container {
-                      max-width: 800px;
+                      max-width: 1200px;
                       margin: 0 auto;
                   }
                   h1 {
@@ -47,40 +47,75 @@ jobs:
                       margin-bottom: 30px;
                       font-size: 14px;
                   }
-                  .file-list {
+                  .subject-grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                      gap: 20px;
+                  }
+                  .subject-card {
                       background: white;
                       border-radius: 16px;
                       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                       overflow: hidden;
+                      transition: transform 0.2s;
+                  }
+                  .subject-card:hover {
+                      transform: translateY(-4px);
+                      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                  }
+                  .subject-header {
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      color: white;
+                      padding: 14px 18px;
+                      font-size: 18px;
+                      font-weight: bold;
+                  }
+                  /* 科目颜色 */
+                  .subject-header.语文 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+                  .subject-header.数学 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+                  .subject-header.英语 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+                  .subject-header.科学 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+                  .subject-header.物理 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+                  .subject-header.化学 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+                  .subject-header.历史 { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+                  .file-list {
+                      max-height: 350px;
+                      overflow-y: auto;
                   }
                   .file-item {
+                      padding: 10px 16px;
+                      border-bottom: 1px solid #eee;
                       display: flex;
                       align-items: center;
-                      padding: 14px 20px;
-                      border-bottom: 1px solid #eee;
-                      transition: background 0.2s;
                   }
                   .file-item:hover {
                       background: #f8f9fa;
                   }
                   .file-icon {
-                      font-size: 22px;
-                      margin-right: 15px;
+                      font-size: 18px;
+                      margin-right: 10px;
+                      flex-shrink: 0;
                   }
                   .file-link {
-                      flex: 1;
                       text-decoration: none;
                       color: #333;
-                      font-size: 16px;
+                      font-size: 14px;
                       word-break: break-word;
+                      flex: 1;
                   }
                   .file-link:hover {
                       color: #0366d6;
                       text-decoration: underline;
                   }
+                  .grade-tag {
+                      font-size: 11px;
+                      color: #888;
+                      margin-left: 8px;
+                      flex-shrink: 0;
+                  }
                   .empty-tip {
                       text-align: center;
-                      padding: 50px;
+                      padding: 40px;
                       color: #999;
                   }
                   .footer {
@@ -90,79 +125,150 @@ jobs:
                       color: #999;
                       font-size: 12px;
                   }
-                  @media (max-width: 600px) {
+                  @media (max-width: 700px) {
                       body { padding: 12px; }
-                      .file-item { padding: 12px 15px; }
-                      .file-link { font-size: 14px; }
+                      .subject-grid { grid-template-columns: 1fr; }
                   }
               </style>
           </head>
           <body>
               <div class="container">
-                  <h1>📚 学生复习资料</h1>
-                  <div class="subtitle">点击文件名开始复习</div>
-                  <div class="file-list" id="fileList"></div>
+                  <h1>📚 学生复习资料中心</h1>
+                  <div class="subtitle">按科目分类 | 点击文件名开始复习</div>
+                  <div class="subject-grid" id="subjectGrid"></div>
                   <div class="footer">
                       ⏰ 最后更新：<span id="updateTime"></span>
                   </div>
               </div>
               <script>
                   // 由 GitHub Actions 自动生成的文件数据
-                  const files = __FILE_LIST_PLACEHOLDER__;
+                  const fileData = __FILE_DATA_PLACEHOLDER__;
                   
-                  const container = document.getElementById("fileList");
+                  const subjectNames = {
+                      "语文": "📖 语文", "数学": "🧮 数学", "英语": "🇬🇧 英语",
+                      "科学": "🔬 科学", "物理": "⚡ 物理", "化学": "🧪 化学",
+                      "生物": "🧬 生物", "历史": "🏛️ 历史", "地理": "🌍 地理",
+                      "政治": "⚖️ 政治"
+                  };
                   
-                  if (!files || files.length === 0) {
-                      container.innerHTML = '<div class="empty-tip">📭 暂无复习资料，请上传 HTML 文件</div>';
-                  } else {
-                      let html = '';
-                      for (let i = 0; i < files.length; i++) {
-                          const file = files[i];
-                          // 去掉 .html 后缀作为显示名称
-                          let displayName = file.replace(/\.html$/i, '');
-                          html += `
-                              <div class="file-item">
-                                  <span class="file-icon">📘</span>
-                                  <a href="${file}" class="file-link" target="_blank">${displayName}</a>
-                              </div>
-                          `;
-                      }
-                      container.innerHTML = html;
+                  function getSubjectClass(subject) {
+                      const map = { "语文": "语文", "数学": "数学", "英语": "英语" };
+                      return map[subject] || "";
                   }
                   
-                  document.getElementById("updateTime").innerText = new Date().toLocaleString("zh-CN");
+                  function getSubjectDisplay(subject) {
+                      return subjectNames[subject] || `📚 ${subject}`;
+                  }
+                  
+                  function render() {
+                      const grid = document.getElementById("subjectGrid");
+                      const subjects = Object.keys(fileData).sort();
+                      
+                      if (subjects.length === 0) {
+                          grid.innerHTML = '<div class="empty-tip">📭 暂无复习资料</div>';
+                          return;
+                      }
+                      
+                      let html = "";
+                      for (const subject of subjects) {
+                          const files = fileData[subject];
+                          html += `
+                              <div class="subject-card">
+                                  <div class="subject-header ${getSubjectClass(subject)}">${getSubjectDisplay(subject)} (${files.length})</div>
+                                  <div class="file-list">
+                          `;
+                          for (const file of files) {
+                              html += `
+                                  <div class="file-item">
+                                      <span class="file-icon">📘</span>
+                                      <a href="${file.filename}" class="file-link" target="_blank">${file.displayName}</a>
+                                      <span class="grade-tag">${file.grade}</span>
+                                  </div>
+                              `;
+                          }
+                          html += `</div></div>`;
+                      }
+                      grid.innerHTML = html;
+                      document.getElementById("updateTime").innerText = new Date().toLocaleString("zh-CN");
+                  }
+                  render();
               </script>
           </body>
           </html>
           EOF
           
-          # 用 Python 扫描所有 HTML 文件并生成 JSON
+          # 用 Python 解析文件名（格式：科目_年级_上下册_文件名.html）
           python3 << 'PYTHON_SCRIPT'
           import os
           import json
+          import re
           
-          # 获取所有 .html 文件（排除 index.html）
           html_files = [f for f in os.listdir('.') if f.endswith('.html') and f != 'index.html']
           
-          # 按文件名排序（数字在前，中文按拼音）
-          html_files.sort()
+          # 分类数据结构
+          categories = {}
           
-          # 读取生成的 HTML
+          for file in html_files:
+              # 去掉 .html 后缀
+              name_without_ext = file[:-5] if file.endswith('.html') else file
+              
+              # 按下划线分割
+              parts = name_without_ext.split('_')
+              
+              # 解析：格式应该是 [科目, 年级, 上下册, 文件名...]
+              if len(parts) >= 4:
+                  subject = parts[0]
+                  grade = parts[1]
+                  volume = parts[2]  # 上册/下册/通用
+                  file_title = '_'.join(parts[3:])  # 剩余部分作为文件名
+              elif len(parts) == 3:
+                  # 兼容没有年级的情况
+                  subject = parts[0]
+                  grade = parts[1]
+                  volume = "通用"
+                  file_title = parts[2]
+              else:
+                  # 不符合格式的放到"其他"
+                  subject = "其他"
+                  grade = ""
+                  volume = ""
+                  file_title = name_without_ext
+              
+              # 构建显示名称
+              if grade and volume:
+                  display_name = f"{file_title} ({grade}{volume})"
+              elif grade:
+                  display_name = f"{file_title} ({grade})"
+              else:
+                  display_name = file_title
+              
+              if subject not in categories:
+                  categories[subject] = []
+              
+              categories[subject].append({
+                  "filename": file,
+                  "displayName": display_name,
+                  "grade": f"{grade}{volume}" if grade else ""
+              })
+          
+          # 对每个科目的文件按年级排序
+          for subject in categories:
+              categories[subject].sort(key=lambda x: x['grade'])
+          
+          # 读取并替换
           with open('index.html', 'r', encoding='utf-8') as f:
               content = f.read()
           
-          # 替换占位符
-          json_data = json.dumps(html_files, ensure_ascii=False)
-          content = content.replace('__FILE_LIST_PLACEHOLDER__', json_data)
+          json_data = json.dumps(categories, ensure_ascii=False, indent=2)
+          content = content.replace('__FILE_DATA_PLACEHOLDER__', json_data)
           
-          # 写回文件
           with open('index.html', 'w', encoding='utf-8') as f:
               f.write(content)
           
-          print(f"✅ 已生成文件列表，共找到 {len(html_files)} 个 HTML 文件")
-          print("文件列表：")
-          for f in html_files:
-              print(f"  - {f}")
+          total_files = sum(len(v) for v in categories.values())
+          print(f"✅ 已生成分类列表，共 {total_files} 个文件，{len(categories)} 个科目")
+          for subject, files in categories.items():
+              print(f"  📁 {subject}: {len(files)} 个文件")
           PYTHON_SCRIPT
 
       - name: 提交生成的 index.html
@@ -170,5 +276,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 自动更新文件列表"
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 自动生成按科目分类的复习主页"
           git push
