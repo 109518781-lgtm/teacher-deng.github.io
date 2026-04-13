@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>学生复习资料</title>
+    <title>学生复习资料 - 按科目分类</title>
     <style>
         * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #f5f7fa;
+            background: #f0f2f5;
             margin: 0;
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         h1 {
@@ -28,40 +28,75 @@
             margin-bottom: 30px;
             font-size: 14px;
         }
-        .file-list {
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .subject-card {
             background: white;
             border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .subject-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .subject-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 18px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* 科目颜色 */
+        .subject-header.语文 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .subject-header.数学 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .subject-header.英语 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .subject-header.科学 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .subject-header.物理 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .subject-header.化学 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .subject-header.历史 { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+        .file-list {
+            max-height: 350px;
+            overflow-y: auto;
         }
         .file-item {
+            padding: 10px 16px;
+            border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
-            padding: 14px 20px;
-            border-bottom: 1px solid #eee;
-            transition: background 0.2s;
         }
         .file-item:hover {
             background: #f8f9fa;
         }
         .file-icon {
-            font-size: 22px;
-            margin-right: 15px;
+            font-size: 18px;
+            margin-right: 10px;
+            flex-shrink: 0;
         }
         .file-link {
-            flex: 1;
             text-decoration: none;
             color: #333;
-            font-size: 16px;
+            font-size: 14px;
             word-break: break-word;
+            flex: 1;
         }
         .file-link:hover {
             color: #0366d6;
             text-decoration: underline;
         }
+        .grade-tag {
+            font-size: 11px;
+            color: #888;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
         .empty-tip {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
             color: #999;
         }
         .footer {
@@ -71,47 +106,154 @@
             color: #999;
             font-size: 12px;
         }
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             body { padding: 12px; }
-            .file-item { padding: 12px 15px; }
-            .file-link { font-size: 14px; }
+            .subject-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📚 学生复习资料</h1>
-        <div class="subtitle">点击文件名开始复习</div>
-        <div class="file-list" id="fileList"></div>
+        <h1>📚 学生复习资料中心</h1>
+        <div class="subtitle">按科目分类 | 点击文件名开始复习</div>
+        <div class="subject-grid" id="subjectGrid"></div>
         <div class="footer">
             ⏰ 最后更新：<span id="updateTime"></span>
         </div>
     </div>
     <script>
         // 由 GitHub Actions 自动生成的文件数据
-        const files = ["地理_八年级_200道必考会考题.html", "数学_高中_平面向量解析.html", "英语_七年级_下册_七下U3短语练习.html", "英语_七年级_下册_七下英语外研版U1练习.html", "英语_七年级_下册_七下英语外研版U2练习.html", "英语_七年级_下册_七下英语外研版U3练习.html", "英语_八年级_下册_初二英语下册外研版单词预习.html", "英语_新概念1册_新概念59-60练习.html", "英语_新概念1册_新概念77-78练习.html", "英语_新概念1册_新概念79-80练习.html", "英语_新概念1册_新概念81-82练习.html", "语文_七年级_下册_七下语文第三单元练习.html", "语文_七年级_下册_七下语文第二单元练习.html", "赢未来国雅-英语单词互动小游戏.html"];
+        const fileData = {
+  "英语": [
+    {
+      "filename": "英语_七年级_下册_七下U3短语练习.html",
+      "displayName": "七下U3短语练习 (七年级下册)",
+      "grade": "七年级下册"
+    },
+    {
+      "filename": "英语_七年级_下册_七下英语外研版U2练习.html",
+      "displayName": "七下英语外研版U2练习 (七年级下册)",
+      "grade": "七年级下册"
+    },
+    {
+      "filename": "英语_七年级_下册_七下英语外研版U3练习.html",
+      "displayName": "七下英语外研版U3练习 (七年级下册)",
+      "grade": "七年级下册"
+    },
+    {
+      "filename": "英语_七年级_下册_七下英语外研版U1练习.html",
+      "displayName": "七下英语外研版U1练习 (七年级下册)",
+      "grade": "七年级下册"
+    },
+    {
+      "filename": "英语_八年级_下册_初二英语下册外研版单词预习.html",
+      "displayName": "初二英语下册外研版单词预习 (八年级下册)",
+      "grade": "八年级下册"
+    },
+    {
+      "filename": "英语_新概念1册_新概念77-78练习.html",
+      "displayName": "新概念77-78练习 (新概念1册通用)",
+      "grade": "新概念1册通用"
+    },
+    {
+      "filename": "英语_新概念1册_新概念59-60练习.html",
+      "displayName": "新概念59-60练习 (新概念1册通用)",
+      "grade": "新概念1册通用"
+    },
+    {
+      "filename": "英语_新概念1册_新概念81-82练习.html",
+      "displayName": "新概念81-82练习 (新概念1册通用)",
+      "grade": "新概念1册通用"
+    },
+    {
+      "filename": "英语_新概念1册_新概念79-80练习.html",
+      "displayName": "新概念79-80练习 (新概念1册通用)",
+      "grade": "新概念1册通用"
+    }
+  ],
+  "其他": [
+    {
+      "filename": "赢未来国雅-英语单词互动小游戏.html",
+      "displayName": "赢未来国雅-英语单词互动小游戏",
+      "grade": ""
+    }
+  ],
+  "地理": [
+    {
+      "filename": "地理_八年级_200道必考会考题.html",
+      "displayName": "200道必考会考题 (八年级通用)",
+      "grade": "八年级通用"
+    }
+  ],
+  "数学": [
+    {
+      "filename": "数学_高中_平面向量解析.html",
+      "displayName": "平面向量解析 (高中通用)",
+      "grade": "高中通用"
+    }
+  ],
+  "语文": [
+    {
+      "filename": "语文_七年级_下册_七下语文第三单元练习.html",
+      "displayName": "七下语文第三单元练习 (七年级下册)",
+      "grade": "七年级下册"
+    },
+    {
+      "filename": "语文_七年级_下册_七下语文第二单元练习.html",
+      "displayName": "七下语文第二单元练习 (七年级下册)",
+      "grade": "七年级下册"
+    }
+  ]
+};
         
-        const container = document.getElementById("fileList");
+        const subjectNames = {
+            "语文": "📖 语文", "数学": "🧮 数学", "英语": "🇬🇧 英语",
+            "科学": "🔬 科学", "物理": "⚡ 物理", "化学": "🧪 化学",
+            "生物": "🧬 生物", "历史": "🏛️ 历史", "地理": "🌍 地理",
+            "政治": "⚖️ 政治"
+        };
         
-        if (!files || files.length === 0) {
-            container.innerHTML = '<div class="empty-tip">📭 暂无复习资料，请上传 HTML 文件</div>';
-        } else {
-            let html = '';
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                // 去掉 .html 后缀作为显示名称
-                let displayName = file.replace(/\.html$/i, '');
-                html += `
-                    <div class="file-item">
-                        <span class="file-icon">📘</span>
-                        <a href="${file}" class="file-link" target="_blank">${displayName}</a>
-                    </div>
-                `;
-            }
-            container.innerHTML = html;
+        function getSubjectClass(subject) {
+            const map = { "语文": "语文", "数学": "数学", "英语": "英语" };
+            return map[subject] || "";
         }
         
-        document.getElementById("updateTime").innerText = new Date().toLocaleString("zh-CN");
+        function getSubjectDisplay(subject) {
+            return subjectNames[subject] || `📚 ${subject}`;
+        }
+        
+        function render() {
+            const grid = document.getElementById("subjectGrid");
+            const subjects = Object.keys(fileData).sort();
+            
+            if (subjects.length === 0) {
+                grid.innerHTML = '<div class="empty-tip">📭 暂无复习资料</div>';
+                return;
+            }
+            
+            let html = "";
+            for (const subject of subjects) {
+                const files = fileData[subject];
+                html += `
+                    <div class="subject-card">
+                        <div class="subject-header ${getSubjectClass(subject)}">${getSubjectDisplay(subject)} (${files.length})</div>
+                        <div class="file-list">
+                `;
+                for (const file of files) {
+                    html += `
+                        <div class="file-item">
+                            <span class="file-icon">📘</span>
+                            <a href="${file.filename}" class="file-link" target="_blank">${file.displayName}</a>
+                            <span class="grade-tag">${file.grade}</span>
+                        </div>
+                    `;
+                }
+                html += `</div></div>`;
+            }
+            grid.innerHTML = html;
+            document.getElementById("updateTime").innerText = new Date().toLocaleString("zh-CN");
+        }
+        render();
     </script>
 </body>
 </html>
