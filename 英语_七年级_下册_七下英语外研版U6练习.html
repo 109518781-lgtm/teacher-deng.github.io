@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 中考英语 Unit 6 Hitting the Road (考点笔记版)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #faf6ed;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            color: #3a2c1f;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .stats-bar {
+            background: white;
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-text {
+            background: #f0ede5;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #7a5a3a;
+        }
+        .accuracy-badge {
+            background: #fff0df;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #c9772e, #eaa45a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 38px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .section-title {
+            background: #f8efdf;
+            padding: 18px 26px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-left: 8px solid #e68a2e;
+            color: #9b5e2c;
+        }
+        .sub-title {
+            background: #fefaf4;
+            padding: 8px 26px;
+            font-size: 0.85rem;
+            color: #b87a3a;
+            border-bottom: 1px solid #fee3c0;
+            font-style: italic;
+        }
+        .question-item {
+            padding: 20px 26px;
+            border-bottom: 1px solid #f0e4d4;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.02rem;
+            margin-bottom: 16px;
+            line-height: 1.45;
+            color: #5a3e22;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 12px;
+        }
+        .option-btn {
+            background: #fffcf7;
+            border: 1.5px solid #f0dbbc;
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #8a5a2a;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #faeedc;
+            border-color: #e6a252;
+            transform: scale(0.97);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: #fefbf7;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 5px solid #f2d5ac;
+        }
+        .feedback.correct {
+            background: #eef6e6;
+            border-left-color: #8cae6c;
+        }
+        .feedback.wrong {
+            background: #ffece8;
+            border-left-color: #d96a3a;
+        }
+        .correct-answer-badge {
+            font-weight: bold;
+            background: #efe2cf;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .section-footer {
+            padding: 16px 26px;
+            background: #fefaf5;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #f0e4d4;
+            font-weight: 500;
+        }
+        .global-download {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px;
+        }
+        .download-btn {
+            background: #c9772e;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 48px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .download-btn:hover {
+            background: #a65d22;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            .option-btn { padding: 5px 14px; font-size: 0.8rem; }
+            .section-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="stats-bar">
+        <h1>🧳 赢未来国雅 · 即学即练 | U6 踏上旅途</h1>
+        <div style="display: flex; gap: 12px;">
+            <div class="progress-text" id="progressCounter">已完成 0 / 30</div>
+            <div class="accuracy-badge" id="accuracyDisplay">正确率: --%</div>
+        </div>
+    </div>
+    <div id="quizRoot"></div>
+    <div class="global-download" id="downloadBtnContainer"></div>
+</div>
+
+<script>
+    // ======================= 外研七下 Unit 6 Hitting the road =======================
+    // 主要考点基于 Understanding ideas (四川火锅体验、文化差异、旅行感悟)
+    // 完形填空围绕课文“火锅初体验”与“入乡随俗”；短文填空基于 Developing ideas (徐霞客传奇、旅行意义)
+    // 总题数: 短语·语法融合 14题 + 完形填空 8题 + 短文填空 8题 = 30题
+    // 每道题显示正确答案 + 考点笔记（包含所有选项辨析）
+
+    // ---------- 1. 短语·语法融合 (Understanding ideas核心考点) ----------
+    const mixedChoice = [
+        { text: "My friend took me to a restaurant right ________ the airport.", options: ["A. from", "B. to", "C. at", "D. in"], correct: "A", note: "🔍 考点笔记：right from 直接从……。A.from正确；B.to到；C.at在；D.in在……里。" },
+        { text: "I just couldn't wait ________ try Sichuan hot pot!", options: ["A. for", "B. to", "C. and", "D. with"], correct: "B", note: "🔍 考点笔记：can't wait to do sth. 迫不及待做某事。A.for为了；B.to正确；C.and和；D.with伴随。" },
+        { text: "The first taste ________ my mouth burn! It was extremely spicy.", options: ["A. made", "B. let", "C. had", "D. got"], correct: "A", note: "🔍 考点笔记：make sb. do sth. 让某人做某事。A.made正确；B.let让（后接原形）；C.had使役动词（had better）；D.got得到。" },
+        { text: "The food was much ________ than I expected. I had to drink a lot of water.", options: ["A. hot", "B. hotter", "C. hottest", "D. the hottest"], correct: "B", note: "🔍 考点笔记：much + 比较级，表示……得多。A.hot原级；B.hotter正确；C.hottest最高级；D.the hottest最高级。" },
+        { text: "When in China, do ________ the Chinese do. That's good advice.", options: ["A. like", "B. as", "C. for", "D. with"], correct: "B", note: "🔍 考点笔记：do as sb. does 像某人一样做。A.like像（介词）；B.as作为/正如（连词）正确；C.for为了；D.with伴随。" },
+        { text: "Cooking hot pot was just ________ fun as eating it!", options: ["A. as", "B. so", "C. such", "D. like"], correct: "A", note: "🔍 考点笔记：as...as 和……一样。A.as正确；B.so如此；C.such如此（修饰名词）；D.like像。" },
+        { text: "I'm really looking forward ________ the rest of my trip around China.", options: ["A. to", "B. for", "C. at", "D. with"], correct: "A", note: "🔍 考点笔记：look forward to 期待（to介词）。A.to正确；B.for为了；C.at在；D.with伴随。" },
+        { text: "I prefer trying local food ________ visiting places of interest on a trip.", options: ["A. than", "B. to", "C. for", "D. with"], correct: "B", note: "🔍 考点笔记：prefer doing A to doing B 比起B更喜欢A。A.than比；B.to正确；C.for为了；D.with伴随。" },
+        { text: "In the middle of the huge falls, I felt myself as ________ as an ant.", options: ["A. small", "B. smaller", "C. smallest", "D. the smallest"], correct: "A", note: "🔍 考点笔记：as + 原级 + as 和……一样。A.small正确；B.smaller比较级；C.smallest最高级；D.the smallest最高级。" },
+        { text: "He had to ________ the last trip of his life because of illness.", options: ["A. end", "B. finish", "C. start", "D. continue"], correct: "A", note: "🔍 考点笔记：end 结束。A.end正确；B.finish完成；C.start开始；D.continue继续。" },
+        { text: "People say I'm as great ________ Zhang Qian and Xuanzang. So I have no regrets.", options: ["A. as", "B. like", "C. than", "D. to"], correct: "A", note: "🔍 考点笔记：as + adj. + as 和……一样。A.as正确；B.like像；C.than比；D.to到。" },
+        { text: "From an early age, Xu dreamed ________ visiting China's seas and mountains.", options: ["A. of", "B. for", "C. to", "D. with"], correct: "A", note: "🔍 考点笔记：dream of doing sth. 梦想做某事。A.of正确；B.for为了；C.to到；D.with伴随。" },
+        { text: "He discovered that Lianhua Peak gave a ________ view, so it must be higher.", options: ["A. wider", "B. wide", "C. widest", "D. the widest"], correct: "A", note: "🔍 考点笔记：wider view 更广阔的视野（比较级）。A.wider正确；B.wide原级；C.widest最高级；D.the widest最高级。" },
+        { text: "Thanks ________ this book, we can learn about China almost 400 years ago.", options: ["A. to", "B. for", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：thanks to 多亏。A.to正确；B.for为了；C.of……的；D.with伴随。" }
+    ];
+
+    // ---------- 2. 完形填空 (8空) 基于 Understanding ideas 四川火锅与文化融入 ----------
+    const clozeOptions = [
+        { text: "When I first tried Sichuan hot pot, the spicy taste ________ my mouth burn.", options: ["A. made", "B. let", "C. had", "D. got"], correct: "A", note: "🔍 考点笔记：make sb. do sth. 让某人做某事。A.made正确；B.let让；C.had使役；D.got得到。" },
+        { text: "I expected the food to be spicy, but it was much ________ than I thought.", options: ["A. hot", "B. hotter", "C. hottest", "D. the hottest"], correct: "B", note: "🔍 考点笔记：much + 比较级。A.hot原级；B.hotter正确；C.hottest最高级；D.the hottest最高级。" },
+        { text: "My friend asked, 'Do you want something ________ hot?' I said no and kept eating.", options: ["A. less", "B. more", "C. most", "D. little"], correct: "A", note: "🔍 考点笔记：less hot 不那么辣。A.less正确；B.more更多；C.most最多；D.little少量。" },
+        { text: "When in China, do ________ the Chinese do. So I tried to eat like a local.", options: ["A. as", "B. like", "C. for", "D. with"], correct: "A", note: "🔍 考点笔记：do as sb. does 像某人一样做。A.as正确；B.like像（介词不引导从句）；C.for为了；D.with伴随。" },
+        { text: "Cooking hot pot was just as fun ________ eating it. We all enjoyed the process.", options: ["A. as", "B. so", "C. than", "D. like"], correct: "A", note: "🔍 考点笔记：as...as 和……一样。A.as正确；B.so如此；C.than比；D.like像。" },
+        { text: "I'm really looking forward ________ the rest of my journey in China.", options: ["A. to", "B. for", "C. at", "D. with"], correct: "A", note: "🔍 考点笔记：look forward to 期待。A.to正确；B.for为了；C.at在；D.with伴随。" },
+        { text: "I prefer ________ local food to visiting famous places. It's more authentic.", options: ["A. try", "B. to try", "C. trying", "D. tried"], correct: "C", note: "🔍 考点笔记：prefer doing A to doing B。A.try原形；B.to try不定式；C.trying正确；D.tried过去式。" },
+        { text: "In the middle of the waterfall, I felt as ________ as an ant. Nature is powerful.", options: ["A. small", "B. smaller", "C. smallest", "D. the smallest"], correct: "A", note: "🔍 考点笔记：as + 原级 + as。A.small正确；B.smaller比较级；C.smallest最高级；D.the smallest最高级。" }
+    ];
+
+    // ---------- 3. 短文填空 (Developing ideas 拓展: 徐霞客传奇、旅行家精神) ----------
+    const shortPassages = [
+        { text: "Xu Xiake dreamed ________ visiting China's great mountains and rivers from an early age.", options: ["A. of", "B. for", "C. to", "D. with"], correct: "A", note: "🔍 考点笔记：dream of doing 梦想做。A.of正确；B.for为了；C.to到；D.with伴随。" },
+        { text: "At that time, it was very difficult to travel far, but he never ________ up.", options: ["A. gave", "B. took", "C. put", "D. looked"], correct: "A", note: "🔍 考点笔记：give up 放弃。A.gave正确；B.took拿走；C.put放；D.looked看。" },
+        { text: "To find out the ________, Xu climbed both peaks and compared their views.", options: ["A. truth", "B. lie", "C. story", "D. joke"], correct: "A", note: "🔍 考点笔记：truth 真相/事实。A.truth正确；B.lie谎言；C.story故事；D.joke玩笑。" },
+        { text: "He discovered that Lianhua Peak gave a ________ view, so it must be higher.", options: ["A. wider", "B. wide", "C. widest", "D. the widest"], correct: "A", note: "🔍 考点笔记：wider 更宽广的（比较级）。A.wider正确；B.wide原级；C.widest最高级；D.the widest最高级。" },
+        { text: "Xu recorded his travel ________ in his diary, which became a famous book.", options: ["A. experiences", "B. experiments", "C. expenses", "D. explanations"], correct: "A", note: "🔍 考点笔记：travel experiences 旅行经历。A.experiences正确；B.experiments实验；C.expenses花费；D.explanations解释。" },
+        { text: "Thanks ________ his diary, we can learn about China 400 years ago.", options: ["A. to", "B. for", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：thanks to 多亏。A.to正确；B.for为了；C.of……的；D.with伴随。" },
+        { text: "People asked him, 'Do you ________ spending your whole life on the road?' He said no.", options: ["A. regret", "B. enjoy", "C. remember", "D. forget"], correct: "A", note: "🔍 考点笔记：regret 后悔。A.regret正确；B.enjoy享受；C.remember记得；D.forget忘记。" },
+        { text: "Travel can help you ________ how small you are in the world, but also how wonderful.", options: ["A. realise", "B. real", "C. really", "D. reality"], correct: "A", note: "🔍 考点笔记：realise 意识到。A.realise动词正确；B.real真实的（adj.）；C.really副词；D.reality名词现实。" }
+    ];
+
+    // 构建完整题目列表 (14+8+8=30)
+    let allQuestions = [];
+    mixedChoice.forEach((item, idx) => {
+        allQuestions.push({ id: `mix_${idx}`, type: "📖 短语·语法融合", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    clozeOptions.forEach((item, idx) => {
+        allQuestions.push({ id: `cloze_${idx}`, type: "📝 完形填空 (课文情节)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    shortPassages.forEach((item, idx) => {
+        allQuestions.push({ id: `short_${idx}`, type: "✍️ 短文填空 (Developing ideas)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+
+    const TOTAL = allQuestions.length;
+    let userAnswers = new Array(TOTAL).fill(null);
+    let locked = new Array(TOTAL).fill(false);
+    let feedbackArr = new Array(TOTAL).fill(null);
+
+    function updateStatsAndRender() {
+        let answeredCount = userAnswers.filter(a => a !== null).length;
+        let correctCount = 0;
+        for (let i = 0; i < TOTAL; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === allQuestions[i].correct) correctCount++;
+        }
+        let percent = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+        document.getElementById('progressCounter').innerText = `已完成 ${answeredCount} / ${TOTAL}`;
+        document.getElementById('accuracyDisplay').innerHTML = `正确率: ${answeredCount === 0 ? '--' : percent + '%'}`;
+        renderAllSections();
+    }
+
+    function renderAllSections() {
+        const root = document.getElementById('quizRoot');
+        if (!root) return;
+        const groups = {
+            "📖 短语·语法融合": [],
+            "📝 完形填空 (课文情节)": [],
+            "✍️ 短文填空 (Developing ideas)": []
+        };
+        allQuestions.forEach((q, idx) => {
+            if (q.type === "📖 短语·语法融合") groups["📖 短语·语法融合"].push({ ...q, originalIndex: idx });
+            else if (q.type === "📝 完形填空 (课文情节)") groups["📝 完形填空 (课文情节)"].push({ ...q, originalIndex: idx });
+            else groups["✍️ 短文填空 (Developing ideas)"].push({ ...q, originalIndex: idx });
+        });
+        let html = '';
+        for (let [sectionName, items] of Object.entries(groups)) {
+            if (items.length === 0) continue;
+            html += `<div class="section-card"><div class="section-title">${sectionName} (${items.length}题)</div>`;
+            if (sectionName.includes("完形填空")) html += `<div class="sub-title">⭐ 基于课文《四川火锅初体验》入乡随俗与文化融入</div>`;
+            if (sectionName.includes("短文填空")) html += `<div class="sub-title">🌱 拓展自 Developing ideas (徐霞客游记、旅行家精神、探索真知)</div>`;
+            for (let item of items) {
+                const idx = item.originalIndex;
+                const selected = userAnswers[idx];
+                const isLocked = locked[idx];
+                const fb = feedbackArr[idx];
+                html += `<div class="question-item">
+                            <div class="question-text">${item.text}</div>
+                            <div class="options" id="options-${idx}">`;
+                item.options.forEach(opt => {
+                    const optLetter = opt.charAt(0);
+                    const isSelected = (selected === optLetter);
+                    let disabledAttr = isLocked ? 'disabled' : '';
+                    let extraStyle = (isSelected && isLocked) ? 'style="background:#faeedc; border-color:#e68a2e;"' : '';
+                    html += `<button class="option-btn" data-idx="${idx}" data-val="${optLetter}" ${disabledAttr} ${extraStyle}>${opt}</button>`;
+                });
+                html += `</div><div class="feedback ${fb ? (fb.correctFlag ? 'correct' : 'wrong') : ''}" id="fb-${idx}">`;
+                if (fb) {
+                    html += `<div class="correct-answer-badge">✔️ 正确答案：${item.correct}</div>`;
+                    html += `<div><strong>📘 考点笔记</strong><br>${item.note}</div>`;
+                    html += `<div style="margin-top:6px; font-size:0.8rem;">${fb.correctFlag ? '✅ 你的回答正确' : '❌ 你的回答错误'}</div>`;
+                } else {
+                    html += `<div style="opacity:0.8;">✈️ 点击选项，显示正确答案及考点笔记（含所有选项辨析）。</div>`;
+                }
+                html += `</div></div>`;
+            }
+            let answeredInSec = 0, correctInSec = 0;
+            items.forEach(it => {
+                const ans = userAnswers[it.originalIndex];
+                if (ans !== null) {
+                    answeredInSec++;
+                    if (ans === allQuestions[it.originalIndex].correct) correctInSec++;
+                }
+            });
+            let secRate = answeredInSec === 0 ? '暂无' : `${Math.round((correctInSec/answeredInSec)*100)}%`;
+            html += `<div class="section-footer">📊 本区正确率：${secRate} (${correctInSec}/${answeredInSec})</div></div>`;
+        }
+        root.innerHTML = html;
+        for (let i = 0; i < TOTAL; i++) {
+            const btns = document.querySelectorAll(`.option-btn[data-idx="${i}"]`);
+            btns.forEach(btn => {
+                btn.removeEventListener('click', handler);
+                btn.addEventListener('click', handler);
+            });
+        }
+    }
+
+    function handler(e) {
+        const btn = e.currentTarget;
+        const idx = parseInt(btn.getAttribute('data-idx'));
+        if (locked[idx]) return;
+        const selectedVal = btn.getAttribute('data-val');
+        const question = allQuestions[idx];
+        const isCorrect = (selectedVal === question.correct);
+        userAnswers[idx] = selectedVal;
+        locked[idx] = true;
+        feedbackArr[idx] = { correctFlag: isCorrect };
+        updateStatsAndRender();
+        const fbDiv = document.getElementById(`fb-${idx}`);
+        if (fbDiv) fbDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function downloadReport() {
+        let report = "【赢未来国雅·即学即练】学习报告 (Unit 6 踏上旅途·考点笔记版)\n";
+        report += `生成时间: ${new Date().toLocaleString()}\n`;
+        report += `单元：外研七下 Unit 6 Hitting the road (旅行体验与探索精神)\n`;
+        report += `总题数: ${TOTAL}\n`;
+        let answered = userAnswers.filter(a => a !== null).length;
+        let correct = 0;
+        for (let i=0;i<TOTAL;i++) if(userAnswers[i] && userAnswers[i] === allQuestions[i].correct) correct++;
+        let percentTotal = answered===0?0:Math.round((correct/answered)*100);
+        report += `完成数量: ${answered} / ${TOTAL}\n`;
+        report += `正确率: ${percentTotal}%\n`;
+        report += `========================================\n\n`;
+        for (let i=0;i<TOTAL;i++) {
+            const q = allQuestions[i];
+            const userAns = userAnswers[i] || "未作答";
+            const correctAns = q.correct;
+            const isRight = (userAns === correctAns);
+            report += `【${i+1}】${q.type}\n`;
+            report += `题目: ${q.text}\n`;
+            report += `我的答案: ${userAns}\n`;
+            report += `正确答案: ${correctAns}\n`;
+            report += `考点笔记(选项全解): ${q.note}\n`;
+            report += `结果: ${isRight ? "✓ 正确" : "✗ 错误"}\n`;
+            report += `----------------------------------------\n`;
+        }
+        const blob = new Blob([report], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = "英语U6_踏上旅途_考点笔记报告.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function addDownloadButton() {
+        const container = document.getElementById('downloadBtnContainer');
+        container.innerHTML = '';
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.innerText = '📥 下载学习报告 (含考点笔记)';
+        btn.addEventListener('click', downloadReport);
+        container.appendChild(btn);
+    }
+
+    function init() {
+        addDownloadButton();
+        updateStatsAndRender();
+    }
+    init();
+</script>
+</body>
+</html>

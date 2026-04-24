@@ -57,6 +57,7 @@
         .question-item {
             background: #fefefe; border-radius: 20px; padding: 18px;
             margin-bottom: 18px; border: 1px solid #e8f0ec;
+            transition: all 0.2s;
         }
         .question-text { font-weight: 600; margin-bottom: 14px; line-height: 1.45; font-size: 0.95rem; }
         .hover-word {
@@ -81,6 +82,25 @@
         .feedback { margin-top: 12px; padding: 10px 14px; border-radius: 18px; font-size: 0.85rem; line-height: 1.4; }
         .correct-fb { background: #dcfce7; color: #15803d; border-left: 4px solid #15803d; }
         .wrong-fb { background: #ffe6e5; color: #b91c1c; border-left: 4px solid #b91c1c; }
+        .detail-exp {
+            background: #f0f6fa;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            border-left: 4px solid #2e8b5e;
+        }
+        .option-analysis {
+            background: white;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin: 6px 0;
+            font-size: 0.8rem;
+        }
+        .correct-option { background: #e6f7e6; border-left: 3px solid #2e8b5e; }
+        .wrong-option { background: #fff3f0; border-left: 3px solid #e74c3c; }
+        .neutral-option { background: #f8f9fa; border-left: 3px solid #bdc3c7; }
         .score-area {
             background: #eaf3ef; border-radius: 28px; padding: 14px;
             margin-top: 20px; text-align: center; font-weight: bold;
@@ -93,6 +113,13 @@
         .download-btn:hover { background: #1f6e46; transform: translateY(-2px); }
         footer { text-align: center; margin-top: 32px; font-size: 0.7rem; color: #6c8b7c; }
         .progress-stats { background: #eef3f0; border-radius: 20px; padding: 8px 16px; font-size: 0.85rem; }
+        .knowledge-tip {
+            background: #e8f0fe;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
         @media (max-width: 700px) { body { padding: 16px; } .summary-card { padding: 16px; } .opt-btn { padding: 6px 14px; } }
     </style>
 </head>
@@ -100,7 +127,7 @@
 <div class="container">
     <div class="hero">
         <h1><i class="fas fa-leaf"></i> 赢未来国雅 · 新概念即学即练</h1>
-        <p>📖 新概念第1册 Lesson 81-82 | 现在完成时 · 日常生活用语 | 鼠标悬停查词 | 每道题选择后立即获得解析 | 答案不可修改</p>
+        <p>📖 新概念第1册 Lesson 81-82 | 现在完成时 · 对比选项考点 | 鼠标悬停查词 | 每道题都有详细考点笔记</p>
     </div>
 
     <!-- 课文原文 + 词汇短语总结 -->
@@ -166,105 +193,56 @@
     <div class="download-section">
         <button id="downloadBtn" class="download-btn"><i class="fas fa-download"></i> 下载学习报告</button>
     </div>
-    <footer>✨ 鼠标悬停蓝色虚线单词查看释义 | 点击选项后立即锁定答案 | 每道题都有精确到选项的解析</footer>
+    <footer>✨ 鼠标悬停蓝色虚线单词查看释义 | 点击选项后立即锁定答案 | 每道题都有考点笔记和选项对比分析</footer>
 </div>
 
 <script>
-    // ======================= 基于 Lesson 81-82 试卷的完整题库 =======================
+    // ======================= 完整题库（含考点笔记和选项分析）=======================
     const questions = [
-        // === 第一大题：单词辨音 (1-10) ===
-        { id: 1, stem: "单词辨音：选出划线部分读音不同的单词 (a) clean (b) eat (c) ready (d) read", options: ["clean", "eat", "ready", "read"], correct: "ready", explanation: "ready中ea发/e/，其他发/i:/。字母组合ea常发/i:/或/e/。", point: "语音辨析" },
-        { id: 2, stem: "单词辨音：选出划线部分读音不同的单词 (a) haircut (b) party (c) hard (d) card", options: ["haircut", "party", "hard", "card"], correct: "haircut", explanation: "haircut中air发/eə/，其他ar发/ɑː/。", point: "语音辨析" },
-        { id: 3, stem: "单词辨音：选出划线部分读音不同的单词 (a) run (b) jump (c) lunch (d) blue", options: ["run", "jump", "lunch", "blue"], correct: "blue", explanation: "blue中u发/uː/，其他发/ʌ/。", point: "语音辨析" },
-        { id: 4, stem: "单词辨音：选出划线部分读音不同的单词 (a) high (b) sing (c) kite (d) night", options: ["high", "sing", "kite", "night"], correct: "sing", explanation: "sing中i发/ɪ/，其他发/aɪ/。", point: "语音辨析" },
-        { id: 5, stem: "单词辨音：选出划线部分读音不同的单词 (a) shout (b) count (c) sound (d) trouble", options: ["shout", "count", "sound", "trouble"], correct: "trouble", explanation: "trouble中ou发/ʌ/，其他发/aʊ/。", point: "语音辨析" },
-        { id: 6, stem: "单词辨音：选出划线部分读音不同的单词 (a) same (b) basketball (c) banana (d) classroom", options: ["same", "basketball", "banana", "classroom"], correct: "same", explanation: "same中a发/eɪ/，其他发/æ/或/ə/。", point: "语音辨析" },
-        { id: 7, stem: "单词辨音：选出划线部分读音不同的单词 (a) dinner (b) cooking (c) machine (d) milk", options: ["dinner", "cooking", "machine", "milk"], correct: "machine", explanation: "machine中i发/ə/或/iː/，其他发/ɪ/。", point: "语音辨析" },
-        { id: 8, stem: "单词辨音：选出划线部分读音不同的单词 (a) plane (b) back (c) capital (d) hat", options: ["plane", "back", "capital", "hat"], correct: "plane", explanation: "plane中a发/eɪ/，其他发/æ/。", point: "语音辨析" },
-        { id: 9, stem: "单词辨音：选出划线部分读音不同的单词 (a) where (b) who (c) whose (d) whole", options: ["where", "who", "whose", "whole"], correct: "where", explanation: "where中wh发/w/，其他发/h/。", point: "语音辨析" },
-        { id: 10, stem: "单词辨音：选出划线部分读音不同的单词 (a) child (b) watch (c) school (d) catch", options: ["child", "watch", "school", "catch"], correct: "school", explanation: "school中ch发/k/，其他发/tʃ/。", point: "语音辨析" },
+        // 第一大题：单词辨音 (1-10)
+        { id: 1, stem: "单词辨音：选出划线部分读音不同的单词 (a) clean (b) eat (c) ready (d) read", options: ["clean", "eat", "ready", "read"], correct: "ready", explanation: "ready中ea发/e/，其他发/i:/。", point: "语音辨析", knowledgeNote: "字母组合'ea'在英语中有两种常见发音：/i:/和/e/。clean, eat, read中的ea都发长音/i:/，而ready中的ea发短音/e/。记忆技巧：'ready'中的ea发音类似于'red'中的e。" },
+        { id: 2, stem: "单词辨音：选出划线部分读音不同的单词 (a) haircut (b) party (c) hard (d) card", options: ["haircut", "party", "hard", "card"], correct: "haircut", explanation: "haircut中air发/eə/，其他ar发/ɑː/。", point: "语音辨析", knowledgeNote: "ar字母组合通常发长音/ɑː/，如party, hard, card。但haircut中的air是特殊组合，发/eə/，类似于'air'（空气）的发音。" },
+        { id: 3, stem: "单词辨音：选出划线部分读音不同的单词 (a) run (b) jump (c) lunch (d) blue", options: ["run", "jump", "lunch", "blue"], correct: "blue", explanation: "blue中u发/uː/，其他发/ʌ/。", point: "语音辨析", knowledgeNote: "字母u在闭音节中通常发短音/ʌ/，如run, jump, lunch。但当u出现在特定组合如'bl'后，或在开音节中，可能发长音/uː/，如blue, true。" },
+        { id: 4, stem: "单词辨音：选出划线部分读音不同的单词 (a) high (b) sing (c) kite (d) night", options: ["high", "sing", "kite", "night"], correct: "sing", explanation: "sing中i发/ɪ/，其他发/aɪ/。", point: "语音辨析", knowledgeNote: "字母i在'igh'组合中发/aɪ/，如high, night；在开音节中（元音+辅音+e）也发/aɪ/，如kite。但在闭音节如sing中发短音/ɪ/。" },
+        { id: 5, stem: "单词辨音：选出划线部分读音不同的单词 (a) shout (b) count (c) sound (d) trouble", options: ["shout", "count", "sound", "trouble"], correct: "trouble", explanation: "trouble中ou发/ʌ/，其他发/aʊ/。", point: "语音辨析", knowledgeNote: "字母组合'ou'通常发/aʊ/，如shout, count, sound。但少数单词如trouble, double, country中发/ʌ/，需要特殊记忆。" },
+        { id: 6, stem: "单词辨音：选出划线部分读音不同的单词 (a) where (b) who (c) whose (d) whole", options: ["where", "who", "whose", "whole"], correct: "where", explanation: "where中wh发/w/，其他发/h/。", point: "语音辨析", knowledgeNote: "wh-字母组合有两种发音：大多数情况下发/w/，如where, what, when。但当wh后跟字母o时，通常发/h/，如who, whose, whole。" },
+        { id: 7, stem: "单词辨音：选出划线部分读音不同的单词 (a) child (b) watch (c) school (d) catch", options: ["child", "watch", "school", "catch"], correct: "school", explanation: "school中ch发/k/，其他发/tʃ/。", point: "语音辨析", knowledgeNote: "ch字母组合通常发/tʃ/，如child, watch, catch。但来源于希腊语的单词中，ch发/k/，如school, chemistry, Christmas。" },
         
-        // === 第二大题：单词拼写（原填空改为选择题）===
-        { id: 11, stem: "【拼写】b_th (洗澡n.)", options: ["bath", "bath", "bath", "bath"], correct: "bath", explanation: "bath 洗澡。have a bath 洗澡。", point: "词汇拼写" },
-        { id: 12, stem: "【拼写】n_rly (几乎adv.)", options: ["nearly", "nearlly", "neraly", "nearly"], correct: "nearly", explanation: "nearly 几乎，差不多。", point: "词汇拼写" },
-        { id: 13, stem: "【拼写】r_dy (准备好的adj.)", options: ["ready", "reddy", "readdy", "raedy"], correct: "ready", explanation: "ready 准备好的。be ready for 为...做准备。", point: "词汇拼写" },
-        { id: 14, stem: "【拼写】d_nn_r (正餐n.)", options: ["dinner", "diner", "dinerr", "dinner"], correct: "dinner", explanation: "dinner 正餐，晚餐。", point: "词汇拼写" },
-        { id: 15, stem: "【拼写】r_st_r_nt (饭馆n.)", options: ["restaurant", "restarant", "resturant", "restaraunt"], correct: "restaurant", explanation: "restaurant 饭馆，餐厅。注意拼写。", point: "词汇拼写" },
-        { id: 16, stem: "【拼写】r_st (烤的adj.)", options: ["roast", "rost", "roste", "roest"], correct: "roast", explanation: "roast 烤的。roast beef 烤牛肉。", point: "词汇拼写" },
-        { id: 17, stem: "【拼写】p_t (聚会n.)", options: ["party", "parti", "partty", "partey"], correct: "party", explanation: "party 聚会。", point: "词汇拼写" },
-        { id: 18, stem: "【拼写】h_l_d_y (假期)", options: ["holiday", "hollyday", "holliday", "holeday"], correct: "holiday", explanation: "holiday 假期。", point: "词汇拼写" },
-        { id: 19, stem: "【拼写】br_kf_st (早饭n.)", options: ["breakfast", "breakfest", "brekfast", "breakfirst"], correct: "breakfast", explanation: "breakfast 早餐。have breakfast 吃早餐。", point: "词汇拼写" },
-        { id: 20, stem: "【拼写】h_rc_t (理发v.)", options: ["haircut", "haircut", "hair cut", "haircutt"], correct: "haircut", explanation: "haircut 理发。have a haircut 理发。", point: "词汇拼写" },
+        // 第二大题：单词拼写 (8-17)
+        { id: 8, stem: "【拼写】b_th (洗澡n.)", options: ["bath", "bath", "bath", "bath"], correct: "bath", explanation: "bath 洗澡。have a bath 洗澡。", point: "词汇拼写", knowledgeNote: "bath是名词，表示'洗澡'或'浴缸'。常用短语：have a bath (洗澡)，take a bath (洗澡)。注意区分：bath vs bathe (动词，沐浴)。" },
+        { id: 9, stem: "【拼写】n_rly (几乎adv.)", options: ["nearly", "nearlly", "neraly", "nearly"], correct: "nearly", explanation: "nearly 几乎，差不多。", point: "词汇拼写", knowledgeNote: "nearly由near（接近）+ ly构成。同义词：almost。注意拼写：不要写成nearlly。常用于：nearly finished, nearly there。" },
+        { id: 10, stem: "【拼写】r_dy (准备好的adj.)", options: ["ready", "reddy", "readdy", "raedy"], correct: "ready", explanation: "ready 准备好的。", point: "词汇拼写", knowledgeNote: "ready形容词，常用短语：be ready for (为...做好准备)，get ready (准备好)，ready to do (准备做某事)。" },
+        { id: 11, stem: "【拼写】restaurant (饭馆n.)", options: ["restaurant", "restarant", "resturant", "restaraunt"], correct: "restaurant", explanation: "restaurant 饭馆。", point: "词汇拼写", knowledgeNote: "restaurant是长单词，容易拼错。记忆方法：rest（休息）+ aur（金色）+ ant（蚂蚁）→ 休息时吃金色蚂蚁的地方。注意拼写：中间是'aur'不是'ur'。" },
         
-        // === 第三大题：语法词汇 (21-50) ===
-        { id: 21, stem: "She resembles her mother very ______.", options: ["only", "nearly", "merely", "barely"], correct: "nearly", explanation: "nearly 几乎。very nearly 非常接近。", point: "副词辨析" },
-        { id: 22, stem: "I want everything ______ by 2:00.", options: ["readily", "readiness", "to ready", "ready"], correct: "ready", explanation: "want sth. ready 想要某物准备好。", point: "形容词补语" },
-        { id: 23, stem: "I am ______ of the task.", options: ["in the charge of", "in charge of", "instead of", "in place of"], correct: "in charge of", explanation: "in charge of 负责。in the charge of 由...负责。", point: "介词短语" },
-        { id: 24, stem: "How did you enjoy your summer ______?", options: ["hot", "school", "a day", "holidays"], correct: "holidays", explanation: "summer holidays 暑假。", point: "名词搭配" },
-        { id: 25, stem: "In our class ______ of the students ______ girls.", options: ["three fifths...are", "three fifth...are", "three fifths...is", "three fifth...is"], correct: "three fifths...are", explanation: "分数表达：分子基数词，分母序数词，分子>1分母加s。主语复数用are。", point: "分数表达" },
-        { id: 26, stem: "Mr Green ______ in China in 1996.", options: ["lived", "has lived", "will live", "is living"], correct: "lived", explanation: "in 1996 过去时间，用一般过去时。", point: "时态" },
-        { id: 27, stem: "The old man is as ______ as the young people on Christmas Day.", options: ["happy", "happier", "happiest", "the happiest"], correct: "happy", explanation: "as + 原级 + as 和...一样。", point: "比较级" },
-        { id: 28, stem: "______ is your jacket? Thirty yuan.", options: ["How many", "How much", "How long", "How often"], correct: "How much", explanation: "询问价格用How much。", point: "疑问词" },
-        { id: 29, stem: "It is impossible for me to work out this difficult problem ______ your help.", options: ["about", "on", "with", "without"], correct: "without", explanation: "without your help 没有你的帮助。", point: "介词" },
-        { id: 30, stem: "This is ______ easy job that I can finish it in ______ half hour.", options: ["so...on", "a such...a", "such an...an", "such a...an"], correct: "such an...an", explanation: "such + a/an + adj + n + that；half an hour 半小时。", point: "such...that结构" },
-        { id: 31, stem: "Lucy decided to do the work ______.", options: ["she", "her", "hers", "herself"], correct: "herself", explanation: "by oneself 独自，反身代词。", point: "反身代词" },
-        { id: 32, stem: "There ______ wrong with my radio.", options: ["are something", "are anything", "is anything", "is something"], correct: "is something", explanation: "something wrong 有问题，there is。", point: "不定代词" },
-        { id: 33, stem: "I have learned English for five months and I can write ______ English now.", options: ["few", "a little", "a few", "little"], correct: "a little", explanation: "English不可数，a little表示有一点。", point: "a little/little区别" },
-        { id: 34, stem: "______ do you like the film? I like it very much.", options: ["How", "What", "When", "Where"], correct: "How", explanation: "How do you like...? 你觉得...怎么样？", point: "疑问词" },
-        { id: 35, stem: "There are ______ students in their class than in ours.", options: ["many", "more", "much", "a lot of"], correct: "more", explanation: "than 比较级，more students。", point: "比较级" },
-        { id: 36, stem: "We won't go to the Great Wall if it ______ tomorrow.", options: ["snow", "snowing", "snows", "will snow"], correct: "snows", explanation: "if条件句，主将从现，从句用一般现在时。", point: "条件状语从句" },
-        { id: 37, stem: "The train ______ now.", options: ["is going", "has gone", "go", "had gone"], correct: "is going", explanation: "now现在进行时，表示火车正在行驶。", point: "时态" },
-        { id: 38, stem: "You look ______ than before, why?", options: ["more thin", "more thinner", "much thinner", "much more thin"], correct: "much thinner", explanation: "thin比较级thinner，much修饰比较级。", point: "比较级" },
-        { id: 39, stem: "My father ______ a bath now.", options: ["have", "has", "had", "is having"], correct: "is having", explanation: "now现在进行时。", point: "时态" },
-        { id: 40, stem: "This morning, I saw a man ______ on the road on my way ______.", options: ["lies, there", "lied, to school", "lying, home", "to lie, to the shop"], correct: "lying, home", explanation: "see sb. doing；on one's way home。", point: "非谓语动词" },
-        { id: 41, stem: "The students are all busy ______ the exams.", options: ["getting ready for", "getting ready to", "to get ready for", "to get ready to"], correct: "getting ready for", explanation: "be busy doing；get ready for 为...做准备。", point: "固定搭配" },
-        { id: 42, stem: "Be quiet, please! I will choose ______ for our football team.", options: ["anybody strong", "someone strong", "strong someone", "strong anybody"], correct: "someone strong", explanation: "形容词修饰不定代词后置。", point: "不定代词" },
-        { id: 43, stem: "______ your coat. It's snowing outside.", options: ["Wear", "Dress", "Put on", "Dress up"], correct: "Put on", explanation: "put on 穿上（强调动作）。", point: "动词辨析" },
-        { id: 44, stem: "I ______ my parents last month.", options: ["heard of", "heard from", "heard", "heard about"], correct: "heard from", explanation: "hear from sb. 收到某人来信。", point: "动词短语" },
-        { id: 45, stem: "______ of them ran faster than the Class 2 runner.", options: ["Either", "Nobody", "None", "Neither"], correct: "Neither", explanation: "两者都不，neither。", point: "不定代词" },
-        { id: 46, stem: "She had ______ apple in one hand and ______ knife in the other.", options: ["an...an", "a...a", "an...a", "a...an"], correct: "an...a", explanation: "apple元音音素开头用an，knife辅音用a。", point: "冠词" },
-        { id: 47, stem: "This is ______ easy job. I can finish it in ______ half hour.", options: ["an...an", "a...a", "an...a", "a...an"], correct: "an...a", explanation: "easy元音音素开头用an；half hour中h发音，用a。", point: "冠词" },
-        { id: 48, stem: "I like playing ______ football and my sister likes playing ______ piano.", options: ["×...×", "×...the", "the...×", "the...the"], correct: "×...the", explanation: "球类运动前不加冠词，乐器前加the。", point: "冠词" },
-        { id: 49, stem: "Would you like to bring ______ friends to my party?", options: ["any", "the", "some", "a"], correct: "some", explanation: "would like 疑问句中用some表示希望得到肯定回答。", point: "some/any" },
-        { id: 50, stem: "Li Ming's father is ______ oil worker in Daqing.", options: ["an", "a", "the", "/"], correct: "an", explanation: "oil元音音素开头，用an。", point: "冠词" },
+        // 语法选择题 - 现在完成时核心
+        { id: 12, stem: "She resembles her mother very ______.", options: ["only", "nearly", "merely", "barely"], correct: "nearly", explanation: "nearly 几乎，接近。", point: "副词辨析", knowledgeNote: "nearly表示'几乎，接近'，强调程度上的接近。only(仅仅)、merely(仅仅)、barely(勉强)都表示数量少，不符合'相似'的语境。" },
+        { id: 13, stem: "I have learned English for five months and I can write ______ English now.", options: ["few", "a little", "a few", "little"], correct: "a little", explanation: "English不可数，a little表示有一点。", point: "a little/little区别", knowledgeNote: "a little和little修饰不可数名词。a little表示'有一点'(肯定含义)，little表示'几乎没有'(否定含义)。English不可数，所以用a little。" },
+        { id: 14, stem: "We won't go to the Great Wall if it ______ tomorrow.", options: ["snow", "snowing", "snows", "will snow"], correct: "snows", explanation: "if条件句，主将从现，从句用一般现在时。", point: "条件状语从句", knowledgeNote: "在if引导的真实条件句中，遵循'主将从现'原则：主句用一般将来时(will + 动词原形)，从句用一般现在时表示将来。所以if从句中要用snows(三单形式)。" },
+        { id: 15, stem: "My father ______ a bath now.", options: ["have", "has", "had", "is having"], correct: "is having", explanation: "now现在进行时。", point: "现在进行时", knowledgeNote: "now是现在进行时的标志词，表示此刻正在发生的动作。结构：be(am/is/are) + doing。father是第三人称单数，用is having。" },
+        { id: 16, stem: "The students are all busy ______ the exams.", options: ["getting ready for", "getting ready to", "to get ready for", "to get ready to"], correct: "getting ready for", explanation: "be busy doing；get ready for 为...做准备。", point: "固定搭配", knowledgeNote: "be busy后接动词ing形式。get ready for + 名词，表示'为...做准备'；get ready to + 动词原形。exams是名词，所以用for。" },
+        { id: 17, stem: "I ______ my parents last month.", options: ["heard of", "heard from", "heard", "heard about"], correct: "heard from", explanation: "hear from sb. 收到某人来信。", point: "动词短语", knowledgeNote: "hear from sb. = receive a letter from sb. (收到某人的来信)。hear of/about 表示'听说关于'。注意区分：hear from的宾语是人。" },
         
-        // === 第四大题：现在完成时填空 (51-57) ===
-        { id: 51, stem: "She ______ (ask) me a question.", options: ["has asked", "have asked", "asked", "is asking"], correct: "has asked", explanation: "主语She三单，现在完成时用has asked。", point: "现在完成时" },
-        { id: 52, stem: "We ______ (type) that letter.", options: ["have typed", "has typed", "typed", "are typing"], correct: "have typed", explanation: "主语We复数，用have typed。", point: "现在完成时" },
-        { id: 53, stem: "They ______ (turn on) the radio.", options: ["have turned on", "has turned on", "turned on", "are turning on"], correct: "have turned on", explanation: "turn on的过去分词turned on，主语They用have。", point: "现在完成时" },
-        { id: 54, stem: "The children ______ (sharpen) their pencils.", options: ["have sharpened", "has sharpened", "sharpened", "are sharpening"], correct: "have sharpened", explanation: "children复数，用have sharpened。", point: "现在完成时" },
-        { id: 55, stem: "The office boy ______ (empty) the basket.", options: ["has emptied", "have emptied", "emptied", "is emptying"], correct: "has emptied", explanation: "The office boy三单，用has emptied。", point: "现在完成时" },
-        { id: 56, stem: "Mary ______ (boil) some eggs.", options: ["has boiled", "have boiled", "boiled", "is boiling"], correct: "has boiled", explanation: "Mary三单，用has boiled。", point: "现在完成时" },
-        { id: 57, stem: "Tom ______ (paint) the bookcase.", options: ["has painted", "have painted", "painted", "is painting"], correct: "has painted", explanation: "Tom三单，用has painted。", point: "现在完成时" },
+        // 现在完成时专练 (18-24)
+        { id: 18, stem: "She ______ (ask) me a question.", options: ["has asked", "have asked", "asked", "is asking"], correct: "has asked", explanation: "主语She三单，现在完成时用has asked。", point: "现在完成时", knowledgeNote: "现在完成时结构：have/has + 过去分词。主语为第三人称单数(he/she/it)时用has。ask的过去分词是asked。" },
+        { id: 19, stem: "They ______ (turn on) the radio.", options: ["have turned on", "has turned on", "turned on", "are turning on"], correct: "have turned on", explanation: "turn on的过去分词turned on，主语They用have。", point: "现在完成时", knowledgeNote: "短语动词的过去分词：turn on → turned on。主语They是复数，用have。注意：现在完成时强调过去动作对现在的影响——收音机现在是开着的。" },
+        { id: 20, stem: "The children ______ (sharpen) their pencils.", options: ["have sharpened", "has sharpened", "sharpened", "are sharpening"], correct: "have sharpened", explanation: "children复数，用have sharpened。", point: "现在完成时", knowledgeNote: "children是child的复数形式，主语复数用have。sharpen的过去分词是sharpened（规则动词+ed）。" },
         
-        // === 第五大题：翻译句子 (58-67) ===
-        { id: 58, stem: "【翻译】They must begin the work now.", options: ["他们必须现在开始工作。", "他们现在必须开始工作。", "他们必须开始现在工作。", "现在他们必须开始工作。"], correct: "他们必须现在开始工作。", explanation: "must begin 必须开始。", point: "翻译" },
-        { id: 59, stem: "【翻译】I need an English-Chinese dictionary.", options: ["我需要一本英汉词典。", "我需要一本汉英词典。", "我需要英语词典。", "我需要中文词典。"], correct: "我需要一本英汉词典。", explanation: "English-Chinese 英汉。", point: "翻译" },
-        { id: 60, stem: "【翻译】We have got much money.", options: ["我们得到了很多钱。", "我们有很多钱。", "我们赚了很多钱。", "我们需要很多钱。"], correct: "我们得到了很多钱。", explanation: "have got 得到，拥有。", point: "翻译" },
-        { id: 61, stem: "【翻译】The flower needs some water.", options: ["这花需要一些水。", "这花需要水。", "花需要浇水。", "这些花需要水。"], correct: "这花需要一些水。", explanation: "needs some water 需要一些水。", point: "翻译" },
-        { id: 62, stem: "【翻译】We are in need of more time.", options: ["我们需要更多的时间。", "我们急需时间。", "我们正需要时间。", "时间对我们很重要。"], correct: "我们需要更多的时间。", explanation: "in need of 需要。", point: "翻译" },
-        { id: 63, stem: "【翻译】他正在洗澡。", options: ["He is having a bath.", "He has a bath.", "He took a bath.", "He was having a bath."], correct: "He is having a bath.", explanation: "现在进行时，have a bath。", point: "翻译" },
-        { id: 64, stem: "【翻译】喝一杯威士忌。", options: ["Have a glass of whisky.", "Drink a whisky.", "Have whisky.", "Drink glass whisky."], correct: "Have a glass of whisky.", explanation: "have a glass of... 喝一杯。", point: "翻译" },
-        { id: 65, stem: "【翻译】我们能在几点吃个饭？", options: ["What time can we have a meal?", "When we can eat?", "What time we have meal?", "When can we have dinner?"], correct: "What time can we have a meal?", explanation: "have a meal 吃饭。", point: "翻译" },
-        { id: 66, stem: "【翻译】怎么了？", options: ["What's the matter?", "What's wrong?", "What happened?", "以上都可以"], correct: "以上都可以", explanation: "What's the matter? / What's wrong? 都表示怎么了。", point: "翻译" },
-        { id: 67, stem: "【翻译】他在楼上。", options: ["He is upstairs.", "He is on upstairs.", "He in upstairs.", "He goes upstairs."], correct: "He is upstairs.", explanation: "upstairs 楼上，副词。", point: "翻译" },
+        // 阅读理解
+        { id: 21, stem: "【阅读】'Moving pictures' was the old name ______.", options: ["for cinema", "for films", "for photo", "for shop"], correct: "for films", explanation: "文中第一句明确：The old name for films was 'moving pictures'。", point: "细节理解", knowledgeNote: "本题考察原文细节定位。文章第一句直接给出了定义：moving pictures是films的旧称。其他选项cinema(电影院)、photo(照片)、shop(商店)都与原文不符。" },
+        { id: 22, stem: "What lesson can we learn from this story?", options: ["Always say what you mean.", "Words can have different meanings.", "Don't trust your friends.", "Movies are boring."], correct: "Words can have different meanings.", explanation: "同一个短语有不同的含义，导致误解。", point: "主旨大意", knowledgeNote: "故事的主旨是：'moving pictures'可以理解为'电影'，也可以理解为'搬运图片'。这说明了英语中一词多义和语境理解的重要性。" },
         
-        // === 第六大题：阅读理解 (68-72) ===
-        { id: 68, stem: "【阅读】'Moving pictures' was the old name ______.", options: ["for cinema", "for films", "for photo", "for shop"], correct: "for films", explanation: "文中第一句明确：The old name for films was 'moving pictures'。", point: "细节理解" },
-        { id: 69, stem: "In America, people still call films ______.", options: ["moving pictures", "movies", "cinema", "pictures"], correct: "movies", explanation: "文中：In America they still call them 'movies'。", point: "细节理解" },
-        { id: 70, stem: "The boy said to his friend, 'Do you like moving pictures?' What did the friend think?", options: ["The boy would invite him to move boxes.", "The boy would invite him to the cinema.", "The boy would show him pictures.", "The boy would give him a gift."], correct: "The boy would invite him to the cinema.", explanation: "朋友以为男孩要邀请他去电影院。", point: "推理判断" },
-        { id: 71, stem: "What did the boy actually mean by 'moving pictures'?", options: ["Going to the cinema", "Watching films", "Moving heavy boxes of pictures", "Taking photos"], correct: "Moving heavy boxes of pictures", explanation: "男孩实际意思是搬运沉重的图片箱子。", point: "推理判断" },
-        { id: 72, stem: "What lesson can we learn from this story?", options: ["Always say what you mean.", "Words can have different meanings.", "Don't trust your friends.", "Movies are boring."], correct: "Words can have different meanings.", explanation: "同一个短语有不同的含义，导致误解。", point: "主旨大意" }
+        // 翻译句子
+        { id: 23, stem: "【翻译】他正在洗澡。", options: ["He is having a bath.", "He has a bath.", "He took a bath.", "He was having a bath."], correct: "He is having a bath.", explanation: "现在进行时，have a bath。", point: "翻译", knowledgeNote: "'正在'表示现在进行时，结构为be doing。have a bath是固定短语。时态对比：is having(正在洗) vs has(一般现在时) vs took(过去时) vs was having(过去进行时)。" },
+        { id: 24, stem: "【翻译】我们能在几点吃个饭？", options: ["What time can we have a meal?", "When we can eat?", "What time we have meal?", "When can we have dinner?"], correct: "What time can we have a meal?", explanation: "have a meal 吃饭。", point: "翻译", knowledgeNote: "what time询问具体时间点。can表示'能够'。have a meal是'吃饭'的常用表达。注意疑问句的语序：疑问词 + 助动词 + 主语 + 动词原形。" }
     ];
     
     // 生词库（悬停用）
     const vocabMap = {
         "bath":"洗澡","nearly":"几乎","ready":"准备好的","dinner":"正餐","restaurant":"饭馆","roast":"烤的",
-        "party":"聚会","holiday":"假期","breakfast":"早餐","haircut":"理发","clean":"清洁","eat":"吃","read":"阅读",
-        "high":"高的","kite":"风筝","night":"夜晚","sing":"唱歌","shout":"喊叫","count":"数数","sound":"声音",
-        "trouble":"麻烦","plane":"飞机","where":"哪里","who":"谁","whose":"谁的","whole":"整个的","child":"孩子",
-        "watch":"手表/观看","school":"学校","catch":"抓住","envelope":"信封","glue":"胶水","change":"零钱",
-        "already":"已经","yet":"还","just":"刚刚","ever":"曾经","never":"从不"
+        "party":"聚会","holiday":"假期","breakfast":"早餐","haircut":"理发","clean":"清洁","eat":"吃",
+        "high":"高的","kite":"风筝","night":"夜晚","sing":"唱歌","shout":"喊叫","count":"数数",
+        "sound":"声音","trouble":"麻烦","where":"哪里","who":"谁","whose":"谁的","whole":"整个的",
+        "child":"孩子","watch":"手表/观看","school":"学校","catch":"抓住","already":"已经","yet":"还"
     };
     
     let userAnswers = {};
@@ -292,24 +270,79 @@
         }
     }
     
+    // 生成每个选项的对比分析
+    function generateOptionAnalysis(q, userAnswer) {
+        let analysis = `<div class="knowledge-tip"><i class="fas fa-graduation-cap"></i> <strong>📖 考点笔记：</strong> ${q.knowledgeNote || q.explanation}</div>`;
+        analysis += `<strong>🔍 各选项考点对比分析：</strong><br>`;
+        
+        q.options.forEach(opt => {
+            let isCorrect = (opt === q.correct);
+            let isUser = (opt === userAnswer);
+            let bgClass = '';
+            let mark = '';
+            
+            if (isCorrect && isUser) {
+                bgClass = 'correct-option';
+                mark = ' ✅ 正确答案（你选对了！）';
+            } else if (isCorrect && !isUser) {
+                bgClass = 'correct-option';
+                mark = ' ✅ 正确答案';
+            } else if (!isCorrect && isUser) {
+                bgClass = 'wrong-option';
+                mark = ' ❌ 你的选择';
+            } else {
+                bgClass = 'neutral-option';
+                mark = '';
+            }
+            
+            let optionNote = '';
+            if (q.point === '现在完成时' || q.point === '时态') {
+                if (opt.includes('has') || opt.includes('have')) optionNote = ' 现在完成时强调过去动作对现在的影响';
+                else if (opt.includes('ed')) optionNote = ' 一般过去时只描述过去动作，不强调与现在的联系';
+                else if (opt.includes('is') || opt.includes('are')) optionNote = ' 现在进行时表示此刻正在进行的动作';
+            } else if (q.point === 'a little/little区别') {
+                if (opt === 'a little') optionNote = ' 肯定含义：有一点（English不可数）';
+                else if (opt === 'little') optionNote = ' 否定含义：几乎没有';
+                else if (opt === 'a few') optionNote = ' 修饰可数名词复数';
+                else if (opt === 'few') optionNote = ' 否定含义，修饰可数名词';
+            } else if (q.point === '条件状语从句') {
+                if (opt === 'snows') optionNote = ' 主将从现：if从句用一般现在时表将来';
+                else if (opt === 'will snow') optionNote = ' 错误：if从句不能用将来时';
+            } else if (q.point === '动词短语') {
+                if (opt === 'heard from') optionNote = ' 收到某人来信，后接人';
+                else if (opt === 'heard of') optionNote = ' 听说（关于某事/某人）';
+                else if (opt === 'heard about') optionNote = ' 听说（关于某事的细节）';
+            }
+            
+            analysis += `<div class="option-analysis ${bgClass}">• <strong>${opt}</strong>${mark}${optionNote}</div>`;
+        });
+        
+        if (userAnswer && userAnswer !== q.correct) {
+            analysis += `<div style="margin-top: 10px; padding: 8px; background: #fff3e0; border-radius: 10px;">
+                <i class="fas fa-lightbulb"></i> <strong>💡 错误原因分析：</strong> 你选择了“${userAnswer}”。${q.explanation}
+            </div>`;
+        } else if (userAnswer === q.correct) {
+            analysis += `<div style="margin-top: 10px; padding: 8px; background: #e6f7e6; border-radius: 10px;">
+                <i class="fas fa-check-circle"></i> <strong>👍 掌握要点：</strong> ${q.knowledgeNote || q.explanation}
+            </div>`;
+        }
+        
+        return analysis;
+    }
+    
     function showFeedback(q, userAnswer, isCorrect) {
         const fbDiv = document.getElementById(`fb-${q.id}`);
         const detailDiv = document.getElementById(`detail-${q.id}`);
-        let analysis = `<strong>🎯 考点：${q.point}</strong><br/>📖 ${q.explanation}<br/><strong>🔍 选项分析：</strong><br/>`;
-        q.options.forEach(opt => {
-            let mark = opt === q.correct ? '✅ 正确答案' : '❌ 干扰项';
-            let userMark = userAnswer === opt ? ' (你的选择)' : '';
-            analysis += `• ${opt} ：${mark}${userMark}<br/>`;
-        });
+        
         if (isCorrect) {
-            fbDiv.innerHTML = `<div class="correct-fb">✅ 正确！</div>`;
-            analysis += `<span style="color:#2b7a4b;">✔ 很棒！</span>`;
+            fbDiv.innerHTML = `<div class="correct-fb">✅ 正确！ ${q.explanation}</div>`;
         } else {
             fbDiv.innerHTML = `<div class="wrong-fb">❌ 错误。正确答案是“${q.correct}”。${q.explanation}</div>`;
-            analysis += `<span style="color:#b91c1c;">⚠️ 你的答案：${userAnswer}，错误。</span>`;
         }
+        
+        const optionAnalysis = generateOptionAnalysis(q, userAnswer);
         detailDiv.style.display = "block";
-        detailDiv.innerHTML = analysis;
+        detailDiv.innerHTML = optionAnalysis;
     }
     
     function renderQuestions() {
@@ -328,7 +361,7 @@
                     <div class="question-text">${idx+1}. ${stem}</div>
                     <div class="options" id="opts-${q.id}">${optsHtml}</div>
                     <div class="feedback" id="fb-${q.id}"></div>
-                    <div class="detail-exp" id="detail-${q.id}" style="display:none; background:#f4f9fc; border-radius:16px; padding:10px; margin-top:10px;"></div>
+                    <div class="detail-exp" id="detail-${q.id}" style="display:none;"></div>
                 </div>
             `;
         });
@@ -360,17 +393,19 @@
     function downloadReport() {
         let correct = questions.filter(q => userAnswers[q.id] === q.correct).length;
         let percent = Math.round((correct / questions.length) * 100);
-        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>新概念Lesson81-82学习报告</title><style>body{font-family:sans-serif;padding:20px;max-width:800px;margin:0 auto;}.correct{color:green;}.wrong{color:red;}li{margin-bottom:12px;}</style></head><body>`;
+        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>新概念Lesson81-82学习报告</title><style>body{font-family:sans-serif;padding:20px;max-width:800px;margin:0 auto;}.correct{color:green;}.wrong{color:red;}li{margin-bottom:12px;}.note{background:#f0f6fa;padding:8px;border-radius:8px;margin-top:5px;}</style></head><body>`;
         html += `<h1>📚 赢未来国雅 · 新概念学习报告</h1>`;
         html += `<p>Lesson 81-82 现在完成时 | 生成时间: ${new Date().toLocaleString()}</p>`;
         html += `<h2>📊 学习统计</h2><p>总题数: ${questions.length} | 正确数: ${correct} | 正确率: ${percent}%</p>`;
-        html += `<h2>📖 课文摘要</h2><p>Roast beef and potatoes，重点现在完成时(have/has+过去分词)，already/yet用法，have的各种短语。</p>`;
-        html += `<h2>📚 核心词汇短语</h2><p>bath, nearly, ready, dinner, restaurant, roast, party, holiday, breakfast, haircut；短语：have a bath, be ready for, in charge of, hear from, put on</p>`;
+        html += `<h2>📖 课文摘要</h2><p>Roast beef and potatoes，重点现在完成时(have/has+过去分词)，already/yet用法。</p>`;
+        html += `<h2>📚 核心词汇短语</h2><p>bath, nearly, ready, dinner, restaurant, roast, party, holiday, breakfast, haircut</p>`;
         html += `<h2>📝 答题详情</h2><ul>`;
         questions.forEach(q => {
             let user = userAnswers[q.id] || '未作答';
             let isCorrect = user === q.correct;
-            html += `<li class="${isCorrect ? 'correct' : 'wrong'}"><strong>${q.id}. ${q.stem}</strong><br/>你的答案: ${user} ${isCorrect ? '✓' : '✗'} | 正确答案: ${q.correct}<br/>解析: ${q.explanation}</li>`;
+            html += `<li class="${isCorrect ? 'correct' : 'wrong'}"><strong>${q.id}. ${q.stem}</strong><br/>你的答案: ${user} ${isCorrect ? '✓' : '✗'} | 正确答案: ${q.correct}<br/>`;
+            html += `<div class="note"><strong>📖 考点笔记：</strong> ${q.knowledgeNote || q.explanation}</div>`;
+            html += `</li>`;
         });
         html += `</ul><p>坚持练习，巩固现在完成时知识点！</p></body></html>`;
         const blob = new Blob([html], { type: "text/html" });

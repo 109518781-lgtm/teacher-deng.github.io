@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 中考英语 Unit 4 The Art of Having Fun (考点笔记版)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eef5fa;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            color: #1a3a4f;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .stats-bar {
+            background: white;
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-text {
+            background: #e0f0f7;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2c5a6e;
+        }
+        .accuracy-badge {
+            background: #fff0df;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #2c7a9e, #5fa7c4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 38px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .section-title {
+            background: #e3f0f5;
+            padding: 18px 26px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-left: 8px solid #2c7a9e;
+            color: #1f5e7a;
+        }
+        .sub-title {
+            background: #f9fdfe;
+            padding: 8px 26px;
+            font-size: 0.85rem;
+            color: #4f7e97;
+            border-bottom: 1px solid #d4e6ed;
+            font-style: italic;
+        }
+        .question-item {
+            padding: 20px 26px;
+            border-bottom: 1px solid #e2edf2;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.02rem;
+            margin-bottom: 16px;
+            line-height: 1.45;
+            color: #1d4a60;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 12px;
+        }
+        .option-btn {
+            background: #fafeff;
+            border: 1.5px solid #cde3ec;
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1d5a6e;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #d9eef5;
+            border-color: #5fa7c4;
+            transform: scale(0.97);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: #f9fdfe;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 5px solid #b8d4e2;
+        }
+        .feedback.correct {
+            background: #e6f4ea;
+            border-left-color: #4c8c5c;
+        }
+        .feedback.wrong {
+            background: #ffece8;
+            border-left-color: #c95a3a;
+        }
+        .correct-answer-badge {
+            font-weight: bold;
+            background: #e3edf2;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .section-footer {
+            padding: 16px 26px;
+            background: #fafefe;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #e2edf2;
+            font-weight: 500;
+        }
+        .global-download {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px;
+        }
+        .download-btn {
+            background: #2c7a9e;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 48px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .download-btn:hover {
+            background: #1f5e7a;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            .option-btn { padding: 5px 14px; font-size: 0.8rem; }
+            .section-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="stats-bar">
+        <h1>🎨 赢未来国雅 · 即学即练 | U4 娱乐的艺术</h1>
+        <div style="display: flex; gap: 12px;">
+            <div class="progress-text" id="progressCounter">已完成 0 / 30</div>
+            <div class="accuracy-badge" id="accuracyDisplay">正确率: --%</div>
+        </div>
+    </div>
+    <div id="quizRoot"></div>
+    <div class="global-download" id="downloadBtnContainer"></div>
+</div>
+
+<script>
+    // ======================= 外研七下 Unit 4 The art of having fun =======================
+    // 主要考点基于 Understanding ideas (娱乐的重要性、萧伯纳名言、太阳能播放器)
+    // 完形填空围绕课文“小岛娱乐选择”与“快乐使人年轻”；短文填空基于 Developing ideas (时间吞噬者、平衡娱乐)
+    // 总题数: 短语·语法融合 14题 + 完形填空 8题 + 短文填空 8题 = 30题
+    // 每道题显示正确答案 + 考点笔记（包含所有选项辨析）
+
+    // ---------- 1. 短语·语法融合 (Understanding ideas核心考点) ----------
+    const mixedChoice = [
+        { text: "Imagine ________ on an island alone. What would you bring for fun?", options: ["A. stay", "B. staying", "C. to stay", "D. stayed"], correct: "B", note: "🔍 考点笔记：imagine doing sth. 想象做某事。A.stay原形；B.staying动名词正确；C.to stay不定式；D.stayed过去分词。" },
+        { text: "Most people would choose something for fun, like a novel or a solar media ________.", options: ["A. player", "B. play", "C. playing", "D. played"], correct: "A", note: "🔍 考点笔记：media player 媒体播放器。A.player正确；B.play玩/戏剧；C.playing动名词；D.played过去式。" },
+        { text: "After all, no one wants to get ________. Fun lifts our spirits.", options: ["A. bored", "B. boring", "C. excited", "D. exciting"], correct: "A", note: "🔍 考点笔记：get bored 感到无聊（人作主语）。A.bored正确；B.boring令人无聊的；C.excited兴奋的；D.exciting令人兴奋的。" },
+        { text: "Fun can do ________ with bad feelings and lift our spirits.", options: ["A. away", "B. off", "C. out", "D. over"], correct: "A", note: "🔍 考点笔记：do away with 摆脱/废除。A.away正确；B.off离开；C.out出去；D.over结束。" },
+        { text: "Just picture yourself ________ a funny film on that island.", options: ["A. watch", "B. to watch", "C. watching", "D. watched"], correct: "C", note: "🔍 考点笔记：picture sb. doing sth. 想象某人做某事。A.watch原形；B.to watch不定式；C.watching正确；D.watched过去式。" },
+        { text: "Sitting under the trees will not be boring ________ all.", options: ["A. in", "B. at", "C. for", "D. of"], correct: "B", note: "🔍 考点笔记：not...at all 一点也不。A.in；B.at正确；C.for；D.of。" },
+        { text: "Fun also keeps us ________ youthful. It's good for our mind.", options: ["A. feel", "B. feeling", "C. to feel", "D. felt"], correct: "B", note: "🔍 考点笔记：keep sb. doing sth. 让某人一直做某事。A.feel原形；B.feeling正确；C.to feel不定式；D.felt过去式。" },
+        { text: "As George Bernard Shaw once said, 'We don't stop playing because we grow old; we grow old because we stop ________.'", options: ["A. play", "B. to play", "C. playing", "D. played"], correct: "C", note: "🔍 考点笔记：stop doing sth. 停止做某事。A.play原形；B.to play不定式；C.playing正确；D.played过去分词。" },
+        { text: "Research shows that fun brings people ________. It connects us.", options: ["A. close", "B. closer", "C. closest", "D. closely"], correct: "B", note: "🔍 考点笔记：bring sb. closer 使关系更近（比较级）。A.close原级；B.closer正确；C.closest最高级；D.closely副词紧密地。" },
+        { text: "Having fun is a good way to connect ________ others.", options: ["A. with", "B. to", "C. for", "D. on"], correct: "A", note: "🔍 考点笔记：connect with 与……联系。A.with正确；B.to朝向；C.for为了；D.on在……上。" },
+        { text: "Don't forget to take some time ________ to have fun and enjoy life.", options: ["A. out", "B. off", "C. away", "D. in"], correct: "A", note: "🔍 考点笔记：take time out 抽出时间。A.out正确；B.off离开；C.away远离；D.in进入。" },
+        { text: "We often get ________ in the monster's world of screens and forget the real world.", options: ["A. lose", "B. lost", "C. losing", "D. to lose"], correct: "B", note: "🔍 考点笔记：get lost in 迷失在……。A.lose原形；B.lost过去分词正确；C.losing动名词；D.to lose不定式。" },
+        { text: "We become couch potatoes with sore necks and dry ________.", options: ["A. eyes", "B. ears", "C. hands", "D. feet"], correct: "A", note: "🔍 考点笔记：dry eyes 眼睛干涩。A.eyes正确；B.ears耳朵；C.hands手；D.feet脚。" },
+        { text: "Too much fun also makes Jack a ________ boy. We need balance.", options: ["A. dull", "B. clever", "C. happy", "D. smart"], correct: "A", note: "🔍 考点笔记：dull boy 呆笨的男孩（谚语）。A.dull正确；B.clever聪明；C.happy快乐；D.smart精明。" }
+    ];
+
+    // ---------- 2. 完形填空 (8空) 基于 Understanding ideas 小岛娱乐与快乐哲学 ----------
+    const clozeOptions = [
+        { text: "If you were alone on an island, what would you bring? Most people would choose something ________ fun.", options: ["A. for", "B. to", "C. with", "D. of"], correct: "A", note: "🔍 考点笔记：something for fun 有趣的东西。A.for正确；B.to朝向；C.with伴随；D.of所属。" },
+        { text: "Fun can do away with bad ________ and lift our spirits.", options: ["A. feelings", "B. thoughts", "C. ideas", "D. minds"], correct: "A", note: "🔍 考点笔记：bad feelings 不良情绪。A.feelings正确；B.thoughts想法；C.ideas主意；D.minds心智。" },
+        { text: "Picture yourself ________ a funny film on the beach. It won't be boring.", options: ["A. watch", "B. watching", "C. to watch", "D. watched"], correct: "B", note: "🔍 考点笔记：picture sb. doing sth.。A.watch原形；B.watching正确；C.to watch不定式；D.watched过去式。" },
+        { text: "We don't stop playing because we grow old; we grow old because we stop ________.", options: ["A. play", "B. playing", "C. to play", "D. played"], correct: "B", note: "🔍 考点笔记：stop playing 停止玩耍。A.play原形；B.playing正确；C.to play不定式；D.played过去分词。" },
+        { text: "Fun keeps us ________ youthful. It's the secret to a young heart.", options: ["A. feel", "B. feeling", "C. to feel", "D. felt"], correct: "B", note: "🔍 考点笔记：keep sb. feeling youthful 让人感觉年轻。A.feel原形；B.feeling正确；C.to feel不定式；D.felt过去式。" },
+        { text: "Research shows that fun brings people ________. Shared joy creates bonds.", options: ["A. close", "B. closer", "C. closest", "D. closely"], correct: "B", note: "🔍 考点笔记：bring closer 使更亲近。A.close原级；B.closer比较级正确；C.closest最高级；D.closely副词。" },
+        { text: "Don't forget to take some time ________ to have fun. Life needs balance.", options: ["A. out", "B. off", "C. away", "D. in"], correct: "A", note: "🔍 考点笔记：take time out 抽出时间。A.out正确；B.off离开；C.away远离；D.in进入。" },
+        { text: "Having fun is a good way to ________ with others. It builds relationships.", options: ["A. connect", "B. contact", "C. combine", "D. compare"], correct: "A", note: "🔍 考点笔记：connect with 与……联系。A.connect正确；B.contact联系（及物）；C.combine结合；D.compare比较。" }
+    ];
+
+    // ---------- 3. 短文填空 (Developing ideas 拓展: 时间吞噬者、平衡娱乐、户外活动) ----------
+    const shortPassages = [
+        { text: "Have you ever noticed a ________ around us? It's the time-eating monster.", options: ["A. monster", "B. friend", "C. helper", "D. teacher"], correct: "A", note: "🔍 考点笔记：monster 怪物。A.monster正确；B.friend朋友；C.helper助手；D.teacher老师。课文比喻。" },
+        { text: "We often get lost in the monster's world of screens minute ________ minute.", options: ["A. after", "B. by", "C. to", "D. for"], correct: "B", note: "🔍 考点笔记：minute by minute 一分钟接一分钟地。A.after在……之后；B.by正确；C.to到；D.for为了。" },
+        { text: "We become couch potatoes with sore necks and dry eyes, ________ to the real world.", options: ["A. blind", "B. deaf", "C. silent", "D. open"], correct: "B", note: "🔍 考点笔记：be deaf to 对……充耳不闻。A.blind瞎的；B.deaf聋的/不愿听正确；C.silent沉默；D.open开放。" },
+        { text: "Too much fun also makes Jack a ________ boy. So we need balanced fun.", options: ["A. dull", "B. bright", "C. clever", "D. wise"], correct: "A", note: "🔍 考点笔记：dull boy 呆笨的男孩。A.dull正确；B.bright明亮/聪明；C.clever聪明；D.wise明智。" },
+        { text: "We can keep the monster away by having fun in a ________ way.", options: ["A. balanced", "B. simple", "C. difficult", "D. quick"], correct: "A", note: "🔍 考点笔记：balanced way 平衡的方式。A.balanced正确；B.simple简单；C.difficult困难；D.quick快速。" },
+        { text: "Go outside, feel the sun on your face, and ________ in the fresh air.", options: ["A. jog", "B. sit", "C. sleep", "D. eat"], correct: "A", note: "🔍 考点笔记：jog 慢跑。A.jog正确；B.sit坐；C.sleep睡觉；D.eat吃。健康娱乐方式。" },
+        { text: "We should not be ________ to the real world. Put down the screens and talk to people.", options: ["A. deaf", "B. kind", "C. friendly", "D. polite"], correct: "A", note: "🔍 考点笔记：be deaf to 充耳不闻。A.deaf正确；B.kind善良；C.friendly友好；D.polite礼貌。" },
+        { text: "There is so much for you to do: go hiking, play sports, or ________ time with family.", options: ["A. spend", "B. cost", "C. take", "D. pay"], correct: "A", note: "🔍 考点笔记：spend time with sb. 与某人共度时光。A.spend正确；B.cost花费（物作主语）；C.take花费（it作主语）；D.pay支付。" }
+    ];
+
+    // 构建完整题目列表 (14+8+8=30)
+    let allQuestions = [];
+    mixedChoice.forEach((item, idx) => {
+        allQuestions.push({ id: `mix_${idx}`, type: "📖 短语·语法融合", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    clozeOptions.forEach((item, idx) => {
+        allQuestions.push({ id: `cloze_${idx}`, type: "📝 完形填空 (课文情节)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    shortPassages.forEach((item, idx) => {
+        allQuestions.push({ id: `short_${idx}`, type: "✍️ 短文填空 (Developing ideas)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+
+    const TOTAL = allQuestions.length;
+    let userAnswers = new Array(TOTAL).fill(null);
+    let locked = new Array(TOTAL).fill(false);
+    let feedbackArr = new Array(TOTAL).fill(null);
+
+    function updateStatsAndRender() {
+        let answeredCount = userAnswers.filter(a => a !== null).length;
+        let correctCount = 0;
+        for (let i = 0; i < TOTAL; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === allQuestions[i].correct) correctCount++;
+        }
+        let percent = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+        document.getElementById('progressCounter').innerText = `已完成 ${answeredCount} / ${TOTAL}`;
+        document.getElementById('accuracyDisplay').innerHTML = `正确率: ${answeredCount === 0 ? '--' : percent + '%'}`;
+        renderAllSections();
+    }
+
+    function renderAllSections() {
+        const root = document.getElementById('quizRoot');
+        if (!root) return;
+        const groups = {
+            "📖 短语·语法融合": [],
+            "📝 完形填空 (课文情节)": [],
+            "✍️ 短文填空 (Developing ideas)": []
+        };
+        allQuestions.forEach((q, idx) => {
+            if (q.type === "📖 短语·语法融合") groups["📖 短语·语法融合"].push({ ...q, originalIndex: idx });
+            else if (q.type === "📝 完形填空 (课文情节)") groups["📝 完形填空 (课文情节)"].push({ ...q, originalIndex: idx });
+            else groups["✍️ 短文填空 (Developing ideas)"].push({ ...q, originalIndex: idx });
+        });
+        let html = '';
+        for (let [sectionName, items] of Object.entries(groups)) {
+            if (items.length === 0) continue;
+            html += `<div class="section-card"><div class="section-title">${sectionName} (${items.length}题)</div>`;
+            if (sectionName.includes("完形填空")) html += `<div class="sub-title">⭐ 基于课文《娱乐的意义》萧伯纳名言与快乐哲学</div>`;
+            if (sectionName.includes("短文填空")) html += `<div class="sub-title">🌱 拓展自 Developing ideas (时间吞噬者、平衡娱乐、户外生活)</div>`;
+            for (let item of items) {
+                const idx = item.originalIndex;
+                const selected = userAnswers[idx];
+                const isLocked = locked[idx];
+                const fb = feedbackArr[idx];
+                html += `<div class="question-item">
+                            <div class="question-text">${item.text}</div>
+                            <div class="options" id="options-${idx}">`;
+                item.options.forEach(opt => {
+                    const optLetter = opt.charAt(0);
+                    const isSelected = (selected === optLetter);
+                    let disabledAttr = isLocked ? 'disabled' : '';
+                    let extraStyle = (isSelected && isLocked) ? 'style="background:#d9eef5; border-color:#2c7a9e;"' : '';
+                    html += `<button class="option-btn" data-idx="${idx}" data-val="${optLetter}" ${disabledAttr} ${extraStyle}>${opt}</button>`;
+                });
+                html += `</div><div class="feedback ${fb ? (fb.correctFlag ? 'correct' : 'wrong') : ''}" id="fb-${idx}">`;
+                if (fb) {
+                    html += `<div class="correct-answer-badge">✔️ 正确答案：${item.correct}</div>`;
+                    html += `<div><strong>📘 考点笔记</strong><br>${item.note}</div>`;
+                    html += `<div style="margin-top:6px; font-size:0.8rem;">${fb.correctFlag ? '✅ 你的回答正确' : '❌ 你的回答错误'}</div>`;
+                } else {
+                    html += `<div style="opacity:0.8;">🎉 点击选项，显示正确答案及考点笔记（含所有选项辨析）。</div>`;
+                }
+                html += `</div></div>`;
+            }
+            let answeredInSec = 0, correctInSec = 0;
+            items.forEach(it => {
+                const ans = userAnswers[it.originalIndex];
+                if (ans !== null) {
+                    answeredInSec++;
+                    if (ans === allQuestions[it.originalIndex].correct) correctInSec++;
+                }
+            });
+            let secRate = answeredInSec === 0 ? '暂无' : `${Math.round((correctInSec/answeredInSec)*100)}%`;
+            html += `<div class="section-footer">📊 本区正确率：${secRate} (${correctInSec}/${answeredInSec})</div></div>`;
+        }
+        root.innerHTML = html;
+        for (let i = 0; i < TOTAL; i++) {
+            const btns = document.querySelectorAll(`.option-btn[data-idx="${i}"]`);
+            btns.forEach(btn => {
+                btn.removeEventListener('click', handler);
+                btn.addEventListener('click', handler);
+            });
+        }
+    }
+
+    function handler(e) {
+        const btn = e.currentTarget;
+        const idx = parseInt(btn.getAttribute('data-idx'));
+        if (locked[idx]) return;
+        const selectedVal = btn.getAttribute('data-val');
+        const question = allQuestions[idx];
+        const isCorrect = (selectedVal === question.correct);
+        userAnswers[idx] = selectedVal;
+        locked[idx] = true;
+        feedbackArr[idx] = { correctFlag: isCorrect };
+        updateStatsAndRender();
+        const fbDiv = document.getElementById(`fb-${idx}`);
+        if (fbDiv) fbDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function downloadReport() {
+        let report = "【赢未来国雅·即学即练】学习报告 (Unit 4 娱乐的艺术·考点笔记版)\n";
+        report += `生成时间: ${new Date().toLocaleString()}\n`;
+        report += `单元：外研七下 Unit 4 The art of having fun\n`;
+        report += `总题数: ${TOTAL}\n`;
+        let answered = userAnswers.filter(a => a !== null).length;
+        let correct = 0;
+        for (let i=0;i<TOTAL;i++) if(userAnswers[i] && userAnswers[i] === allQuestions[i].correct) correct++;
+        let percentTotal = answered===0?0:Math.round((correct/answered)*100);
+        report += `完成数量: ${answered} / ${TOTAL}\n`;
+        report += `正确率: ${percentTotal}%\n`;
+        report += `========================================\n\n`;
+        for (let i=0;i<TOTAL;i++) {
+            const q = allQuestions[i];
+            const userAns = userAnswers[i] || "未作答";
+            const correctAns = q.correct;
+            const isRight = (userAns === correctAns);
+            report += `【${i+1}】${q.type}\n`;
+            report += `题目: ${q.text}\n`;
+            report += `我的答案: ${userAns}\n`;
+            report += `正确答案: ${correctAns}\n`;
+            report += `考点笔记(选项全解): ${q.note}\n`;
+            report += `结果: ${isRight ? "✓ 正确" : "✗ 错误"}\n`;
+            report += `----------------------------------------\n`;
+        }
+        const blob = new Blob([report], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = "英语U4_娱乐的艺术_考点笔记报告.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function addDownloadButton() {
+        const container = document.getElementById('downloadBtnContainer');
+        container.innerHTML = '';
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.innerText = '📥 下载学习报告 (含考点笔记)';
+        btn.addEventListener('click', downloadReport);
+        container.appendChild(btn);
+    }
+
+    function init() {
+        addDownloadButton();
+        updateStatsAndRender();
+    }
+    init();
+</script>
+</body>
+</html>

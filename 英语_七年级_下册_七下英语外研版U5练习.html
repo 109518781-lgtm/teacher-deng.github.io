@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 中考英语 Unit 5 Amazing Nature (考点笔记版)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #eef4ea;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            color: #1f3b2c;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .stats-bar {
+            background: white;
+            border-radius: 32px;
+            padding: 16px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-text {
+            background: #e0f0e0;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2a5a2a;
+        }
+        .accuracy-badge {
+            background: #fff0df;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #3c8d40, #7fbc7f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .section-card {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 38px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .section-title {
+            background: #e3f0e0;
+            padding: 18px 26px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-left: 8px solid #4caf50;
+            color: #2c6e2c;
+        }
+        .sub-title {
+            background: #f9fef7;
+            padding: 8px 26px;
+            font-size: 0.85rem;
+            color: #5a7a55;
+            border-bottom: 1px solid #d4e8d0;
+            font-style: italic;
+        }
+        .question-item {
+            padding: 20px 26px;
+            border-bottom: 1px solid #e2efe0;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.02rem;
+            margin-bottom: 16px;
+            line-height: 1.45;
+            color: #2a5a2a;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 12px;
+        }
+        .option-btn {
+            background: #fafefa;
+            border: 1.5px solid #c8e0c8;
+            border-radius: 60px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #1f5a1f;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #d9f0d9;
+            border-color: #5fbb5f;
+            transform: scale(0.97);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: #f8fbf7;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 5px solid #bcd9b0;
+        }
+        .feedback.correct {
+            background: #e6f4ea;
+            border-left-color: #2e7d32;
+        }
+        .feedback.wrong {
+            background: #ffece8;
+            border-left-color: #d95a3a;
+        }
+        .correct-answer-badge {
+            font-weight: bold;
+            background: #e3efdf;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .section-footer {
+            padding: 16px 26px;
+            background: #fafef8;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #deecda;
+            font-weight: 500;
+        }
+        .global-download {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 40px;
+        }
+        .download-btn {
+            background: #3c8d40;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 48px;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .download-btn:hover {
+            background: #2a6b2a;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            .option-btn { padding: 5px 14px; font-size: 0.8rem; }
+            .section-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="stats-bar">
+        <h1>🏔️ 赢未来国雅 · 即学即练 | U5 神奇自然</h1>
+        <div style="display: flex; gap: 12px;">
+            <div class="progress-text" id="progressCounter">已完成 0 / 30</div>
+            <div class="accuracy-badge" id="accuracyDisplay">正确率: --%</div>
+        </div>
+    </div>
+    <div id="quizRoot"></div>
+    <div class="global-download" id="downloadBtnContainer"></div>
+</div>
+
+<script>
+    // ======================= 外研七下 Unit 5 Amazing nature =======================
+    // 主要考点基于 Understanding ideas (青藏高原、纳木错、生命之色)
+    // 完形填空围绕课文“高原之美”与“自然礼物”；短文填空基于 Developing ideas (死海、雨林保护)
+    // 总题数: 短语·语法融合 14题 + 完形填空 8题 + 短文填空 8题 = 30题
+    // 每道题显示正确答案 + 考点笔记（包含所有选项辨析）
+
+    // ---------- 1. 短语·语法融合 (Understanding ideas核心考点) ----------
+    const mixedChoice = [
+        { text: "The Qinghai-Tibet Plateau is famous ________ the world's highest mountain.", options: ["A. as", "B. for", "C. to", "D. with"], correct: "B", note: "🔍 考点笔记：be famous for 因……而闻名。A.as作为；B.for正确；C.to对……所知；D.with伴随。" },
+        { text: "This area is full of the most amazing ________ in nature.", options: ["A. colours", "B. sounds", "C. smells", "D. tastes"], correct: "A", note: "🔍 考点笔记：colours 色彩。A.colours正确；B.sounds声音；C.smells气味；D.tastes味道。课文强调自然色彩。" },
+        { text: "The mountains shine brightly ________ the sun, like white lotus flowers.", options: ["A. under", "B. in", "C. on", "D. at"], correct: "A", note: "🔍 考点笔记：under the sun 在阳光下。A.under正确；B.in在……里；C.on在……上；D.at在。" },
+        { text: "The lovely blue of the sky always gives me a ________ feeling.", options: ["A. calm", "B. excited", "C. nervous", "D. sad"], correct: "A", note: "🔍 考点笔记：calm feeling 平静的感觉。A.calm正确；B.excited兴奋；C.nervous紧张；D.sad悲伤。" },
+        { text: "Words can't ________ my love for the rivers and lakes.", options: ["A. express", "B. press", "C. impress", "D. discuss"], correct: "A", note: "🔍 考点笔记：express 表达。A.express正确；B.press按压；C.impress使印象深刻；D.discuss讨论。" },
+        { text: "There are a hundred kinds of blue in the water. It means ________ because it is the colour of life.", options: ["A. hope", "B. sadness", "C. anger", "D. fear"], correct: "A", note: "🔍 考点笔记：hope 希望。A.hope正确；B.sadness悲伤；C.anger愤怒；D.fear恐惧。" },
+        { text: "Trains are running ________ the plateau, bringing people closer to nature.", options: ["A. through", "B. across", "C. over", "D. past"], correct: "A", note: "🔍 考点笔记：through 从内部穿过（高原地区）。A.through正确；B.across表面穿过；C.over越过；D.past经过。" },
+        { text: "In my heart, it's better than ________ other place.", options: ["A. any", "B. some", "C. no", "D. every"], correct: "A", note: "🔍 考点笔记：any other + 单数名词 表示“任何其他的”。A.any正确；B.some一些；C.no没有；D.every每个。" },
+        { text: "I'm proud to say that I'm from one of the most ________ places in the world.", options: ["A. beautiful", "B. more beautiful", "C. most beautiful", "D. beautifully"], correct: "A", note: "🔍 考点笔记：one of + the + 最高级 + 复数名词。A.beautiful原级用于结构，但最高级前需the most，正确形式为most beautiful，此处形容词原级修饰places，需最高级。实际答案应为 beautiful 的最高级形式。正确: the most beautiful, 选项A为原级不完整，但设计时修正为最合理选项为most beautiful，但为符合选择题，正确选项是A.the most beautiful?题干无the，调整：依据教材原句‘one of the most beautiful places’，正确应是C.the most beautiful。但选项给出A.beautiful B.more beautiful C.most beautiful D.beautifully，正确选C。重新表述。", noteFix: "🔍 考点笔记：one of the + 最高级+复数。C.most beautiful正确；A.beautiful原级；B.more beautiful比较级；D.beautifully副词。" },
+        { text: "The Qiantang River is ________ than the Yangtze or Yellow rivers.", options: ["A. short", "B. shorter", "C. shortest", "D. the shortest"], correct: "B", note: "🔍 考点笔记：than 前用比较级 shorter。A.short原级；B.shorter正确；C.shortest最高级；D.the shortest最高级。" },
+        { text: "I'm not a sea ________ a lake. And I'm not dead.", options: ["A. and", "B. or", "C. but", "D. so"], correct: "C", note: "🔍 考点笔记：not...but... 不是……而是……。A.and和；B.or或者；C.but正确；D.so所以。" },
+        { text: "I'm saltier than ________ sea, so people can lie on my surface.", options: ["A. any", "B. some", "C. no", "D. every"], correct: "A", note: "🔍 考点笔记：any sea 任何海（比较级+any）。A.any正确；B.some一些；C.no没有；D.every每个。" },
+        { text: "People are cutting down my trees ________ wood and to make space for farming.", options: ["A. for", "B. to", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：for wood 为了获取木材。A.for正确；B.to到；C.of……的；D.with伴随。" },
+        { text: "Take less water, ________ I'll dry up within the next 100 years.", options: ["A. and", "B. or", "C. but", "D. so"], correct: "B", note: "🔍 考点笔记：祈使句 + or + 结果，否则。A.and和；B.or否则正确；C.but但是；D.so所以。" }
+    ];
+
+    // 修正第9题选项使其更合理
+    mixedChoice[8] = { text: "I'm proud to say that I'm from one of the most ________ places in the world.", options: ["A. beautiful", "B. more beautiful", "C. most beautiful", "D. beautifully"], correct: "C", note: "🔍 考点笔记：one of the + 最高级 + 复数名词。C.most beautiful正确；A.beautiful原级；B.more beautiful比较级；D.beautifully副词。" };
+
+    // ---------- 2. 完形填空 (8空) 基于 Understanding ideas 高原圣湖与生命感悟 ----------
+    const clozeOptions = [
+        { text: "The plateau is famous for its amazing natural beauty. The sky is ________ blue that it gives me a calm feeling.", options: ["A. so", "B. such", "C. very", "D. too"], correct: "A", note: "🔍 考点笔记：so + adj. + that 如此……以至于。A.so正确；B.such修饰名词；C.very很；D.too太。" },
+        { text: "The mountains shine like white lotus flowers, and the water is ________ with a hundred kinds of blue.", options: ["A. full", "B. fill", "C. filled", "D. filling"], correct: "A", note: "🔍 考点笔记：be full of 充满。A.full正确；B.fill动词；C.filled被动（be filled with）；D.filling现在分词。" },
+        { text: "Words cannot express my love ________ the rivers and lakes of my hometown.", options: ["A. for", "B. to", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：love for 对……的爱。A.for正确；B.to朝向；C.of所属；D.with伴随。" },
+        { text: "Trains are running through the plateau, ________ people from different places.", options: ["A. bringing", "B. taking", "C. carrying", "D. fetching"], correct: "A", note: "🔍 考点笔记：bringing 带来。A.bringing正确；B.taking带走；C.carrying搬运；D.fetching去取。" },
+        { text: "In my heart, my hometown is better than ________ other place in the world.", options: ["A. any", "B. some", "C. no", "D. every"], correct: "A", note: "🔍 考点笔记：any other 任何其他的。A.any正确；B.some一些；C.no没有；D.every每个。" },
+        { text: "The colour blue means ________ because it is the colour of life and hope.", options: ["A. hope", "B. sadness", "C. anger", "D. fear"], correct: "A", note: "🔍 考点笔记：hope 希望。A.hope正确；B.sadness悲伤；C.anger愤怒；D.fear恐惧。" },
+        { text: "I am proud ________ say that I come from one of the most beautiful places.", options: ["A. to", "B. of", "C. for", "D. with"], correct: "A", note: "🔍 考点笔记：be proud to do sth. 做某事感到自豪。A.to正确；B.of接名词；C.for为了；D.with伴随。" },
+        { text: "Nature's beauty can ________ us, change us and bring us happiness.", options: ["A. move", "B. move to", "C. moving", "D. moved"], correct: "A", note: "🔍 考点笔记：can + 动词原形 move 感动。A.move正确；B.move to搬去；C.moving动名词；D.moved过去式。" }
+    ];
+
+    // ---------- 3. 短文填空 (Developing ideas 拓展: 死海、雨林保护、环境警示) ----------
+    const shortPassages = [
+        { text: "The Dead Sea is not a sea ________ a lake. It is saltier than any sea.", options: ["A. but", "B. and", "C. or", "D. so"], correct: "A", note: "🔍 考点笔记：not...but... 不是……而是。A.but正确；B.and和；C.or或者；D.so所以。" },
+        { text: "Because it is so salty, people can lie on its ________ without sinking.", options: ["A. surface", "B. bottom", "C. side", "D. middle"], correct: "A", note: "🔍 考点笔记：surface 表面。A.surface正确；B.bottom底部；C.side侧面；D.middle中间。" },
+        { text: "However, people are taking too much water from the Dead Sea, so its water level is going ________ year by year.", options: ["A. down", "B. up", "C. off", "D. over"], correct: "A", note: "🔍 考点笔记：go down 下降。A.down正确；B.up上升；C.off离开；D.over结束。" },
+        { text: "If we don't stop, the sea may dry ________ within the next 100 years.", options: ["A. up", "B. out", "C. off", "D. away"], correct: "A", note: "🔍 考点笔记：dry up 干涸。A.up正确；B.out出去；C.off脱离；D.away离开。" },
+        { text: "In the rainforest, people are cutting ________ trees for wood and farming.", options: ["A. down", "B. up", "C. off", "D. out"], correct: "A", note: "🔍 考点笔记：cut down 砍倒。A.down正确；B.up切碎；C.off切断；D.out砍光。" },
+        { text: "The rainforest is being destroyed, which is harmful ________ our planet.", options: ["A. to", "B. for", "C. of", "D. with"], correct: "A", note: "🔍 考点笔记：be harmful to 对……有害。A.to正确；B.for为了；C.of……的；D.with伴随。" },
+        { text: "We should stop people ________ cutting down trees and protect the forest.", options: ["A. from", "B. to", "C. of", "D. for"], correct: "A", note: "🔍 考点笔记：stop sb. from doing sth. 阻止某人做某事。A.from正确；B.to到；C.of……的；D.for为了。" },
+        { text: "Let's work together to protect nature, ________ it will become more beautiful.", options: ["A. and", "B. or", "C. but", "D. so"], correct: "A", note: "🔍 考点笔记：祈使句 + and + 结果，那么。A.and正确；B.or否则；C.but但是；D.so所以。" }
+    ];
+
+    // 构建完整题目列表 (14+8+8=30)
+    let allQuestions = [];
+    mixedChoice.forEach((item, idx) => {
+        allQuestions.push({ id: `mix_${idx}`, type: "📖 短语·语法融合", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    clozeOptions.forEach((item, idx) => {
+        allQuestions.push({ id: `cloze_${idx}`, type: "📝 完形填空 (课文情节)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+    shortPassages.forEach((item, idx) => {
+        allQuestions.push({ id: `short_${idx}`, type: "✍️ 短文填空 (Developing ideas)", text: item.text, options: item.options, correct: item.correct, note: item.note });
+    });
+
+    const TOTAL = allQuestions.length;
+    let userAnswers = new Array(TOTAL).fill(null);
+    let locked = new Array(TOTAL).fill(false);
+    let feedbackArr = new Array(TOTAL).fill(null);
+
+    function updateStatsAndRender() {
+        let answeredCount = userAnswers.filter(a => a !== null).length;
+        let correctCount = 0;
+        for (let i = 0; i < TOTAL; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === allQuestions[i].correct) correctCount++;
+        }
+        let percent = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+        document.getElementById('progressCounter').innerText = `已完成 ${answeredCount} / ${TOTAL}`;
+        document.getElementById('accuracyDisplay').innerHTML = `正确率: ${answeredCount === 0 ? '--' : percent + '%'}`;
+        renderAllSections();
+    }
+
+    function renderAllSections() {
+        const root = document.getElementById('quizRoot');
+        if (!root) return;
+        const groups = {
+            "📖 短语·语法融合": [],
+            "📝 完形填空 (课文情节)": [],
+            "✍️ 短文填空 (Developing ideas)": []
+        };
+        allQuestions.forEach((q, idx) => {
+            if (q.type === "📖 短语·语法融合") groups["📖 短语·语法融合"].push({ ...q, originalIndex: idx });
+            else if (q.type === "📝 完形填空 (课文情节)") groups["📝 完形填空 (课文情节)"].push({ ...q, originalIndex: idx });
+            else groups["✍️ 短文填空 (Developing ideas)"].push({ ...q, originalIndex: idx });
+        });
+        let html = '';
+        for (let [sectionName, items] of Object.entries(groups)) {
+            if (items.length === 0) continue;
+            html += `<div class="section-card"><div class="section-title">${sectionName} (${items.length}题)</div>`;
+            if (sectionName.includes("完形填空")) html += `<div class="sub-title">⭐ 基于课文《高原圣湖》对自然的赞美与生命感悟</div>`;
+            if (sectionName.includes("短文填空")) html += `<div class="sub-title">🌱 拓展自 Developing ideas (死海危机、雨林保护、环境警示)</div>`;
+            for (let item of items) {
+                const idx = item.originalIndex;
+                const selected = userAnswers[idx];
+                const isLocked = locked[idx];
+                const fb = feedbackArr[idx];
+                html += `<div class="question-item">
+                            <div class="question-text">${item.text}</div>
+                            <div class="options" id="options-${idx}">`;
+                item.options.forEach(opt => {
+                    const optLetter = opt.charAt(0);
+                    const isSelected = (selected === optLetter);
+                    let disabledAttr = isLocked ? 'disabled' : '';
+                    let extraStyle = (isSelected && isLocked) ? 'style="background:#d9f0d9; border-color:#4caf50;"' : '';
+                    html += `<button class="option-btn" data-idx="${idx}" data-val="${optLetter}" ${disabledAttr} ${extraStyle}>${opt}</button>`;
+                });
+                html += `</div><div class="feedback ${fb ? (fb.correctFlag ? 'correct' : 'wrong') : ''}" id="fb-${idx}">`;
+                if (fb) {
+                    html += `<div class="correct-answer-badge">✔️ 正确答案：${item.correct}</div>`;
+                    html += `<div><strong>📘 考点笔记</strong><br>${item.note}</div>`;
+                    html += `<div style="margin-top:6px; font-size:0.8rem;">${fb.correctFlag ? '✅ 你的回答正确' : '❌ 你的回答错误'}</div>`;
+                } else {
+                    html += `<div style="opacity:0.8;">🌿 点击选项，显示正确答案及考点笔记（含所有选项辨析）。</div>`;
+                }
+                html += `</div></div>`;
+            }
+            let answeredInSec = 0, correctInSec = 0;
+            items.forEach(it => {
+                const ans = userAnswers[it.originalIndex];
+                if (ans !== null) {
+                    answeredInSec++;
+                    if (ans === allQuestions[it.originalIndex].correct) correctInSec++;
+                }
+            });
+            let secRate = answeredInSec === 0 ? '暂无' : `${Math.round((correctInSec/answeredInSec)*100)}%`;
+            html += `<div class="section-footer">📊 本区正确率：${secRate} (${correctInSec}/${answeredInSec})</div></div>`;
+        }
+        root.innerHTML = html;
+        for (let i = 0; i < TOTAL; i++) {
+            const btns = document.querySelectorAll(`.option-btn[data-idx="${i}"]`);
+            btns.forEach(btn => {
+                btn.removeEventListener('click', handler);
+                btn.addEventListener('click', handler);
+            });
+        }
+    }
+
+    function handler(e) {
+        const btn = e.currentTarget;
+        const idx = parseInt(btn.getAttribute('data-idx'));
+        if (locked[idx]) return;
+        const selectedVal = btn.getAttribute('data-val');
+        const question = allQuestions[idx];
+        const isCorrect = (selectedVal === question.correct);
+        userAnswers[idx] = selectedVal;
+        locked[idx] = true;
+        feedbackArr[idx] = { correctFlag: isCorrect };
+        updateStatsAndRender();
+        const fbDiv = document.getElementById(`fb-${idx}`);
+        if (fbDiv) fbDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function downloadReport() {
+        let report = "【赢未来国雅·即学即练】学习报告 (Unit 5 神奇自然·考点笔记版)\n";
+        report += `生成时间: ${new Date().toLocaleString()}\n`;
+        report += `单元：外研七下 Unit 5 Amazing nature\n`;
+        report += `总题数: ${TOTAL}\n`;
+        let answered = userAnswers.filter(a => a !== null).length;
+        let correct = 0;
+        for (let i=0;i<TOTAL;i++) if(userAnswers[i] && userAnswers[i] === allQuestions[i].correct) correct++;
+        let percentTotal = answered===0?0:Math.round((correct/answered)*100);
+        report += `完成数量: ${answered} / ${TOTAL}\n`;
+        report += `正确率: ${percentTotal}%\n`;
+        report += `========================================\n\n`;
+        for (let i=0;i<TOTAL;i++) {
+            const q = allQuestions[i];
+            const userAns = userAnswers[i] || "未作答";
+            const correctAns = q.correct;
+            const isRight = (userAns === correctAns);
+            report += `【${i+1}】${q.type}\n`;
+            report += `题目: ${q.text}\n`;
+            report += `我的答案: ${userAns}\n`;
+            report += `正确答案: ${correctAns}\n`;
+            report += `考点笔记(选项全解): ${q.note}\n`;
+            report += `结果: ${isRight ? "✓ 正确" : "✗ 错误"}\n`;
+            report += `----------------------------------------\n`;
+        }
+        const blob = new Blob([report], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = "英语U5_神奇自然_考点笔记报告.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function addDownloadButton() {
+        const container = document.getElementById('downloadBtnContainer');
+        container.innerHTML = '';
+        const btn = document.createElement('button');
+        btn.className = 'download-btn';
+        btn.innerText = '📥 下载学习报告 (含考点笔记)';
+        btn.addEventListener('click', downloadReport);
+        container.appendChild(btn);
+    }
+
+    function init() {
+        addDownloadButton();
+        updateStatsAndRender();
+    }
+    init();
+</script>
+</body>
+</html>

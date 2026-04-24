@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习考点精析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* 头部 */
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #216e48, #368f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .hero p {
+            color: #517a66;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #cde2d6;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        /* 卡片统一样式 */
+        .card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05);
+            margin-bottom: 28px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .question-panel {
+            padding: 24px 22px 12px 22px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 550;
+            background: #f9fff9;
+            padding: 12px 16px;
+            border-radius: 24px;
+            border-left: 6px solid #3b9b6e;
+            margin-bottom: 20px;
+            line-height: 1.45;
+            color: #1f3b31;
+        }
+
+        /* 选项区域 */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 16px;
+            background: #fefef8;
+            border: 1px solid #e1efe6;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover:not(.disabled-opt) {
+            background: #e9f3ec;
+            border-color: #9ac2ab;
+        }
+        .option-letter {
+            font-weight: 800;
+            background: #e3f0e9;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            color: #2b6e4c;
+            flex-shrink: 0;
+        }
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #2a423a;
+        }
+
+        /* 反馈区域 */
+        .feedback-area {
+            background: #f9fcf5;
+            margin: 0 20px 20px 20px;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border: 1px solid #d9ebdf;
+        }
+        .result-badge {
+            display: inline-block;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+        .correct-badge {
+            background: #cbefdf;
+            color: #146b3a;
+        }
+        .wrong-badge {
+            background: #ffe1de;
+            color: #bc4a3a;
+        }
+        .answer-compare {
+            background: #ffffffcc;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            border-left: 4px solid #88b8a0;
+        }
+        .your-answer, .correct-answer {
+            font-weight: 500;
+        }
+        .detail-explanation {
+            margin: 12px 0 0 0;
+            padding: 12px 14px;
+            background: #f3f8f1;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        .note-box {
+            margin-top: 16px;
+            background: #edf6ef;
+            border-radius: 20px;
+            padding: 12px 18px;
+            font-size: 0.85rem;
+            border: 1px solid #cde0d4;
+        }
+        .note-title {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            color: #2d6a4a;
+        }
+        .lock-message {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            text-align: right;
+            color: #89b69c;
+            font-style: italic;
+        }
+
+        /* 阅读专项区域 (短语/长难句 结构化 + 中文释义) */
+        .analysis-special {
+            margin: 0px;
+            background: #fefbed;
+            border-radius: 32px;
+            padding: 0px 0px 12px 0px;
+            border: 1px solid #f0e2bc;
+        }
+        .analysis-title {
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 20px 24px 8px 24px;
+            color: #b17f2e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff8e7;
+            border-bottom: 1px dashed #efdfb2;
+        }
+        .phrase-list, .sentence-list {
+            padding: 8px 24px 20px 24px;
+        }
+        .phrase-item, .sentence-item {
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            background: #fffcf0;
+            border-radius: 24px;
+            border-left: 4px solid #cfb87c;
+            transition: 0.1s;
+        }
+        .phrase-text {
+            font-weight: 700;
+            color: #3c6e47;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .phrase-en {
+            background: #e8f0e3;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-family: monospace;
+        }
+        .phrase-zh {
+            color: #b45f1b;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .phrase-example {
+            font-size: 0.85rem;
+            color: #5c6e5a;
+            margin-top: 8px;
+            padding-left: 8px;
+            border-left: 2px solid #dfcca2;
+        }
+        .sentence-grammar {
+            background: #fef7e6;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+        .sentence-en {
+            font-weight: 600;
+            color: #2f6042;
+        }
+        .sentence-zh {
+            color: #a5651e;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+
+        .disabled-opt {
+            opacity: 0.65;
+            pointer-events: none;
+            background: #f2f5ef;
+            cursor: default;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px 12px;
+            }
+            .question-panel {
+                padding: 18px 16px 6px 16px;
+            }
+            .feedback-area {
+                margin: 0 12px 16px 12px;
+            }
+            .analysis-special {
+                margin: 0;
+            }
+            .phrase-list, .sentence-list {
+                padding: 8px 16px 16px 16px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #86a694;
+            margin: 32px 0 10px;
+        }
+        hr {
+            margin: 12px 0;
+            border-color: #dfecdf;
+        }
+        .hover-word {
+            border-bottom: 1px dashed #6f9a82;
+            cursor: help;
+            transition: 0.1s;
+            font-weight: 500;
+        }
+        .hover-word:hover {
+            background: #d9f0e4;
+            border-radius: 8px;
+        }
+        .method-card {
+            background: #eef3f0;
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin: 0 0 20px 0;
+        }
+        .badge-method {
+            background: #d9e6de;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #2f6b48;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>单词悬停释义 | 实时反馈 | 答案对比 | 考点笔记 + 长难句/短语精讲</p>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项后立即显示答案正误、你的答案&正确答案，考点笔记自动生成，锁定不可修改。英文单词悬停显示中文释义。</footer>
+</div>
+
+<script>
+    // ---------- 英译释义库（悬停用 + 短语中文补充）------------
+    const meaningMap = {
+        "mean": "意思是；意指", "bridge": "桥梁", "feels": "感觉", "menu": "菜单", "symbol": "象征", "remains": "保持；仍然",
+        "suffer": "遭受", "another": "另一个", "until": "直到", "tastes": "尝起来", "smells": "闻起来", "looks": "看起来",
+        "sounds": "听起来", "diet": "日常饮食", "mixture": "混合物", "actually": "实际上", "history": "历史", "bring": "带来",
+        "circle": "圈出", "lucky": "幸运的", "important": "重要的", "vegetables": "蔬菜", "usually": "通常", "dumplings": "饺子",
+        "festival": "节日", "traditional": "传统的", "culture": "文化", "scholar": "秀才", "noodles": "面条", "coin": "硬币",
+        "vinegar": "醋", "order": "点菜", "plate": "盘子", "bowl": "碗", "energetic": "精力充沛的", "dragon": "龙", "communication":"沟通",
+        "add":"添加", "salt":"盐", "soup":"汤", "beat":"打败", "store":"储存", "mean":"意指", "bridge":"桥梁"
+    };
+    function addWordHover(text) {
+        if (!text) return text;
+        return text.replace(/\b([A-Za-z][A-Za-z\-']{1,30})\b/g, (match) => {
+            let low = match.toLowerCase();
+            let meaning = meaningMap[low] || meaningMap[match];
+            if (meaning) return `<span class="hover-word" title="${meaning}">${match}</span>`;
+            return match;
+        });
+    }
+
+    // ---------- 题库（完全基于新附件题目 1-10 + 文化阅读+核心短语） ----------
+    const mcQuestions = [
+        { id: 1, text: "The soup tastes ______. Can I have ______ bowl?", options: ["A well; any", "B good; other", "C good; another", "D well; any other"], correct: "C", explanation: "感官动词tastes后接形容词good；another表示‘另一碗’符合语境。", note: "感官系动词+adj；another泛指另一个。考点：不定代词用法。" },
+        { id: 2, text: "I can't go to school because I ______ from a bad cold.", options: ["A beat", "B suffer", "C hurt", "D store"], correct: "B", explanation: "suffer from 患……病，固定搭配。", note: "suffer from + 疾病/痛苦，常见考点。" },
+        { id: 3, text: "Who's that lovely girl? — You ______ the girl with long hair? That's Kate.", options: ["A want", "B mean", "C know", "D tell"], correct: "B", explanation: "mean意为‘意思是，指’，用于确认所指对象。", note: "mean v. 意指；口语交际常用。" },
+        { id: 4, text: "Do you like swimming in winter? Of course. The water ______ a bit cold at first, but then I am full of energy.", options: ["A tastes", "B smells", "C feels", "D looks"], correct: "C", explanation: "水冷是皮肤接触的感觉，feels符合。", note: "感官动词辨析：feel+adj表示‘感觉……’" },
+        { id: 5, text: "What would you like to order, sir? Let me have a look at the ______.", options: ["A chair", "B menu", "C plate", "D bowl"], correct: "B", explanation: "点餐需要看菜单menu。", note: "menu菜单，order点餐名词。" },
+        { id: 6, text: "Queen Elizabeth II is already 92 years old. Really? She remains so healthy and energetic.", options: ["A is sometimes", "B is still", "C is never", "D is hardly"], correct: "B", explanation: "remains同义‘仍然’，替换为is still。", note: "同义替换 remain=still be；保持状态。" },
+        { id: 7, text: "In China, people believe the dragon is the ______ of good luck and success.", options: ["A picture", "B hope", "C step", "D symbol"], correct: "D", explanation: "龙是好运和成功的象征 symbol。", note: "cultural symbol文化象征。" },
+        { id: 8, text: "What is your mother cooking in the kitchen? Fish, I guess. It ______ nice!", options: ["A looks", "B smells", "C tastes", "D sounds"], correct: "B", explanation: "根据猜测‘鱼’闻起来很香。", note: "smells+adj 表嗅觉推断。" },
+        { id: 9, text: "Communication is a ______ between the young and the old.", options: ["A pill", "B pepper", "C bridge", "D boat"], correct: "C", explanation: "沟通是两代人之间的桥梁bridge。", note: "metaphor比喻用法 bridge连接作用。" },
+        { id: 10, text: "Can you add some salt ______ the soup?", options: ["A in", "B to", "C on", "D with"], correct: "B", explanation: "add ... to ... 把……加到……里。", note: "固定搭配add A to B。介词重点。" }
+    ];
+
+    // 文化阅读 (完整题目)
+    const cultureReading = {
+        passage: `Chinese food is an important part of Chinese culture. When they meet, most people in China ask the question "Did you eat?". It is not about the food. They just want to say "Hello!". Or they say "Let's eat together!". It shows that they want to make friends with you.
+
+Traditional Chinese food always has special meanings behind it. Chinese people eat dumplings on the Spring Festival. Not only because they are delicious, but also because it's fun to make dumplings with families. So dumplings mean love and getting together. People eat tangyuan or yuanxiao on the Lantern Festival. It is the symbol of "tuanyuan". They eat zongzi on the Dragon Boat Festival to remember Qu Yuan. And eating mooncakes on the Mid-Autumn Festival also means people's wishes to the families they love and miss.
+
+On birthdays, Chinese people eat some eggs in the morning. Eggs are a symbol of life and good luck. And they cook a large bowl of long noodles at noon for the family. They never cut up the noodles because the long noodles are a symbol of long life.`,
+        questions: [
+            { id: "R1", text: "What do Chinese people often say when they meet?", options: ["A 'Did you eat?'", "B 'Hello!'", "C 'Let's eat together!'"], correct: "A", explanation: "第一段明确: most people ask 'Did you eat?'", note: "文化问候语，体现民以食为天。"},
+            { id: "R2", text: "Which of the following is NOT TRUE from the passage?", options: ["A Chinese people eat tangyuan for the meaning of 'tuanyuan'.", "B Chinese people eat zongzi to show wishes to their families.", "C Chinese people like eating long noodles and eggs on their birthdays."], correct: "B", explanation: "吃粽子是为了纪念屈原，不是向家人表达祝愿。", note: "细节判断题，注意每个节日的真实寓意。"},
+            { id: "R3", text: "Many festivals are mentioned in paragraph two to tell us ______.", options: ["A these festivals are interesting and popular", "B the foods have special meanings behind the festivals", "C Chinese people like making different foods at festivals"], correct: "B", explanation: "第二段讲述传统食物背后特殊含义。", note: "中心句：‘foods have special meanings’。"},
+            { id: "R4", text: "What's the best title of the passage?", options: ["A Birthday Food in China.", "B Traditional Festivals in China.", "C The Food Culture in China."], correct: "C", explanation: "全文讲述中国食物与文化关系。", note: "最佳标题需概括食物与文化。"}
+        ]
+    };
+
+    // ---------------- 结构化短语+长难句 添加中文准确释义 ----------------
+    const advancedNotes = {
+        phrases: [
+            { phrase: "ask the question", meaning: "提出问题", example: "Most Chinese ask 'Did you eat?' when they meet. (多数中国人见面时会问‘吃了吗？’)" },
+            { phrase: "make friends with", meaning: "与……交朋友", example: "They say 'Let's eat together' to make friends with you. (他们说‘一起吃吧’来和你交朋友。)" },
+            { phrase: "a symbol of", meaning: "……的象征", example: "Long noodles are a symbol of long life. (长寿面是长寿的象征。)" },
+            { phrase: "not only ... but also", meaning: "不仅……而且……", example: "Not only because they are delicious, but also because it's fun. (不仅因为美味，还因为有趣。)" },
+            { phrase: "suffer from", meaning: "遭受（病痛/苦难）", example: "suffer from a bad cold (患重感冒)" },
+            { phrase: "add ... to", meaning: "把……加到……里", example: "add some salt to the soup (往汤里加盐)" },
+            { phrase: "do well in", meaning: "在……方面做得好；考得好", example: "the scholar did well in the exam (秀才考得很好)" },
+            { phrase: "bring good luck", meaning: "带来好运", example: "the noodles can bring them good luck (面条能给他们带来好运)" },
+            { phrase: "have a history of", meaning: "有……历史", example: "Biangbiang mian has a history of 2,000 years. (Biangbiang面有两千年历史)" }
+        ],
+        longSentences: [
+            { sentence: "They never cut up the noodles because the long noodles are a symbol of long life.", translation: "他们从不切断面条，因为长面条是长寿的象征。", analysis: "原因状语从句because引导；主句说明习俗，从句解释文化原因。" },
+            { sentence: "If someone eats the dumpling with the coin in it, he or she will be lucky in the new year.", translation: "如果某人吃到了包有硬币的饺子，他/她新年就会好运。", analysis: "条件状语从句 if + 一般现在时，主句一般将来时 (will be)。" },
+            { sentence: "The shopkeeper thinks the word interesting and gives him a big bowl of noodles.", translation: "店主觉得这个字很有趣，给了他一碗面。", analysis: "think +宾语+形容词作宾补；并列谓语结构。" },
+            { sentence: "Not only because they are delicious, but also because it's fun to make dumplings with families.", translation: "不仅因为饺子美味，还因为和家人包饺子很有趣。", analysis: "not only...but also 连接并列原因，动名词短语作主语。" }
+        ]
+    };
+
+    // 解题方法 (删去完形填空总结，改为解题策略)
+    const strategyBlock = `
+        <div class="method-card" style="margin-bottom:24px; border-radius:32px;">
+            <div class="badge-method">🎯 解题方法与思路点拨</div>
+            <div style="margin-top:12px; font-weight:500; color:#2c5a44;">📖 完形填空 & 语法填空核心策略：</div>
+            <ul style="margin-left:20px; margin-top:8px; color:#375e4c; line-height:1.5;">
+                <li><strong>1. 语境推断法</strong> —— 根据上下文逻辑（转折、因果、并列）选择适当词汇。</li>
+                <li><strong>2. 固定搭配优先</strong> —— 如 “suffer from”, “add...to”, “a symbol of” 等直接锁定答案。</li>
+                <li><strong>3. 感官动词 & 连词考点</strong> —— taste/smell/feel + adj；连词 because/if/and 判断逻辑关系。</li>
+                <li><strong>4. 文化背景辅助</strong> —— 中国传统节日、食物寓意（饺子团圆、粽子纪念屈原）帮助选择。</li>
+                <li><strong>5. 词性一致原则</strong> —— 选词填空时注意名词单复数/动词时态/形容词副词形式。</li>
+            </ul>
+            <div style="margin-top:12px; background:#e4f0e8; padding:12px; border-radius:24px;">
+                💡 <strong>阅读理解诀窍</strong>：先读题干，定位原文；长难句拆分主干；注意同义转述；选项排除法对比细节。
+            </div>
+        </div>
+    `;
+
+    // -------- 渲染主界面--------
+    const rootEl = document.getElementById("questionsRoot");
+    function buildExam() {
+        let mainHtml = `<div class="section-label" style="margin-bottom:6px; font-weight:700;">📌 单选题 (词汇语法精练)</div>`;
+        mcQuestions.forEach(q => {
+            mainHtml += `
+                <div class="card" data-qid="mc_${q.id}" data-correct="${q.correct}" data-type="choice" data-explanation='${q.explanation.replace(/'/g, "&#39;")}' data-note='${q.note.replace(/'/g, "&#39;")}'>
+                    <div class="question-panel">
+                        <div class="question-text">${q.id}. ${addWordHover(q.text)}</div>
+                        <div class="options-list" id="opts-mc_${q.id}">
+            `;
+            q.options.forEach(opt => {
+                let letter = opt.charAt(0);
+                let optRaw = opt.slice(1).trim();
+                mainHtml += `<div class="option" data-val="${letter}"><div class="option-letter">${letter}</div><div class="option-text">${addWordHover(optRaw)}</div></div>`;
+            });
+            mainHtml += `</div></div><div class="feedback-area" id="fb-mc_${q.id}" style="display:none;"></div></div>`;
+        });
+
+        // Biangbiang面小型阅读 (故事概要)
+        mainHtml += `<div class="card"><div class="question-panel"><div class="question-text">🍜 文化拓展 · Biangbiang面的传说 (高频考点)</div><div style="background:#fef8e7; padding:14px; border-radius:24px; line-height:1.5;">${addWordHover("Biangbiang mian has a history of about 2,000 years. When the cook puts noodles against the board, they make the sound 'biang'. A scholar lost all his money, felt hungry and wanted free noodles. He created the character 'biang'. The shopkeeper thought the word interesting and gave him noodles. Later the scholar did well in the exam. People believe biangbiang noodles can bring good luck.")}</div><div class="note-box" style="margin-top:16px;"><span class="note-title">📖 考点聚焦</span><br/>✔️ have a history of (有……历史)  ✔️ make the sound (发出声音)  ✔️ do well in (考得好)  ✔️ bring good luck (带来好运) 。</div></div></div>`;
+        
+        // 文化阅读卡片 + 小题
+        mainHtml += `<div class="card"><div class="question-panel"><div class="question-text">📖 阅读理解 · 中国传统食物文化精析</div><div style="background:#fafaf4; padding:14px; border-radius:24px; line-height:1.5; margin-bottom:18px;">${addWordHover(cultureReading.passage)}</div></div></div>`;
+        cultureReading.questions.forEach((q, idx) => {
+            mainHtml += `
+                <div class="card" data-qid="read_${idx}" data-correct="${q.correct}" data-type="reading" data-explanation='${q.explanation.replace(/'/g, "&#39;")}' data-note='${q.note.replace(/'/g, "&#39;")}'>
+                    <div class="question-panel">
+                        <div class="question-text">${q.id}. ${addWordHover(q.text)}</div>
+                        <div class="options-list" id="opts-read_${idx}">
+            `;
+            q.options.forEach(opt => {
+                let letter = opt.charAt(0);
+                let optRaw = opt.slice(1).trim();
+                mainHtml += `<div class="option" data-val="${letter}"><div class="option-letter">${letter}</div><div class="option-text">${addWordHover(optRaw)}</div></div>`;
+            });
+            mainHtml += `</div></div><div class="feedback-area" id="fb-read_${idx}" style="display:none;"></div></div>`;
+        });
+
+        // 优化排版：高频搭配 + 长难句(包含中文释义)
+        mainHtml += `<div class="card" style="background:#fdfff7;"><div class="analysis-special">
+                        <div class="analysis-title">📚 高频搭配 & 核心短语 · 长难句精讲</div>
+                        <div><div class="phrase-list"><strong style="display:block; margin-bottom:14px;">🔖 常考短语 (含中文释义+例句)</strong>`;
+        advancedNotes.phrases.forEach(p => {
+            mainHtml += `<div class="phrase-item">
+                            <div class="phrase-text"><span class="phrase-en">${addWordHover(p.phrase)}</span> <span class="phrase-zh">${p.meaning}</span></div>
+                            <div class="phrase-example">💬 ${addWordHover(p.example)}</div>
+                         </div>`;
+        });
+        mainHtml += `</div><div class="sentence-list"><strong style="display:block; margin:20px 0 14px;">🧩 长难句 + 语法分析 (原文+译文)</strong>`;
+        advancedNotes.longSentences.forEach(ls => {
+            mainHtml += `<div class="sentence-item">
+                            <div class="sentence-en">📖 ${addWordHover(ls.sentence)}</div>
+                            <div class="sentence-zh">📝 中文：${ls.translation}</div>
+                            <div class="sentence-grammar">📌 语法解析：${ls.analysis}</div>
+                         </div>`;
+        });
+        mainHtml += `</div></div></div></div>`;
+        // 加入解题方法区域（替换原来完形填空总结）
+        mainHtml += strategyBlock;
+        rootEl.innerHTML = mainHtml;
+        attachEvents();
+    }
+
+    function attachEvents() {
+        const allQuestionCards = document.querySelectorAll('.card[data-qid]');
+        allQuestionCards.forEach(card => {
+            const correctAns = card.getAttribute('data-correct');
+            const expRaw = card.getAttribute('data-explanation');
+            const noteRaw = card.getAttribute('data-note');
+            const explanationText = expRaw ? expRaw : "结合语境及选项分析得出答案。";
+            const noteText = noteRaw ? noteRaw : "记住固定搭配和语义场景。";
+            const optsContainer = card.querySelector('.options-list');
+            if (!optsContainer) return;
+            const optionsDivs = optsContainer.querySelectorAll('.option');
+            optionsDivs.forEach(opt => {
+                opt.addEventListener('click', (e) => {
+                    if (card.classList.contains('answered')) return;
+                    const selectedVal = opt.getAttribute('data-val');
+                    const isCorrect = (selectedVal === correctAns);
+                    const feedbackDiv = card.querySelector('.feedback-area');
+                    if (!feedbackDiv) return;
+                    let yourOptionFull = "";
+                    let correctOptionFull = "";
+                    optionsDivs.forEach(op => { 
+                        if(op.getAttribute('data-val') === selectedVal) {
+                            yourOptionFull = op.querySelector('.option-text')?.innerText || selectedVal;
+                        }
+                        if(op.getAttribute('data-val') === correctAns) {
+                            correctOptionFull = op.querySelector('.option-text')?.innerText || correctAns;
+                        }
+                    });
+                    const resultHtml = `
+                        <div class="result-badge ${isCorrect ? 'correct-badge' : 'wrong-badge'}">
+                            ${isCorrect ? '✔ 回答正确' : '❌ 回答错误'}
+                        </div>
+                        <div class="answer-compare">
+                            <div class="your-answer">📌 你的答案：${selectedVal}. ${yourOptionFull}</div>
+                            <div class="correct-answer">✅ 正确答案：${correctAns}. ${correctOptionFull}</div>
+                        </div>
+                        <div class="detail-explanation">
+                            <strong>🔎 详细解析：</strong> ${explanationText}<br/>
+                            <strong>📘 考点笔记：</strong> ${noteText}
+                        </div>
+                        <div class="lock-message">🔒 答案已锁定，不可修改</div>
+                    `;
+                    feedbackDiv.innerHTML = resultHtml;
+                    feedbackDiv.style.display = 'block';
+                    card.classList.add('answered');
+                    optionsDivs.forEach(op => { op.classList.add('disabled-opt'); });
+                });
+            });
+        });
+    }
+
+    buildExam();
+</script>
+</body>
+</html>
