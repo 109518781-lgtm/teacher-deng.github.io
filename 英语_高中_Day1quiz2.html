@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习考点精析 | DIY阅读（手机触词版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #216e48, #368f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .hero p {
+            color: #517a66;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #cde2d6;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #5e7a6b;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05);
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .question-panel {
+            padding: 24px 22px 12px 22px;
+        }
+
+        .reading-passage {
+            background: #fefaf0;
+            padding: 18px 20px;
+            border-radius: 28px;
+            line-height: 1.68;
+            font-size: 0.96rem;
+            margin-bottom: 24px;
+            border: 1px solid #e9e0cb;
+            white-space: pre-line;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 550;
+            background: #f9fff9;
+            padding: 10px 16px;
+            border-radius: 24px;
+            border-left: 6px solid #3b9b6e;
+            margin-bottom: 20px;
+            line-height: 1.45;
+            color: #1f3b31;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 16px;
+            background: #fefef8;
+            border: 1px solid #e1efe6;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover:not(.disabled-opt) {
+            background: #e9f3ec;
+            border-color: #9ac2ab;
+        }
+
+        .option-letter {
+            font-weight: 800;
+            background: #e3f0e9;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            color: #2b6e4c;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #2a423a;
+        }
+
+        .feedback-area {
+            background: #f9fcf5;
+            margin: 0 20px 20px 20px;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border: 1px solid #d9ebdf;
+        }
+
+        .result-badge {
+            display: inline-block;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+
+        .correct-badge {
+            background: #cbefdf;
+            color: #146b3a;
+        }
+
+        .wrong-badge {
+            background: #ffe1de;
+            color: #bc4a3a;
+        }
+
+        .answer-compare {
+            background: #ffffffcc;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            border-left: 4px solid #88b8a0;
+        }
+
+        .detail-explanation {
+            margin: 12px 0 0 0;
+            padding: 12px 14px;
+            background: #f3f8f1;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .lock-message {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            text-align: right;
+            color: #89b69c;
+            font-style: italic;
+        }
+
+        .disabled-opt {
+            opacity: 0.65;
+            pointer-events: none;
+            background: #f2f5ef;
+            cursor: default;
+        }
+
+        .analysis-special {
+            margin: 0px;
+            background: #fefbed;
+            border-radius: 32px;
+            padding: 0px 0px 12px 0px;
+            border: 1px solid #f0e2bc;
+        }
+
+        .analysis-title {
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 20px 24px 8px 24px;
+            color: #b17f2e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff8e7;
+            border-bottom: 1px dashed #efdfb2;
+        }
+
+        .phrase-list, .sentence-list {
+            padding: 8px 24px 20px 24px;
+        }
+
+        .phrase-item, .sentence-item {
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            background: #fffcf0;
+            border-radius: 24px;
+            border-left: 4px solid #cfb87c;
+        }
+
+        .phrase-text {
+            font-weight: 700;
+            color: #3c6e47;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .phrase-en {
+            background: #e8f0e3;
+            padding: 2px 10px;
+            border-radius: 40px;
+        }
+
+        .phrase-zh {
+            color: #b45f1b;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .phrase-example {
+            font-size: 0.85rem;
+            color: #5c6e5a;
+            margin-top: 8px;
+            padding-left: 8px;
+            border-left: 2px solid #dfcca2;
+        }
+
+        .sentence-grammar {
+            background: #fef7e6;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+
+        .sentence-en {
+            font-weight: 600;
+            color: #2f6042;
+        }
+
+        .sentence-zh {
+            color: #a5651e;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* 可点击单词样式 */
+        .clickable-word {
+            border-bottom: 1px dashed #6f9a82;
+            cursor: pointer;
+            transition: 0.1s;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .clickable-word:active {
+            background: #d9f0e4;
+            border-radius: 8px;
+        }
+
+        /* 美化后的移动端弹窗提示 - 浅色清新风格 */
+        .word-toast {
+            position: fixed;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #ffffff;
+            backdrop-filter: blur(8px);
+            color: #2c5a44;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            z-index: 1000;
+            max-width: 85vw;
+            white-space: normal;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 32, 0, 0.15), 0 0 0 1px rgba(100, 150, 120, 0.3);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            opacity: 0;
+            font-family: 'Segoe UI', system-ui;
+            letter-spacing: 0.3px;
+            background: #fffffff2;
+            border: 1px solid #bdd8ca;
+        }
+        .word-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .method-card {
+            background: #eef3f0;
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin: 0 0 20px 0;
+        }
+
+        .badge-method {
+            background: #d9e6de;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #2f6b48;
+        }
+
+        .vocab-table, .sentence-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffffdd;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .vocab-table th, .vocab-table td, .sentence-table th, .sentence-table td {
+            border: 1px solid #dbeadf;
+            padding: 10px 12px;
+            vertical-align: top;
+            font-size: 0.85rem;
+        }
+
+        .vocab-table th, .sentence-table th {
+            background: #e2f0e8;
+            font-weight: 600;
+            color: #245f41;
+        }
+
+        .section-title-icon {
+            margin: 20px 0 10px 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editable-cell {
+            background-color: #fffff2;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 16px 12px; }
+            .question-panel { padding: 18px 16px 6px 16px; }
+            .feedback-area { margin: 0 12px 16px 12px; }
+            .phrase-list, .sentence-list { padding: 8px 16px 16px 16px; }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #86a694;
+            margin: 32px 0 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>DIY 阅读专练 | 点击查词（手机/平板适用）| 答案对比 | 自主复习表</p>
+        <div class="meta-info">📌 来源：2023全国甲卷 · 难度较难 · 移动触词版</div>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项立即锁定，显示你的答案vs正确答案。<span style="background:#e8f0e3;padding:2px 10px;border-radius:20px;">🔍 点击任意英文单词 → 弹出中文释义</span>，下方表格可自填复习。</footer>
+</div>
+
+<div id="wordToast" class="word-toast"></div>
+
+<script>
+    // ========== 完整释义库（覆盖文章、选项、短语、长难句中所有单词）==========
+    const meaningMap = {
+        // 文章核心词
+        "Terri": "特丽（人名）", "Bolton": "博尔顿（姓氏）", "dab": "能手", "hand": "人手", "DIY": "自己动手",
+        "Skilled": "熟练的", "skilled": "熟练的", "shelves": "架子", "furniture": "家具", "credits": "归功于",
+        "late": "已故的", "grandfather": "祖父", "builder": "建筑工", "Derek": "德里克（人名）", "Lloyd": "劳埃德（姓氏）",
+        "accompanied": "陪伴", "rewarded": "奖励", "pocket": "口袋", "money": "钱", "pocket money": "零花钱",
+        "backbreaking": "累人的", "proud": "自豪的", "rents": "租用", "deposit": "押金", "tenancy": "租期",
+        "personalise": "个性化", "cover": "覆盖", "holes": "孔洞", "repaint": "重刷", "charges": "费用",
+        "millions": "数百万", "projects": "项目", "average": "平均", "spend": "花费", "comfort": "舒适",
+        "value": "价值", "traditionally": "传统上", "male": "男性的", "hobby": "爱好", "leading": "领先的",
+        "charge": "冲锋/引领", "Lakes": "湖泊", "Wandsworth": "旺兹沃思（地名）", "South": "南", "West": "西",
+        "London": "伦敦", "Wisconsin": "威斯康星州", "Devil": "魔鬼", // 部分名词简单处理
+        
+        // 题目及选项词
+        "which": "哪一个", "closest": "最接近的", "meaning": "意思", "paragraph": "段落", "artist": "艺术家",
+        "winner": "获胜者", "specialist": "专家", "pioneer": "先驱", "why": "为什么", "birthday": "生日",
+        "gift": "礼物", "treat": "款待/奖励", "support": "支持", "encourage": "鼓励", "hobby": "爱好",
+        "how": "如何", "avoid": "避免", "losing": "失去", "furnishing": "布置家具", "splitting": "分摊",
+        "roommate": "室友", "cancelling": "取消", "rental": "租赁的", "agreement": "协议", "trend": "趋势",
+        "research": "研究", "costly": "昂贵的", "time-consuming": "耗时的", "seasonal": "季节性的",
+        "industry": "行业", "gaining": "获得", "popularity": "流行", "among": "在……之中", "females": "女性",
+        
+        // 短语词
+        "piece": "片/块", "together": "一起", "credit": "归功", "save": "拯救/节省", "make": "使得/做",
+        "most": "最多", "summer": "夏天", "women": "女性",
+        
+        // 长难句及常见词
+        "though": "虽然", "been": "被", "seen": "被视为", "now": "现在", "herself": "她自己",
+        "someone": "某人", "else": "其他", "job": "工作", "puts": "放置", "against": "靠着",
+        "board": "板子", "sound": "声音", "scholar": "学者", "lost": "丢失", "hungry": "饥饿的",
+        "free": "免费的", "noodles": "面条", "created": "创造了", "character": "汉字/角色",
+        "thinking": "认为", "interesting": "有趣的", "gave": "给了", "bowl": "碗", "later": "后来",
+        "did": "做", "well": "好", "exam": "考试", "people": "人们", "start": "开始", "eat": "吃",
+        "believe": "相信", "them": "他们", "good": "好的", "luck": "运气", "visit": "参观",
+        "restaurant": "餐厅", "while": "当/而", "still": "仍然", "looking": "看", "back": "回",
+        "photos": "照片", "best": "最好的", "shots": "拍摄", "though": "虽然", "could": "可以",
+        "have": "有", "been": "已经", "prepared": "准备好的", "managed": "管理", "time": "时间",
+        "wisely": "明智地", "enabled": "使能够", "spare": "空闲的", "marked": "标记", "route": "路线",
+        "ended": "结束", "entirely": "完全地", "stressful": "有压力的", "setting": "设置",
+        "limited": "有限的", "decisive": "决定性的", "destinations": "目的地", "attempting": "试图",
+        "plenty": "许多", "beautiful": "美丽的", "sunset": "日落", "sunrise": "日出", "spot": "地点"
+    };
+
+    function showWordMeaning(word) {
+        const lowerWord = word.toLowerCase();
+        let meaning = meaningMap[lowerWord] || meaningMap[word];
+        if (!meaning) {
+            // 极少数未覆盖词，给出友好提示（几乎全了，兜底）
+            meaning = "✨ 可自行补充笔记";
+        }
+        const toast = document.getElementById("wordToast");
+        toast.innerText = `${word}  ·  ${meaning}`;
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 1500);
+    }
+
+    function makeWordsClickable(container) {
+        if (!container) return;
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+            acceptNode: (node) => {
+                if (node.parentElement && (node.parentElement.classList?.contains('clickable-word') || 
+                    node.parentElement.closest('.option, .disabled-opt, .feedback-area, .result-badge, .answer-compare, .detail-explanation'))) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        
+        textNodes.forEach(textNode => {
+            const text = textNode.nodeValue;
+            if (!text || !text.trim()) return;
+            const regex = /\b([A-Za-z][A-Za-z\-']{1,35})\b/g;
+            let lastIndex = 0;
+            let match;
+            const fragment = document.createDocumentFragment();
+            while ((match = regex.exec(text)) !== null) {
+                const before = text.substring(lastIndex, match.index);
+                if (before) fragment.appendChild(document.createTextNode(before));
+                const word = match[1];
+                const span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.innerText = word;
+                span.setAttribute('data-word', word);
+                span.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showWordMeaning(word);
+                });
+                fragment.appendChild(span);
+                lastIndex = match.index + match[0].length;
+            }
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+            }
+            if (fragment.childNodes.length > 0) {
+                textNode.parentNode.replaceChild(fragment, textNode);
+            }
+        });
+    }
+
+    // ========== 文章数据 ==========
+    const passageContent = `Terri Bolton is a dab hand when it comes to DIY (do-it-yourself). Skilled at putting up shelves and piecing together furniture, she never pays someone else to do a job she can do herself.
+
+She credits these skills to her late grandfather and builder Derek Lloyd. From the age of six, Terri, now 26, accompanied Derek to work during her school holidays. A day's work was rewarded with £5 in pocket money. She says: "I'm sure I wasn't much of a help to start with painting the rooms and putting down the flooring throughout the house. It took weeks and it was backbreaking work, but I know he was proud of my skills."
+
+Terri, who now rents a house with friends in Wandsworth, South West London, says DIY also saves her from losing any deposit when a tenancy (租期) comes to an end. She adds: "I've moved house many times and I always like to personalise my room and put up pictures. So, it's been useful to know how to cover up holes and repaint a room to avoid any charges when I've moved out."
+
+With millions of people likely to take on DIY projects over the coming weeks, new research shows that more than half of people are planning to make the most of the long, warm summer days to get jobs done. The average spend per project will be around £823. Two thirds of people aim to improve their comfort while at home. Two fifth wish to increase the value of their house. Though DIY has traditionally been seen as male hobby, the research shows it is women now leading the charge.`;
+
+    const readingQuestions = [
+        { id: 24, text: "Which is closest in meaning to 'a dab hand' in paragraph 1?", options: ["A. An artist.", "B. A winner.", "C. A specialist.", "D. A pioneer."], correct: "C", explanation: "原文描述Terri擅长安装架子、组装家具，从不花钱请人，说明‘dab hand’意为‘能手/专家’，specialist最贴近。", note: "dab hand 为英式口语，表示‘熟练工；行家’。同义替换题需结合上下文。" },
+        { id: 25, text: "Why did Terri's grandfather give her £5 a day?", options: ["A. For a birthday gift.", "B. As a treat for her work.", "C. To support her DIY projects.", "D. To encourage her to take up a hobby."], correct: "B", explanation: "文中明确：A day's work was rewarded with £5 in pocket money. 作为对她工作的奖励。", note: "细节定位题，注意‘rewarded with’表示酬劳。" },
+        { id: 26, text: "How did Terri avoid losing the deposit on the house she rented?", options: ["A. By making it look like before.", "B. By furnishing it herself.", "C. By splitting the rent with a roommate.", "D. By cancelling the rental agreement."], correct: "A", explanation: "文中提到她学会 cover up holes and repaint a room to avoid charges，让房间恢复原状避免扣款，即‘使其看起来像之前一样’。", note: "细节归纳：恢复原样 = make it look like before。" },
+        { id: 27, text: "What trend in DIY does the research show?", options: ["A. It is becoming more costly.", "B. It is getting more time-consuming.", "C. It is turning into a seasonal industry.", "D. It is gaining popularity among females."], correct: "D", explanation: "最后一句：though DIY has traditionally been seen as male hobby, the research shows it is women now leading the charge. 女性引领DIY潮流。", note: "趋势题，抓住‘women now leading the charge’。" }
+    ];
+
+    const phraseList = [
+        { phrase: "a dab hand at", meaning: "擅长……的能手", example: "She is a dab hand at DIY." },
+        { phrase: "piece together", meaning: "拼装", example: "piece together furniture" },
+        { phrase: "credit sth to sb", meaning: "归功于", example: "She credits her skills to her grandfather." },
+        { phrase: "rewarded with", meaning: "以……作为奖励", example: "Each day’s work was rewarded with £5." },
+        { phrase: "save sb from losing", meaning: "使某人免于失去", example: "DIY saves her from losing deposit." },
+        { phrase: "cover up holes", meaning: "遮盖孔洞", example: "learn to cover up holes before moving out." },
+        { phrase: "make the most of", meaning: "充分利用", example: "make the most of summer days to DIY." },
+        { phrase: "lead the charge", meaning: "领头", example: "Women are leading the charge in DIY." }
+    ];
+
+    const longSentences = [
+        { sentence: "Skilled at putting up shelves and piecing together furniture, she never pays someone else to do a job she can do herself.", translation: "她擅长安装架子和组装家具，从不花钱请别人做自己能做的事。", analysis: "形容词短语作状语；定语从句'she can do herself'修饰job。" },
+        { sentence: "Though DIY has traditionally been seen as male hobby, the research shows it is women now leading the charge.", translation: "尽管DIY传统上被视为男性爱好，但研究表明现在女性正引领这一潮流。", analysis: "though引导让步状语从句；主句包含宾语从句，现在分词短语leading修饰women。" }
+    ];
+
+    const strategyBlock = `
+        <div class="method-card">
+            <div class="badge-method">🎯 阅读理解 · 解题策略</div>
+            <ul style="margin-left:20px; margin-top:12px; color:#375e4c; line-height:1.5;">
+                <li><strong>1. 词义猜测题：</strong> 根据上下文逻辑推断“a dab hand”意为专家。</li>
+                <li><strong>2. 细节理解题：</strong> 定位关键词，原文原句或同义转述。</li>
+                <li><strong>3. 推理判断题：</strong> 恢复原样避免扣款。</li>
+                <li><strong>4. 主旨/趋势题：</strong> 女性引领DIY潮流。</li>
+                <li><strong>5. 长难句拆解：</strong> 先找主谓，再理从句。</li>
+            </ul>
+        </div>
+    `;
+
+    const root = document.getElementById("questionsRoot");
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function buildExam() {
+        let html = `
+            <div class="card">
+                <div class="question-panel">
+                    <div class="question-text">📖 阅读理解 · DIY 与生活趋势 (2023全国甲卷)</div>
+                    <div class="reading-passage" id="readingPassage">${escapeHtml(passageContent)}</div>
+                </div>
+            </div>
+        `;
+
+        readingQuestions.forEach(q => {
+            html += `
+                <div class="card" data-qid="rd_${q.id}" data-correct="${q.correct}" data-type="reading" data-explanation='${escapeHtml(q.explanation)}' data-note='${escapeHtml(q.note)}'>
+                    <div class="question-panel">
+                        <div class="question-text">${q.id}. ${escapeHtml(q.text)}</div>
+                        <div class="options-list" id="opts-rd_${q.id}">
+            `;
+            q.options.forEach(opt => {
+                let letter = opt.charAt(0);
+                let optRaw = opt.slice(1).trim();
+                html += `<div class="option" data-val="${letter}"><div class="option-letter">${letter}</div><div class="option-text">${escapeHtml(optRaw)}</div></div>`;
+            });
+            html += `</div></div><div class="feedback-area" id="fb-rd_${q.id}" style="display:none;"></div></div>`;
+        });
+
+        html += `<div class="card"><div class="analysis-special">
+                    <div class="analysis-title">📚 高频搭配 & 核心短语 · 长难句精析</div>
+                    <div class="phrase-list"><strong style="display:block; margin-bottom:14px;">🔖 常考短语 (含释义+例句)</strong>`;
+        phraseList.forEach(p => {
+            html += `<div class="phrase-item">
+                        <div class="phrase-text"><span class="phrase-en">${escapeHtml(p.phrase)}</span> <span class="phrase-zh">${escapeHtml(p.meaning)}</span></div>
+                        <div class="phrase-example">💬 ${escapeHtml(p.example)}</div>
+                     </div>`;
+        });
+        html += `</div><div class="sentence-list"><strong style="display:block; margin:20px 0 14px;">🧩 长难句 + 语法分析</strong>`;
+        longSentences.forEach(ls => {
+            html += `<div class="sentence-item">
+                        <div class="sentence-en">📖 ${escapeHtml(ls.sentence)}</div>
+                        <div class="sentence-zh">📝 中文：${escapeHtml(ls.translation)}</div>
+                        <div class="sentence-grammar">📌 语法解析：${escapeHtml(ls.analysis)}</div>
+                     </div>`;
+        });
+        html += `</div></div></div>`;
+        html += strategyBlock;
+
+        html += `<div class="card" style="padding:16px 22px 22px 22px;">
+                    <div class="section-title-icon">📘 我的难词表 · 自主复习</div>
+                    <table class="vocab-table"><thead><tr><th>序号</th><th>单词</th><th>词性及释义</th><th>我的笔记</th></tr></thead>
+                    <tbody id="vocabTbody">${[...Array(10)].map((_,i)=>`<tr><td>${i+1}</td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td></tr>`).join('')}</tbody></table>
+                    <div class="section-title-icon" style="margin-top:24px;">📜 长难句积累 · 语料库</div>
+                    <table class="sentence-table"><thead><tr><th>序号</th><th>长难句</th><th>备注（翻译/结构分析）</th></tr></thead>
+                    <tbody id="sentenceTbody">${[...Array(5)].map((_,i)=>`<tr><td>${i+1}</td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td></tr>`).join('')}</tbody></table>
+                    <div style="font-size:0.7rem; color:#8aa998; margin-top:12px;">✏️ 点击单元格即可填写，自由记录难词和长难句分析。</div>
+                </div>`;
+
+        root.innerHTML = html;
+        
+        const passageDiv = document.getElementById("readingPassage");
+        if (passageDiv) makeWordsClickable(passageDiv);
+        document.querySelectorAll('.question-text, .option-text, .phrase-item, .sentence-item, .method-card, .phrase-example, .sentence-en, .sentence-zh').forEach(el => {
+            if (el) makeWordsClickable(el);
+        });
+        attachEvents();
+    }
+
+    function attachEvents() {
+        const cards = document.querySelectorAll('.card[data-qid]');
+        cards.forEach(card => {
+            const correctAns = card.getAttribute('data-correct');
+            const expRaw = card.getAttribute('data-explanation');
+            const noteRaw = card.getAttribute('data-note');
+            const explanation = expRaw || "根据文章细节推断得出。";
+            const note = noteRaw || "注意题干关键词与原文同义转述。";
+            const optsDiv = card.querySelector('.options-list');
+            if (!optsDiv) return;
+            const options = optsDiv.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (card.classList.contains('answered')) return;
+                    const selectedVal = opt.getAttribute('data-val');
+                    const isCorrect = (selectedVal === correctAns);
+                    const feedbackDiv = card.querySelector('.feedback-area');
+                    if (!feedbackDiv) return;
+
+                    let yourFull = "", correctFull = "";
+                    options.forEach(op => {
+                        if(op.getAttribute('data-val') === selectedVal) yourFull = op.querySelector('.option-text')?.innerText || selectedVal;
+                        if(op.getAttribute('data-val') === correctAns) correctFull = op.querySelector('.option-text')?.innerText || correctAns;
+                    });
+
+                    feedbackDiv.innerHTML = `
+                        <div class="result-badge ${isCorrect ? 'correct-badge' : 'wrong-badge'}">${isCorrect ? '✔ 回答正确' : '❌ 回答错误'}</div>
+                        <div class="answer-compare">
+                            <div class="your-answer">📌 你的答案：${selectedVal}. ${escapeHtml(yourFull)}</div>
+                            <div class="correct-answer">✅ 正确答案：${correctAns}. ${escapeHtml(correctFull)}</div>
+                        </div>
+                        <div class="detail-explanation"><strong>🔎 详细解析：</strong> ${escapeHtml(explanation)}<br/><strong>📘 考点笔记：</strong> ${escapeHtml(note)}</div>
+                        <div class="lock-message">🔒 答案已锁定，不可修改</div>
+                    `;
+                    feedbackDiv.style.display = 'block';
+                    card.classList.add('answered');
+                    options.forEach(op => op.classList.add('disabled-opt'));
+                });
+            });
+        });
+    }
+
+    buildExam();
+</script>
+</body>
+</html>

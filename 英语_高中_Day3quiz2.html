@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习考点精析 | 风景摄影阅读（手机触词版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #216e48, #368f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .hero p {
+            color: #517a66;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #cde2d6;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #5e7a6b;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05);
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .question-panel {
+            padding: 24px 22px 12px 22px;
+        }
+
+        .reading-passage {
+            background: #fefaf0;
+            padding: 18px 20px;
+            border-radius: 28px;
+            line-height: 1.68;
+            font-size: 0.96rem;
+            margin-bottom: 24px;
+            border: 1px solid #e9e0cb;
+            white-space: pre-line;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 550;
+            background: #f9fff9;
+            padding: 10px 16px;
+            border-radius: 24px;
+            border-left: 6px solid #3b9b6e;
+            margin-bottom: 20px;
+            line-height: 1.45;
+            color: #1f3b31;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 16px;
+            background: #fefef8;
+            border: 1px solid #e1efe6;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover:not(.disabled-opt) {
+            background: #e9f3ec;
+            border-color: #9ac2ab;
+        }
+        .option-letter {
+            font-weight: 800;
+            background: #e3f0e9;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            color: #2b6e4c;
+            flex-shrink: 0;
+        }
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #2a423a;
+        }
+
+        .feedback-area {
+            background: #f9fcf5;
+            margin: 0 20px 20px 20px;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border: 1px solid #d9ebdf;
+        }
+
+        .result-badge {
+            display: inline-block;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+        .correct-badge {
+            background: #cbefdf;
+            color: #146b3a;
+        }
+        .wrong-badge {
+            background: #ffe1de;
+            color: #bc4a3a;
+        }
+        .answer-compare {
+            background: #ffffffcc;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            border-left: 4px solid #88b8a0;
+        }
+        .detail-explanation {
+            margin: 12px 0 0 0;
+            padding: 12px 14px;
+            background: #f3f8f1;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        .lock-message {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            text-align: right;
+            color: #89b69c;
+            font-style: italic;
+        }
+        .disabled-opt {
+            opacity: 0.65;
+            pointer-events: none;
+            background: #f2f5ef;
+            cursor: default;
+        }
+
+        .analysis-special {
+            margin: 0px;
+            background: #fefbed;
+            border-radius: 32px;
+            padding: 0px 0px 12px 0px;
+            border: 1px solid #f0e2bc;
+        }
+        .analysis-title {
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 20px 24px 8px 24px;
+            color: #b17f2e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff8e7;
+            border-bottom: 1px dashed #efdfb2;
+        }
+        .phrase-list, .sentence-list {
+            padding: 8px 24px 20px 24px;
+        }
+        .phrase-item, .sentence-item {
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            background: #fffcf0;
+            border-radius: 24px;
+            border-left: 4px solid #cfb87c;
+        }
+        .phrase-text {
+            font-weight: 700;
+            color: #3c6e47;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .phrase-en {
+            background: #e8f0e3;
+            padding: 2px 10px;
+            border-radius: 40px;
+        }
+        .phrase-zh {
+            color: #b45f1b;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .phrase-example {
+            font-size: 0.85rem;
+            color: #5c6e5a;
+            margin-top: 8px;
+            padding-left: 8px;
+            border-left: 2px solid #dfcca2;
+        }
+        .sentence-grammar {
+            background: #fef7e6;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+        .sentence-en {
+            font-weight: 600;
+            color: #2f6042;
+        }
+        .sentence-zh {
+            color: #a5651e;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* 可点击单词样式 */
+        .clickable-word {
+            border-bottom: 1px dashed #6f9a82;
+            cursor: pointer;
+            transition: 0.1s;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .clickable-word:active {
+            background: #d9f0e4;
+            border-radius: 8px;
+        }
+
+        /* 浅色清新弹窗 */
+        .word-toast {
+            position: fixed;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #ffffff;
+            backdrop-filter: blur(8px);
+            color: #2c5a44;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            z-index: 1000;
+            max-width: 85vw;
+            white-space: normal;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 32, 0, 0.15), 0 0 0 1px rgba(100, 150, 120, 0.3);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            opacity: 0;
+            font-family: 'Segoe UI', system-ui;
+            letter-spacing: 0.3px;
+            background: #fffffff2;
+            border: 1px solid #bdd8ca;
+        }
+        .word-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .method-card {
+            background: #eef3f0;
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin: 0 0 20px 0;
+        }
+
+        .badge-method {
+            background: #d9e6de;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #2f6b48;
+        }
+
+        .vocab-table, .sentence-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffffdd;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .vocab-table th, .vocab-table td, .sentence-table th, .sentence-table td {
+            border: 1px solid #dbeadf;
+            padding: 10px 12px;
+            vertical-align: top;
+            font-size: 0.85rem;
+        }
+
+        .vocab-table th, .sentence-table th {
+            background: #e2f0e8;
+            font-weight: 600;
+            color: #245f41;
+        }
+
+        .section-title-icon {
+            margin: 20px 0 10px 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editable-cell {
+            background-color: #fffff2;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 16px 12px; }
+            .question-panel { padding: 18px 16px 6px 16px; }
+            .feedback-area { margin: 0 12px 16px 12px; }
+            .phrase-list, .sentence-list { padding: 8px 16px 16px 16px; }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #86a694;
+            margin: 32px 0 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>风景摄影 · 时间与准备 | 点击查词（手机/平板适用）| 答案对比 | 自主复习表</p>
+        <div class="meta-info">📌 来源：2023全国乙卷 · 难度较难 · 移动触词版</div>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项立即锁定，显示你的答案vs正确答案。<span style="background:#e8f0e3;padding:2px 10px;border-radius:20px;">🔍 点击任意英文单词 → 弹出中文释义</span>，下方表格可自填复习。</footer>
+</div>
+
+<div id="wordToast" class="word-toast"></div>
+
+<script>
+    // ========== 完整释义库（覆盖DAY3风景摄影文章、选项、短语、长难句）==========
+    const meaningMap = {
+        // 文章核心词
+        "Living": "居住", "Iowa": "爱荷华州", "photographer": "摄影师", "specializing": "专攻", "landscape": "风景",
+        "challenge": "挑战", "mainly": "主要地", "corn": "玉米", "state": "州", "lacks": "缺乏",
+        "geographical": "地理的", "variation": "变化", "Although": "虽然", "Midwest": "中西部", "tend": "倾向于",
+        "similar": "相似的", "farm": "农场", "fields": "田地", "highways": "公路", "sometimes": "有时",
+        "find": "发现", "distinctive": "独特的", "character": "特征", "hills": "山丘", "lakes": "湖泊",
+        "shots": "拍摄", "traveled": "旅行", "frame": "时间框架", "tend": "倾向于", "travel": "旅行",
+        "friends": "朋友", "parks": "公园", "countryside": "乡村", "adventures": "冒险", "along": "沿着",
+        "decisive": "决定性的", "style": "风格", "leave": "离开", "early": "早", "seek": "寻找",
+        "destinations": "目的地", "set up": "搭建", "avoid": "避免", "missing": "错过", "attempting": "试图",
+        "plenty": "许多", "beautiful": "美丽的", "sunset": "日落", "sunrise": "日出", "spot": "地点",
+        "Devil's Lake": "魔鬼湖", "Wisconsin": "威斯康星州", "climb": "攀登", "purple": "紫色", "quartz": "石英",
+        "rock": "岩石", "crazy-looking": "看起来疯狂的", "road": "道路", "hung": "悬挂", "bunch": "一堆",
+        "position": "位置", "enabled": "使能够", "background": "背景", "managed": "设法", "spare": "空闲的",
+        "marked": "标记", "route": "路线", "ended up": "最终", "stressful": "有压力的", "cameras": "相机",
+        "limited": "有限的", "Still": "仍然", "looking back": "回顾", "best": "最好的", "could have been": "本可以",
+        "prepared": "准备好的", "managed": "管理", "wisely": "明智地",
+        
+        // 题目及选项词
+        "author": "作者", "deal with": "应对", "teaming up": "合作", "shooting": "拍摄", "studying": "研究",
+        "creating": "创造", "settings": "设置", "key": "关键", "successful": "成功的", "Proper": "恰当的",
+        "time management": "时间管理", "techniques": "技巧", "Adventurous": "冒险的", "spirit": "精神",
+        "Distinctive": "独特的", "styles": "风格", "infer": "推断", "trip": "旅行", "went crazy": "发疯",
+        "felt stressed": "感到压力", "waiting": "等待", "reached": "到达", "later": "更晚", "expected": "预期",
+        "equipment": "设备", "find": "认为", "Amusing": "有趣的", "Satisfying": "满意的", "Encouraging": "鼓舞人心的",
+        "Comforting": "安慰的",
+        
+        // 短语词
+        "specialize in": "专攻", "tend to": "倾向于", "due to": "由于", "end up doing": "最终做",
+        "set up": "搭建", "look back on": "回顾",
+        
+        // 长难句及常用词
+        "Being": "处于", "right": "正确的", "place": "地点", "time": "时间", "any": "任何",
+        "often": "经常", "so that": "以便", "miss": "错过", "moment": "时刻", "I am attempting to photograph": "我试图拍摄的",
+        "though": "虽然", "they": "它们", "some of": "一些", "my best shots": "我最好的照片",
+        "if I would have been": "如果我当时", "and": "和"
+    };
+
+    function showWordMeaning(word) {
+        const lowerWord = word.toLowerCase();
+        let meaning = meaningMap[lowerWord] || meaningMap[word];
+        if (!meaning) {
+            meaning = "✨ 可自行补充笔记";
+        }
+        const toast = document.getElementById("wordToast");
+        toast.innerText = `${word}  ·  ${meaning}`;
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 1500);
+    }
+
+    function makeWordsClickable(container) {
+        if (!container) return;
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+            acceptNode: (node) => {
+                if (node.parentElement && (node.parentElement.classList?.contains('clickable-word') || 
+                    node.parentElement.closest('.option, .disabled-opt, .feedback-area, .result-badge, .answer-compare, .detail-explanation'))) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        
+        textNodes.forEach(textNode => {
+            const text = textNode.nodeValue;
+            if (!text || !text.trim()) return;
+            const regex = /\b([A-Za-z][A-Za-z\-']{1,35})\b/g;
+            let lastIndex = 0;
+            let match;
+            const fragment = document.createDocumentFragment();
+            while ((match = regex.exec(text)) !== null) {
+                const before = text.substring(lastIndex, match.index);
+                if (before) fragment.appendChild(document.createTextNode(before));
+                const word = match[1];
+                const span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.innerText = word;
+                span.setAttribute('data-word', word);
+                span.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showWordMeaning(word);
+                });
+                fragment.appendChild(span);
+                lastIndex = match.index + match[0].length;
+            }
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+            }
+            if (fragment.childNodes.length > 0) {
+                textNode.parentNode.replaceChild(fragment, textNode);
+            }
+        });
+    }
+
+    // ========== 文章数据（2023全国乙卷·风景摄影）==========
+    const passageContent = `Living in Iowa and trying to become a photographer specializing in landscape (风景) can be quite a challenge, mainly because the corn state lacks geographical variation.
+
+Although landscapes in the Midwest tend to be quite similar, either farm fields or highways, sometimes I find distinctive character in the hills or lakes. To make some of my landscape shots, I have traveled up to four hours away to shoot within a 10-minute time frame. I tend to travel with a few of my friends to state parks or to the countryside to go on adventures and take photos along the way.
+
+Being at the right place at the right time is decisive in any style of photography. I often leave early to seek the right destinations so I can set up early to avoid missing the moment I am attempting to photograph. I have missed plenty of beautiful sunsets/sunrises due to being on the spot only five minutes before the best moment.
+
+One time my friends and I drove three hours to Devil's Lake, Wisconsin, to climb the purple quartz (石英) rock around the lake. After we found a crazy-looking road that hung over a bunch of rocks, we decided to photograph the scene at sunset. The position enabled us to look over the lake with the sunset in the background. We managed to leave this spot to climb higher because of the spare time until sunset. However, we did not mark the route (路线) so we ended up almost missing the sunset entirely. Once we found the place, it was stressful getting lights and cameras set up in the limited time. Still, looking back on the photos, they are some of my best shots though they could have been so much better if I would have been prepared and managed my time wisely.`;
+
+    const readingQuestions = [
+        { id: 24, text: "How does the author deal with the challenge as a landscape photographer in the Midwest?", options: ["A. By teaming up with other photographers.", "B. By shooting in the countryside or state parks.", "C. By studying the geographical conditions.", "D. By creating settings in the corn fields."], correct: "B", explanation: "第二段明确提到: I tend to travel with friends to state parks or countryside to go on adventures and take photos。应对挑战的方式就是去乡村或州立公园拍摄。", note: "事实细节题，定位关键句 'travel to state parks or countryside'。" },
+        { id: 25, text: "What is the key to successful landscape photography according to the author?", options: ["A. Proper time management.", "B. Good shooting techniques.", "C. Adventurous spirit.", "D. Distinctive styles."], correct: "A", explanation: "第三段首句: Being at the right place at the right time is decisive. 以及后文强调提早出发、避免错过最佳时刻 → 时间管理是关键。", note: "主旨推断句: 'right time' 对应 time management。" },
+        { id: 26, text: "What can we infer from the author's trip with friends to Devil's Lake?", options: ["A. They went crazy with the purple quartz rock.", "B. They felt stressed while waiting for the sunset.", "C. They reached the shooting spot later than expected.", "D. They had problems with their equipment."], correct: "C", explanation: "文中说没有标记路线, ended up almost missing the sunset entirely, 然后匆忙设置设备 → 实际上比预期晚到达拍摄点。", note: "推理判断: 未标记路线导致几乎错过日落，说明到达时间晚于计划。" },
+        { id: 27, text: "How does the author find his photos taken at Devil's Lake?", options: ["A. Amusing.", "B. Satisfying.", "C. Encouraging.", "D. Comforting."], correct: "B", explanation: "最后一句: they are some of my best shots → 尽管可以更好，但依然满意。", note: "观点态度: best shots 表明满意但谦虚。" }
+    ];
+
+    const phraseList = [
+        { phrase: "specialize in", meaning: "专攻", example: "become a photographer specializing in landscape." },
+        { phrase: "tend to", meaning: "倾向于", example: "Landscapes in the Midwest tend to be quite similar." },
+        { phrase: "due to", meaning: "由于", example: "missed sunsets due to being on the spot late." },
+        { phrase: "end up doing", meaning: "最终做某事", example: "ended up almost missing the sunset entirely." },
+        { phrase: "set up", meaning: "搭建，设置", example: "set up early to avoid missing the moment." },
+        { phrase: "look back on", meaning: "回顾", example: "looking back on the photos, they are some of my best shots." }
+    ];
+
+    const longSentences = [
+        { sentence: "Being at the right place at the right time is decisive in any style of photography.", translation: "在正确的时间出现在正确的地点对任何风格的摄影都至关重要。", analysis: "动名词短语 Being at the right place at the right time 作主语；be decisive 起决定性作用。" },
+        { sentence: "I often leave early to seek the right destinations so I can set up early to avoid missing the moment I am attempting to photograph.", translation: "我经常提早出发寻找合适的目的地，以便尽早架设器材，避免错过我试图拍摄的那个瞬间。", analysis: "so that 省略that表目的；不定式 to avoid 作目的状语；I am attempting to photograph 定语从句修饰 moment。" },
+        { sentence: "Still, looking back on the photos, they are some of my best shots though they could have been so much better if I would have been prepared and managed my time wisely.", translation: "不过，回顾这些照片，它们是我最好的作品之一，尽管如果当时我准备更充分、时间管理更明智的话，本可以拍得更好。", analysis: "looking back on... 现在分词作状语；though 引导让步状语从句；could have been 虚拟语气表示过去未实现。" }
+    ];
+
+    const strategyBlock = `
+        <div class="method-card">
+            <div class="badge-method">🎯 阅读理解 · 解题策略思路</div>
+            <ul style="margin-left:20px; margin-top:12px; color:#375e4c; line-height:1.5;">
+                <li><strong>1. 细节定位法：</strong> 根据题干关键词(如 challenge, deal with)返回原文定位，找到对应行动( state parks / countryside)。</li>
+                <li><strong>2. 主旨/关键句分析：</strong> 作者观点一般在段首或尾句，如"Being at the right place at the right time is decisive"→时间管理。</li>
+                <li><strong>3. 推理推断：</strong> 结合事件因果关系（未标记路线→几乎错过日落→晚于预期），避免过度引申。</li>
+                <li><strong>4. 态度题：</strong> 关注评价性词句 "some of my best shots" → 满意（satisfying）。</li>
+                <li><strong>5. 长难句简化：</strong> 找主谓，去修饰成分，理解主干后再补充细节。</li>
+            </ul>
+        </div>
+    `;
+
+    const root = document.getElementById("questionsRoot");
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function buildExam() {
+        let html = `
+            <div class="card">
+                <div class="question-panel">
+                    <div class="question-text">📖 阅读理解 · 风景摄影师的挑战与成长 (2023全国乙卷)</div>
+                    <div class="reading-passage" id="readingPassage">${escapeHtml(passageContent)}</div>
+                </div>
+            </div>
+        `;
+
+        readingQuestions.forEach(q => {
+            html += `
+                <div class="card" data-qid="rd_${q.id}" data-correct="${q.correct}" data-type="reading" data-explanation='${escapeHtml(q.explanation)}' data-note='${escapeHtml(q.note)}'>
+                    <div class="question-panel">
+                        <div class="question-text">${q.id}. ${escapeHtml(q.text)}</div>
+                        <div class="options-list" id="opts-rd_${q.id}">
+            `;
+            q.options.forEach(opt => {
+                let letter = opt.charAt(0);
+                let optRaw = opt.slice(1).trim();
+                html += `<div class="option" data-val="${letter}"><div class="option-letter">${letter}</div><div class="option-text">${escapeHtml(optRaw)}</div></div>`;
+            });
+            html += `</div></div><div class="feedback-area" id="fb-rd_${q.id}" style="display:none;"></div></div>`;
+        });
+
+        html += `<div class="card"><div class="analysis-special">
+                    <div class="analysis-title">📚 高频搭配 & 核心短语 · 长难句精析</div>
+                    <div class="phrase-list"><strong style="display:block; margin-bottom:14px;">🔖 常考短语 (含释义+例句)</strong>`;
+        phraseList.forEach(p => {
+            html += `<div class="phrase-item">
+                        <div class="phrase-text"><span class="phrase-en">${escapeHtml(p.phrase)}</span> <span class="phrase-zh">${escapeHtml(p.meaning)}</span></div>
+                        <div class="phrase-example">💬 ${escapeHtml(p.example)}</div>
+                     </div>`;
+        });
+        html += `</div><div class="sentence-list"><strong style="display:block; margin:20px 0 14px;">🧩 长难句 + 语法分析</strong>`;
+        longSentences.forEach(ls => {
+            html += `<div class="sentence-item">
+                        <div class="sentence-en">📖 ${escapeHtml(ls.sentence)}</div>
+                        <div class="sentence-zh">📝 中文：${escapeHtml(ls.translation)}</div>
+                        <div class="sentence-grammar">📌 语法解析：${escapeHtml(ls.analysis)}</div>
+                     </div>`;
+        });
+        html += `</div></div></div>`;
+        html += strategyBlock;
+
+        html += `<div class="card" style="padding:16px 22px 22px 22px;">
+                    <div class="section-title-icon">📘 我的难词表 · 自主复习</div>
+                    <table class="vocab-table"><thead><tr><th>序号</th><th>单词</th><th>词性及释义</th><th>我的笔记</th></tr></thead>
+                    <tbody id="vocabTbody">${[...Array(10)].map((_,i)=>`<tr><td>${i+1}</td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td></tr>`).join('')}</tbody></table>
+                    <div class="section-title-icon" style="margin-top:24px;">📜 长难句积累 · 语料库</div>
+                    <table class="sentence-table"><thead><tr><th>序号</th><th>长难句</th><th>备注（翻译/结构分析）</th></tr></thead>
+                    <tbody id="sentenceTbody">${[...Array(5)].map((_,i)=>`<tr><td>${i+1}</td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td></tr>`).join('')}</tbody></table>
+                    <div style="font-size:0.7rem; color:#8aa998; margin-top:12px;">✏️ 点击单元格即可填写，自由记录难词和长难句分析。</div>
+                </div>`;
+
+        root.innerHTML = html;
+        
+        const passageDiv = document.getElementById("readingPassage");
+        if (passageDiv) makeWordsClickable(passageDiv);
+        document.querySelectorAll('.question-text, .option-text, .phrase-item, .sentence-item, .method-card, .phrase-example, .sentence-en, .sentence-zh').forEach(el => {
+            if (el) makeWordsClickable(el);
+        });
+        attachEvents();
+    }
+
+    function attachEvents() {
+        const cards = document.querySelectorAll('.card[data-qid]');
+        cards.forEach(card => {
+            const correctAns = card.getAttribute('data-correct');
+            const expRaw = card.getAttribute('data-explanation');
+            const noteRaw = card.getAttribute('data-note');
+            const explanation = expRaw || "根据文章细节推断得出。";
+            const note = noteRaw || "注意题干关键词与原文同义转述。";
+            const optsDiv = card.querySelector('.options-list');
+            if (!optsDiv) return;
+            const options = optsDiv.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (card.classList.contains('answered')) return;
+                    const selectedVal = opt.getAttribute('data-val');
+                    const isCorrect = (selectedVal === correctAns);
+                    const feedbackDiv = card.querySelector('.feedback-area');
+                    if (!feedbackDiv) return;
+
+                    let yourFull = "", correctFull = "";
+                    options.forEach(op => {
+                        if(op.getAttribute('data-val') === selectedVal) yourFull = op.querySelector('.option-text')?.innerText || selectedVal;
+                        if(op.getAttribute('data-val') === correctAns) correctFull = op.querySelector('.option-text')?.innerText || correctAns;
+                    });
+
+                    feedbackDiv.innerHTML = `
+                        <div class="result-badge ${isCorrect ? 'correct-badge' : 'wrong-badge'}">${isCorrect ? '✔ 回答正确' : '❌ 回答错误'}</div>
+                        <div class="answer-compare">
+                            <div class="your-answer">📌 你的答案：${selectedVal}. ${escapeHtml(yourFull)}</div>
+                            <div class="correct-answer">✅ 正确答案：${correctAns}. ${escapeHtml(correctFull)}</div>
+                        </div>
+                        <div class="detail-explanation"><strong>🔎 详细解析：</strong> ${escapeHtml(explanation)}<br/><strong>📘 考点笔记：</strong> ${escapeHtml(note)}</div>
+                        <div class="lock-message">🔒 答案已锁定，不可修改</div>
+                    `;
+                    feedbackDiv.style.display = 'block';
+                    card.classList.add('answered');
+                    options.forEach(op => op.classList.add('disabled-opt'));
+                });
+            });
+        });
+    }
+
+    buildExam();
+</script>
+</body>
+</html>

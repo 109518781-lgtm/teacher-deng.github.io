@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习考点精析 | 完形填空 · 卧底英雄（手机触词版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #216e48, #368f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .hero p {
+            color: #517a66;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #cde2d6;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #5e7a6b;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05);
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .question-panel {
+            padding: 24px 22px 12px 22px;
+        }
+
+        .cloze-passage {
+            background: #fefaf0;
+            padding: 18px 20px;
+            border-radius: 28px;
+            line-height: 1.75;
+            font-size: 0.96rem;
+            margin-bottom: 28px;
+            border: 1px solid #e9e0cb;
+            white-space: pre-line;
+        }
+
+        .question-item {
+            margin-top: 24px;
+            border-top: 1px solid #e2ecd9;
+            padding-top: 18px;
+        }
+
+        .question-text {
+            font-size: 1rem;
+            font-weight: 550;
+            background: #f9fff9;
+            padding: 8px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+            color: #1f3b31;
+            border-left: 4px solid #3b9b6e;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 16px;
+            background: #fefef8;
+            border: 1px solid #e1efe6;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option:hover:not(.disabled-opt) {
+            background: #e9f3ec;
+            border-color: #9ac2ab;
+        }
+        .option-letter {
+            font-weight: 800;
+            background: #e3f0e9;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            color: #2b6e4c;
+            flex-shrink: 0;
+        }
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #2a423a;
+        }
+
+        .feedback-area {
+            background: #f9fcf5;
+            margin: 0 0 16px 0;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border: 1px solid #d9ebdf;
+        }
+        .result-badge {
+            display: inline-block;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+        .correct-badge {
+            background: #cbefdf;
+            color: #146b3a;
+        }
+        .wrong-badge {
+            background: #ffe1de;
+            color: #bc4a3a;
+        }
+        .answer-compare {
+            background: #ffffffcc;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            border-left: 4px solid #88b8a0;
+        }
+        .detail-explanation {
+            margin: 12px 0 0 0;
+            padding: 12px 14px;
+            background: #f3f8f1;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        .lock-message {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            text-align: right;
+            color: #89b69c;
+            font-style: italic;
+        }
+        .disabled-opt {
+            opacity: 0.65;
+            pointer-events: none;
+            background: #f2f5ef;
+            cursor: default;
+        }
+
+        .analysis-special {
+            margin: 0px;
+            background: #fefbed;
+            border-radius: 32px;
+            padding: 0px 0px 12px 0px;
+            border: 1px solid #f0e2bc;
+        }
+        .analysis-title {
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 20px 24px 8px 24px;
+            color: #b17f2e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff8e7;
+            border-bottom: 1px dashed #efdfb2;
+        }
+        .phrase-list, .sentence-list {
+            padding: 8px 24px 20px 24px;
+        }
+        .phrase-item, .sentence-item {
+            margin-bottom: 18px;
+            padding: 10px 14px;
+            background: #fffcf0;
+            border-radius: 24px;
+            border-left: 4px solid #cfb87c;
+        }
+        .phrase-text {
+            font-weight: 700;
+            color: #3c6e47;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .phrase-en {
+            background: #e8f0e3;
+            padding: 2px 10px;
+            border-radius: 40px;
+        }
+        .phrase-zh {
+            color: #b45f1b;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .phrase-example {
+            font-size: 0.85rem;
+            color: #5c6e5a;
+            margin-top: 8px;
+            padding-left: 8px;
+            border-left: 2px solid #dfcca2;
+        }
+        .sentence-grammar {
+            background: #fef7e6;
+            padding: 10px 14px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            line-height: 1.45;
+        }
+        .sentence-en {
+            font-weight: 600;
+            color: #2f6042;
+        }
+        .sentence-zh {
+            color: #a5651e;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* 可点击单词样式 */
+        .clickable-word {
+            border-bottom: 1px dashed #6f9a82;
+            cursor: pointer;
+            transition: 0.1s;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .clickable-word:active {
+            background: #d9f0e4;
+            border-radius: 8px;
+        }
+
+        /* 浅色清新弹窗 */
+        .word-toast {
+            position: fixed;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #ffffff;
+            backdrop-filter: blur(8px);
+            color: #2c5a44;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            z-index: 1000;
+            max-width: 85vw;
+            white-space: normal;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 32, 0, 0.15), 0 0 0 1px rgba(100, 150, 120, 0.3);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            opacity: 0;
+            font-family: 'Segoe UI', system-ui;
+            letter-spacing: 0.3px;
+            background: #fffffff2;
+            border: 1px solid #bdd8ca;
+        }
+        .word-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .method-card {
+            background: #eef3f0;
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin: 0 0 20px 0;
+        }
+
+        .badge-method {
+            background: #d9e6de;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #2f6b48;
+        }
+
+        .vocab-table, .sentence-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffffdd;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .vocab-table th, .vocab-table td, .sentence-table th, .sentence-table td {
+            border: 1px solid #dbeadf;
+            padding: 10px 12px;
+            vertical-align: top;
+            font-size: 0.85rem;
+        }
+
+        .vocab-table th, .sentence-table th {
+            background: #e2f0e8;
+            font-weight: 600;
+            color: #245f41;
+        }
+
+        .section-title-icon {
+            margin: 20px 0 10px 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editable-cell {
+            background-color: #fffff2;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 16px 12px; }
+            .question-panel { padding: 18px 16px 6px 16px; }
+            .feedback-area { margin: 0 12px 16px 12px; }
+            .phrase-list, .sentence-list { padding: 8px 16px 16px 16px; }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #86a694;
+            margin: 32px 0 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>完形填空 · 卧底英雄 | 点击查词（手机/平板适用）| 答案对比 | 自主复习表</p>
+        <div class="meta-info">📌 来源：2021新课标Ⅱ卷 · 难度较难 · 移动触词版</div>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项立即锁定，显示你的答案vs正确答案。<span style="background:#e8f0e3;padding:2px 10px;border-radius:20px;">🔍 点击任意英文单词 → 弹出中文释义</span>，下方表格可自填复习。</footer>
+</div>
+
+<div id="wordToast" class="word-toast"></div>
+
+<script>
+    // ========== 完整释义库（覆盖DAY6完形文章、选项、短语、长难句）==========
+    const meaningMap = {
+        // 文章核心词
+        "Over": "在……期间", "past": "过去的", "years": "年", "Mr": "先生", "Wang": "王", "pretended": "假装",
+        "someone": "某人", "else": "其他", "many": "许多", "times": "次", "learned": "学会", "speak": "说",
+        "different": "不同的", "dialects": "方言", "leading": "导致", "described": "被描述为", "Oscar-winning": "奥斯卡获奖的",
+        "actor": "演员", "60-year-old": "60岁的", "policeman": "警察", "devoted": "投入的", "role": "角色",
+        "any": "任何", "real": "真正的", "1990s": "20世纪90年代", "group": "团伙", "thieves": "小偷", "sold": "出售",
+        "stolen": "偷来的", "goods": "货物", "help": "帮助", "beggars": "乞丐", "look into": "调查", "case": "案件",
+        "disguised": "伪装", "joined": "加入", "Dirty": "脏的", "shorts": "短裤", "old": "旧的", "shoes": "鞋子",
+        "gave": "给予", "appearance": "外表", "convincing": "令人信服的", "dialect": "方言", "soon": "很快",
+        "won": "赢得", "trust": "信任", "often": "经常", "invited": "邀请", "drink": "喝酒", "alcohol": "酒精",
+        "Once": "一旦", "drunk": "喝醉的", "began": "开始", "talk": "说话", "excuse": "借口", "toilet": "厕所",
+        "note down": "记下", "send": "发送", "information": "信息", "teammates": "队友", "dangerous": "危险的",
+        "situations": "处境", "judo": "柔道", "master": "大师", "As long as": "只要", "close": "近的",
+        "enough": "足够", "criminal": "罪犯", "escape": "逃脱", "courage": "勇气", "won": "赢得", "several": "几个",
+        "honors": "荣誉", "including": "包括", "National": "国家的", "May Day": "五一", "Labor": "劳动",
+        "Medal": "奖章", "Citations": "表彰", "Merit": "功绩",
+        
+        // 选项词（41-55全覆盖）
+        "teach": "教", "compare": "比较", "assess": "评估", "speak": "说", "lawyer": "律师", "doctor": "医生",
+        "policeman": "警察", "businessman": "商人", "study": "学习", "family": "家庭", "audience": "观众",
+        "minor": "次要的", "case": "案件", "future": "未来", "question": "问题", "interviewed": "采访",
+        "joined": "加入", "arrested": "逮捕", "assisted": "协助", "challenge": "挑战", "experience": "经验",
+        "appearance": "外表", "freedom": "自由", "vote": "投票", "sympathy": "同情", "permission": "许可",
+        "trust": "信任", "invited": "邀请", "forced": "强迫", "helped": "帮助", "expected": "期望",
+        "drunk": "醉的", "deserted": "被遗弃的", "bored": "无聊的", "lost": "迷失的", "guide": "引导",
+        "persuade": "说服", "excuse": "借口", "allow": "允许", "refer to": "提及", "note down": "记下",
+        "ask about": "询问", "miss out": "错过", "plan": "计划", "agreement": "协议", "direction": "方向",
+        "information": "信息", "awkward": "尴尬的", "dangerous": "危险的", "unfortunate": "不幸的",
+        "strange": "奇怪的", "separate": "分离", "recover": "恢复", "escape": "逃脱", "hear": "听见",
+        "courage": "勇气", "honesty": "诚实", "kindness": "善良", "optimism": "乐观",
+        
+        // 短语词
+        "pretend to be": "假装成", "be devoted to": "致力于", "look into": "调查", "disguise oneself": "伪装自己",
+        "win trust": "赢得信任", "note down": "记下", "escape from": "从……逃脱",
+        
+        // 长难句及常用词
+        "and": "和", "has even": "甚至已经", "him being described": "他被描述为", "however": "然而",
+        "more": "更", "than": "比", "In the": "在", "With the help of": "在……的帮助下", "to": "为了",
+        "himself": "他自己", "and went for a ride": "去兜风", "the roads there": "那里的道路",
+        "went through": "穿过", "large valleys": "大山谷", "where": "在那里", "at a time": "一次",
+        "I'd never faced": "我从未面对过", "such": "这样的", "who were used to": "习惯于……的",
+        "When I got back home": "当我回到家", "suddenly": "突然", "didn't seem quite as appealing": "似乎不那么吸引人了"
+    };
+
+    function showWordMeaning(word) {
+        const lowerWord = word.toLowerCase();
+        let meaning = meaningMap[lowerWord] || meaningMap[word];
+        if (!meaning) {
+            meaning = "✨ 可自行补充笔记";
+        }
+        const toast = document.getElementById("wordToast");
+        toast.innerText = `${word}  ·  ${meaning}`;
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 1500);
+    }
+
+    function makeWordsClickable(container) {
+        if (!container) return;
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+            acceptNode: (node) => {
+                if (node.parentElement && (node.parentElement.classList?.contains('clickable-word') || 
+                    node.parentElement.closest('.option, .disabled-opt, .feedback-area, .result-badge, .answer-compare, .detail-explanation'))) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+        
+        textNodes.forEach(textNode => {
+            const text = textNode.nodeValue;
+            if (!text || !text.trim()) return;
+            const regex = /\b([A-Za-z][A-Za-z\-']{1,35})\b/g;
+            let lastIndex = 0;
+            let match;
+            const fragment = document.createDocumentFragment();
+            while ((match = regex.exec(text)) !== null) {
+                const before = text.substring(lastIndex, match.index);
+                if (before) fragment.appendChild(document.createTextNode(before));
+                const word = match[1];
+                const span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.innerText = word;
+                span.setAttribute('data-word', word);
+                span.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showWordMeaning(word);
+                });
+                fragment.appendChild(span);
+                lastIndex = match.index + match[0].length;
+            }
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+            }
+            if (fragment.childNodes.length > 0) {
+                textNode.parentNode.replaceChild(fragment, textNode);
+            }
+        });
+    }
+
+    // ========== 完整文章（带填空原文展示）==========
+    const fullPassage = `Over the past 38 years, Mr. Wang has pretended to be someone else many times, and has even learned to speak different dialects（方言），leading to him being described as an "Oscar-winning actor".
+
+The 60-year-old is not an actor, but a policeman. However, he is more devoted to his "role" than any real actor.
+
+In the 1990s, a group of thieves often sold stolen goods with the help of some beggars. To look into the case, Wang disguised himself and joined the beggars. Dirty shorts and old shoes gave him the appearance of a real beggar and his convincing dialect soon won him the trust of the beggars.
+
+"I often invited them to drink alcohol. Once they were drunk they began to talk a lot," Wang said. "I'd then excuse myself to use the toilet, note down what the beggars said, and send the information to my teammates."
+
+Wang, who is often in dangerous situations, is also a judo master. "As long as I get close enough, no criminal can escape from me," he said.
+
+Wang's courage won him several honors, including a National May Day Labor Medal and 11 Citations of Merit.`;
+
+    const clozeQuestions = [
+        { id: 41, text: "Over the past 38 years, Mr. Wang has pretended to be someone else many times, and has even learned to ______ different dialects（方言），leading to him being described as an 'Oscar-winning actor'.", options: ["A. teach", "B. compare", "C. assess", "D. speak"], correct: "D", explanation: "学会说不同的方言。speak dialects 为固定搭配。", note: "speak a dialect 说方言；语境中强调语言能力。" },
+        { id: 42, text: "The 60-year-old is not an actor, but a ______.", options: ["A. lawyer", "B. doctor", "C. policeman", "D. businessman"], correct: "C", explanation: "根据下文卧底、调查案件，他是一名警察。", note: "上下文暗示执法身份，伪装成乞丐破案。" },
+        { id: 43, text: "However, he is more devoted to his '______' than any real actor.", options: ["A. role", "B. study", "C. family", "D. audience"], correct: "A", explanation: "他比真正的演员更投入自己的‘角色’。", note: "role 角色，呼应前文‘奥斯卡演员’的比喻。" },
+        { id: 44, text: "To look into the ______, Wang disguised himself and ______ the beggars.", options: ["A. minor", "B. case", "C. future", "D. question"], correct: "B", explanation: "调查案件。look into the case 调查案件。", note: "case 案件；下文的 thieves 提示案件语境。" },
+        { id: 45, text: "To look into the ______, Wang disguised himself and ______ the beggars.", options: ["A. interviewed", "B. joined", "C. arrested", "D. assisted"], correct: "B", explanation: "伪装自己并加入乞丐群体。joined 加入。", note: "伪装后融入群体才能获取信息。" },
+        { id: 46, text: "Dirty shorts and old shoes gave him the ______ of a real beggar and his convincing dialect soon won him the ______ of the beggars.", options: ["A. challenge", "B. experience", "C. appearance", "D. freedom"], correct: "C", explanation: "脏衣服旧鞋给了他真实乞丐的外表。appearance 外表。", note: "appearance 外观形象，与 disguise 呼应。" },
+        { id: 47, text: "Dirty shorts and old shoes gave him the ______ of a real beggar and his convincing dialect soon won him the ______ of the beggars.", options: ["A. vote", "B. sympathy", "C. permission", "D. trust"], correct: "D", explanation: "令人信服的方言赢得乞丐们的信任。trust 信任。", note: "赢得信任才能获取情报。" },
+        { id: 48, text: "I often ______ them to drink alcohol.", options: ["A. invited", "B. forced", "C. helped", "D. expected"], correct: "A", explanation: "邀请他们喝酒以套话。invite 邀请。", note: "invite to drink 邀请喝酒，套近乎获取信息。" },
+        { id: 49, text: "Once they were ______ they began to talk a lot.", options: ["A. drunk", "B. deserted", "C. bored", "D. lost"], correct: "A", explanation: "一旦喝醉，他们就开始说很多话。drunk 醉的。", note: "喝醉后放松警惕，泄露信息。" },
+        { id: 50, text: "I'd then ______ myself to use the toilet, ______ what the beggars said, and send the ______ to my teammates.", options: ["A. guide", "B. persuade", "C. excuse", "D. allow"], correct: "C", explanation: "借口上厕所。excuse oneself 委婉地离开。", note: "excuse oneself to do sth 找借口去做某事。" },
+        { id: 51, text: "I'd then ______ myself to use the toilet, ______ what the beggars said, and send the ______ to my teammates.", options: ["A. refer to", "B. note down", "C. ask about", "D. miss out"], correct: "B", explanation: "记下乞丐们说的话。note down 记录。", note: "note down 记录重要信息。" },
+        { id: 52, text: "I'd then ______ myself to use the toilet, ______ what the beggars said, and send the ______ to my teammates.", options: ["A. plan", "B. agreement", "C. direction", "D. information"], correct: "D", explanation: "将信息发送给队友。information 信息。", note: "收集的情报信息。" },
+        { id: 53, text: "Wang, who is often in ______ situations, is also a judo（柔道）master.", options: ["A. awkward", "B. dangerous", "C. unfortunate", "D. strange"], correct: "B", explanation: "经常处于危险境地。dangerous 危险的。", note: "卧底工作伴随危险，后文提到柔道保护自己。" },
+        { id: 54, text: "As long as I get close enough, no criminal can ______ from me.", options: ["A. separate", "B. recover", "C. escape", "D. hear"], correct: "C", explanation: "没有罪犯能逃脱。escape 逃脱。", note: "escape from sb 从某人手中逃脱。" },
+        { id: 55, text: "Wang's ______ won him several honors, including a National May Day Labor Medal and 11 Citations of Merit.", options: ["A. courage", "B. honesty", "C. kindness", "D. optimism"], correct: "A", explanation: "他的勇气为他赢得荣誉。courage 勇气。", note: "勇敢无畏的卧底工作获得表彰。" }
+    ];
+
+    const phraseList = [
+        { phrase: "pretend to be", meaning: "假装成", example: "He pretended to be a beggar to investigate the case." },
+        { phrase: "be devoted to", meaning: "致力于", example: "He is devoted to his role as an undercover policeman." },
+        { phrase: "look into", meaning: "调查", example: "The detective looked into the case carefully." },
+        { phrase: "disguise oneself", meaning: "伪装自己", example: "Wang disguised himself as a beggar." },
+        { phrase: "win one's trust", meaning: "赢得某人的信任", example: "His dialect won the trust of the beggars." },
+        { phrase: "note down", meaning: "记下", example: "He noted down every word they said." },
+        { phrase: "escape from", meaning: "从……逃脱", example: "No criminal can escape from him." }
+    ];
+
+    const longSentences = [
+        { sentence: "Over the past 38 years, Mr. Wang has pretended to be someone else many times, and has even learned to speak different dialects, leading to him being described as an 'Oscar-winning actor'.", translation: "在过去的38年里，王先生多次假扮成别人，甚至学会了说不同的方言，这使他被称为‘奥斯卡获奖演员’。", analysis: "现在分词短语leading to作结果状语；him being described为动名词复合结构。" },
+        { sentence: "Wang, who is often in dangerous situations, is also a judo master.", translation: "经常身处险境的王先生也是一位柔道大师。", analysis: "who引导非限制性定语从句修饰Wang；补充说明其背景。" }
+    ];
+
+    const strategyBlock = `
+        <div class="method-card">
+            <div class="badge-method">🎯 完形填空 · 解题策略思路</div>
+            <ul style="margin-left:20px; margin-top:12px; color:#375e4c; line-height:1.5;">
+                <li><strong>1. 上下文逻辑链：</strong> 警察伪装→加入乞丐→赢得信任→套话→记录信息→发送队友→获得荣誉。</li>
+                <li><strong>2. 固定搭配与词义辨析：</strong> speak dialects, look into the case, win trust, note down, escape from。</li>
+                <li><strong>3. 情感与动作线索：</strong> 邀请喝酒→喝醉后说话→借口上厕所→记录信息，环环相扣。</li>
+                <li><strong>4. 职业背景推断：</strong> 卧底、调查案件、擒拿罪犯 → 警察。</li>
+                <li><strong>5. 主旨升华：</strong> 勇气与奉献赢得国家荣誉。</li>
+            </ul>
+        </div>
+    `;
+
+    const root = document.getElementById("questionsRoot");
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function buildExam() {
+        let html = `
+            <div class="card">
+                <div class="question-panel">
+                    <div class="question-text">📖 完形填空 · 卧底英雄王先生 (2021新课标II卷)</div>
+                    <div class="cloze-passage" id="clozePassage">${escapeHtml(fullPassage)}</div>
+                </div>
+            </div>
+        `;
+
+        clozeQuestions.forEach((q, idx) => {
+            html += `
+                <div class="card" data-qid="cloze_${q.id}" data-correct="${q.correct}" data-type="cloze" data-explanation='${escapeHtml(q.explanation)}' data-note='${escapeHtml(q.note)}'>
+                    <div class="question-panel">
+                        <div class="question-item">
+                            <div class="question-text">${q.id}. ${escapeHtml(q.text)}</div>
+                            <div class="options-list" id="opts-cloze_${q.id}">
+            `;
+            q.options.forEach(opt => {
+                let letter = opt.charAt(0);
+                let optRaw = opt.slice(1).trim();
+                html += `<div class="option" data-val="${letter}"><div class="option-letter">${letter}</div><div class="option-text">${escapeHtml(optRaw)}</div></div>`;
+            });
+            html += `</div></div><div class="feedback-area" id="fb-cloze_${q.id}" style="display:none;"></div></div>`;
+        });
+
+        html += `<div class="card"><div class="analysis-special">
+                    <div class="analysis-title">📚 高频搭配 & 核心短语 · 长难句精析</div>
+                    <div class="phrase-list"><strong style="display:block; margin-bottom:14px;">🔖 常考短语 (含释义+例句)</strong>`;
+        phraseList.forEach(p => {
+            html += `<div class="phrase-item">
+                        <div class="phrase-text"><span class="phrase-en">${escapeHtml(p.phrase)}</span> <span class="phrase-zh">${escapeHtml(p.meaning)}</span></div>
+                        <div class="phrase-example">💬 ${escapeHtml(p.example)}</div>
+                     </div>`;
+        });
+        html += `</div><div class="sentence-list"><strong style="display:block; margin:20px 0 14px;">🧩 长难句 + 语法分析</strong>`;
+        longSentences.forEach(ls => {
+            html += `<div class="sentence-item">
+                        <div class="sentence-en">📖 ${escapeHtml(ls.sentence)}</div>
+                        <div class="sentence-zh">📝 中文：${escapeHtml(ls.translation)}</div>
+                        <div class="sentence-grammar">📌 语法解析：${escapeHtml(ls.analysis)}</div>
+                     </div>`;
+        });
+        html += `</div></div></div>`;
+        html += strategyBlock;
+
+        html += `<div class="card" style="padding:16px 22px 22px 22px;">
+                    <div class="section-title-icon">📘 我的难词表 · 自主复习</div>
+                    <table class="vocab-table"><thead><tr><th>序号</th><th>单词</th><th>词性及释义</th><th>我的笔记</th></tr></thead>
+                    <tbody id="vocabTbody">${[...Array(10)].map((_,i)=>`<tr><td>${i+1}</td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td></tr>`).join('')}</tbody></table>
+                    <div class="section-title-icon" style="margin-top:24px;">📜 长难句积累 · 语料库</div>
+                    <table class="sentence-table"><thead><tr><th>序号</th><th>长难句</th><th>备注（翻译/结构分析）</th></tr></thead>
+                    <tbody id="sentenceTbody">${[...Array(5)].map((_,i)=>`<tr><td>${i+1}</td><td contenteditable="true" class="editable-cell"></td><td contenteditable="true" class="editable-cell"></td></tr>`).join('')}</tbody></table>
+                    <div style="font-size:0.7rem; color:#8aa998; margin-top:12px;">✏️ 点击单元格即可填写，自由记录难词和长难句分析。</div>
+                </div>`;
+
+        root.innerHTML = html;
+        
+        const passageDiv = document.getElementById("clozePassage");
+        if (passageDiv) makeWordsClickable(passageDiv);
+        document.querySelectorAll('.question-text, .option-text, .phrase-item, .sentence-item, .method-card, .phrase-example, .sentence-en, .sentence-zh').forEach(el => {
+            if (el) makeWordsClickable(el);
+        });
+        attachEvents();
+    }
+
+    function attachEvents() {
+        const cards = document.querySelectorAll('.card[data-qid]');
+        cards.forEach(card => {
+            const correctAns = card.getAttribute('data-correct');
+            const expRaw = card.getAttribute('data-explanation');
+            const noteRaw = card.getAttribute('data-note');
+            const explanation = expRaw || "根据上下文逻辑推断得出。";
+            const note = noteRaw || "注意固定搭配与语境衔接。";
+            const optsDiv = card.querySelector('.options-list');
+            if (!optsDiv) return;
+            const options = optsDiv.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (card.classList.contains('answered')) return;
+                    const selectedVal = opt.getAttribute('data-val');
+                    const isCorrect = (selectedVal === correctAns);
+                    const feedbackDiv = card.querySelector('.feedback-area');
+                    if (!feedbackDiv) return;
+
+                    let yourFull = "", correctFull = "";
+                    options.forEach(op => {
+                        if(op.getAttribute('data-val') === selectedVal) yourFull = op.querySelector('.option-text')?.innerText || selectedVal;
+                        if(op.getAttribute('data-val') === correctAns) correctFull = op.querySelector('.option-text')?.innerText || correctAns;
+                    });
+
+                    feedbackDiv.innerHTML = `
+                        <div class="result-badge ${isCorrect ? 'correct-badge' : 'wrong-badge'}">${isCorrect ? '✔ 回答正确' : '❌ 回答错误'}</div>
+                        <div class="answer-compare">
+                            <div class="your-answer">📌 你的答案：${selectedVal}. ${escapeHtml(yourFull)}</div>
+                            <div class="correct-answer">✅ 正确答案：${correctAns}. ${escapeHtml(correctFull)}</div>
+                        </div>
+                        <div class="detail-explanation"><strong>🔎 详细解析：</strong> ${escapeHtml(explanation)}<br/><strong>📘 考点笔记：</strong> ${escapeHtml(note)}</div>
+                        <div class="lock-message">🔒 答案已锁定，不可修改</div>
+                    `;
+                    feedbackDiv.style.display = 'block';
+                    card.classList.add('answered');
+                    options.forEach(op => op.classList.add('disabled-opt'));
+                });
+            });
+        });
+    }
+
+    buildExam();
+</script>
+</body>
+</html>
