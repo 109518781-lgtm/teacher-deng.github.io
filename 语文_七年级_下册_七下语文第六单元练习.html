@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 七下语文第六单元精练</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f7f3;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 20px;
+            color: #1e2f2c;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2b7a4b, #1e5a3a);
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 32px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .title-section p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 6px;
+        }
+
+        .progress-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 48px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .progress-card span:first-child {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .progress-card .counter {
+            font-size: 1.9rem;
+            font-weight: 800;
+        }
+
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .page-nav {
+            flex: 1.2;
+            min-width: 240px;
+            background: white;
+            border-radius: 32px;
+            padding: 20px 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .page-nav h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-left: 5px solid #2b7a4b;
+            padding-left: 14px;
+            margin-bottom: 18px;
+            color: #1a3e32;
+        }
+
+        .page-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .page-btn {
+            background: #f8faf7;
+            border: 1px solid #dde8e0;
+            border-radius: 60px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #2c5a47;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn:hover {
+            background: #e9f3ed;
+            border-color: #9bc0ab;
+            transform: translateX(4px);
+        }
+
+        .page-btn.active {
+            background: #2b7a4b;
+            border-color: #2b7a4b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(43, 122, 75, 0.2);
+        }
+
+        .page-status {
+            margin-left: auto;
+            font-size: 0.7rem;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 40px;
+            padding: 2px 8px;
+        }
+
+        .quiz-area {
+            flex: 3;
+            min-width: 280px;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 28px 28px 32px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #e6f0ea;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2b7a4b, #328f58);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .question-card {
+            background: #fefefe;
+            border-radius: 28px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eef3ef;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.45;
+            margin-bottom: 20px;
+            color: #1c2f2a;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fafdfb;
+            padding: 12px 18px;
+            border-radius: 48px;
+            border: 1px solid #e2ede6;
+            cursor: pointer;
+            transition: 0.1s linear;
+        }
+
+        .option:hover:not(.locked-option) {
+            background: #eef6f1;
+            border-color: #bdd8cb;
+        }
+
+        .option-letter {
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #cde0d6;
+        }
+
+        .locked-option {
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: #f9f9f9;
+            border-left: 5px solid;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #e6f9ef;
+            border-left-color: #2b7a4b;
+            color: #155a3a;
+        }
+
+        .feedback.wrong {
+            background: #fff0f0;
+            border-left-color: #dc6b5c;
+            color: #a03d2e;
+        }
+
+        .report-footer {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-btn {
+            background: #1f543f;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .download-btn:hover {
+            background: #0f3e2e;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 780px) {
+            body { padding: 16px; }
+            .quiz-area { padding: 20px; }
+            .question-card { padding: 18px; }
+            .page-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header">
+        <div class="title-section">
+            <h1>📖 赢未来国雅 · 即学即练</h1>
+            <p>七下语文第六单元 | 一课一练 · 中考题型智能闯关</p>
+        </div>
+        <div class="progress-card">
+            <span>已完成</span>
+            <span class="counter" id="completedCounter">0</span>
+            <span>/ <span id="totalCounter">0</span></span>
+        </div>
+    </div>
+
+    <div class="two-columns">
+        <div class="page-nav">
+            <h3>📚 第六单元 · 逐课复习</h3>
+            <div class="page-buttons" id="pageNavContainer"></div>
+            <div style="margin-top: 20px; font-size: 0.7rem; color: #6f8b7c; padding-left: 10px;">✅ 单选/多选均有标识 | 即时解析 | 锁定答案</div>
+        </div>
+
+        <div class="quiz-area" id="quizArea">
+            <div class="quiz-header">
+                <span class="page-title" id="currentPageTitle">第21课《伟大的悲剧》</span>
+                <span class="question-count-badge" id="pageQCount"></span>
+            </div>
+            <div id="questionsContainer"></div>
+            <div class="report-footer">
+                <button class="download-btn" id="downloadReportBtn">📥 下载学习报告</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // 七下语文第六单元（部编版）核心篇目：
+    // 21 伟大的悲剧 / 22 太空一日 / 23 带上她的眼睛 / 24 河中石兽
+    // 涵盖字音字形、成语运用、文学常识、科幻/探险精神、文言文实词翻译、阅读答题模板
+    // 每课4~5题，支持单选/多选，完整解析锁定。
+    // --------------------------------------------------------------
+    const QUESTION_SET = [
+        // ========== 第21课《伟大的悲剧》page0 ==========
+        { id: 1, pageId: 0, type: "字音字形", question: "下列加点字注音和字形全部正确的一项是？", options: ["A. 无垠(yín) 战栗(lì) 履践(lǚ)", "B. 钦佩(qīn) 风餐露宿(sù) 厄运(è)", "C. 凛冽(lǐn liè) 毋宁(wú) 吞噬(chì)", "D. 告罄(qìng) 疲惫不堪(kān) 羸弱(yíng)"], correct: "A,B", multiple: true, explanation: "A、B正确；C项吞噬shì；D项羸弱léi。故AB正确。" },
+        { id: 2, pageId: 0, type: "文学常识", question: "关于《伟大的悲剧》及作者茨威格，说法正确的有？（多选）", options: ["A. 茨威格是奥地利著名作家，代表作有《人类群星闪耀时》。", "B. 文章记叙了斯科特探险队从南极绝望而归以至覆没的悲剧。", "C. ‘伟大的悲剧’的‘伟大’指探险队员勇于探索、为事业献身的精神。", "D. 本文是传记文学，语言生动，情感真挚。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合课文及文学常识，正确。" },
+        { id: 3, pageId: 0, type: "成语运用", question: "下列句子中加点成语使用恰当的一项是？", options: ["A. 斯科特一行在冰天雪地中风餐露宿，艰苦卓绝。", "B. 他平时学习不努力，考试前才忧心忡忡地复习。", "C. 听到这个噩耗，大家都疲惫不堪，无法接受。", "D. 南极的暴风雪来势汹汹，令人毛骨悚然。"], correct: "A,D", multiple: true, explanation: "A风餐露宿形容旅途艰辛，正确；D毛骨悚然形容恐惧，正确；B忧心忡忡形容忧愁，与复习不搭配；C疲惫不堪形容劳累，与噩耗情境不符。故AD对。" },
+        // ========== 第22课《太空一日》page1 ==========
+        { id: 4, pageId: 1, type: "字音字形", question: "下列加点字注音正确的一项是？", options: ["A. 炽热(chì) 轮廓(kuò) 俯瞰(kàn)", "B. 遨游(áo) 严谨(jǐn) 稠密(chóu)", "C. 概率(gài) 五脏六腑(fǔ) 千钧重负(jūn)", "D. 烧灼(zhuó) 瞬间(shùn) 本末倒置(dào)"], correct: "A,B,C,D", multiple: true, explanation: "所有选项注音均正确。" },
+        { id: 5, pageId: 1, type: "文学常识", question: "关于《太空一日》及作者杨利伟，说法正确的有？（多选）", options: ["A. 杨利伟是中国首飞航天员，‘神舟五号’载人飞船航天员。", "B. 本文节选自《天地九重》，讲述太空飞行的惊险经历。", "C. 文章按时间顺序，真实记录了太空中的所见所感。", "D. 杨利伟在太空拍摄了地球照片，完成了多项科学实验。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合课文内容和航天史实。" },
+        { id: 6, pageId: 1, type: "课文理解", question: "下列对《太空一日》分析正确的有？（多选）", options: ["A. ‘我以为自己要牺牲了’表现飞船共振时的紧张与恐惧。", "B. 文章通过心理描写展现航天员的勇敢与镇定。", "C. 看到‘神秘的敲击声’作者表现出了强烈的好奇。", "D. 本文采用第一人称，增强了真实感和感染力。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合文章内容和航天员心理刻画。" },
+        // ========== 第23课《带上她的眼睛》page2 ==========
+        { id: 7, pageId: 2, type: "字音字形", question: "下列加点字注音及字形完全正确的一组是？", options: ["A. 迟钝(dùn) 凸现(tū) 拍摄(shè)", "B. 蔚蓝(wèi) 吟唱(yín) 孤零(líng)", "C. 不期而至(qī) 天涯海角(yá) 点缀(zhuì)", "D. 蒙眬(lóng) 闲暇(xiá) 心有灵犀(xī)"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均正确。" },
+        { id: 8, pageId: 2, type: "文学常识", question: "关于《带上她的眼睛》及作者刘慈欣，说法正确的有？", options: ["A. 刘慈欣是中国科幻小说的代表作家，代表作《三体》。", "B. 《带上她的眼睛》是一篇科幻小说，获得中国科幻银河奖。", "C. 小说中的‘她’是一位被困地心无法返回的女地航员。", "D. 文章通过‘眼睛’传递地面景象，表现人性的温暖与科技的奇妙。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合文学常识和课文内容。" },
+        { id: 9, pageId: 2, type: "科幻特色", question: "下列对《带上她的眼睛》中科幻元素理解正确的有？（多选）", options: ["A. ‘传感眼镜’可以传递视觉、听觉和触觉，体现科技想象。", "B. 小姑娘被困‘地心’设定极具科学依据和想象力。", "C. 文章将科学幻想与人文关怀紧密结合。", "D. 小说完全脱离现实，毫无科学基础。"], correct: "A,B,C", multiple: true, explanation: "D错误，科幻小说基于科学展开想象，并非毫无科学基础。ABC正确。" },
+        // ========== 第24课《河中石兽》文言文 page3 ==========
+        { id: 10, pageId: 3, type: "文言实词", question: "下列《河中石兽》加点词解释正确的一组是？", options: ["A. 山门圮于河(倒塌) 阅十余岁(经过)", "B. 竟不可得(竟然) 棹数小舟(划船)", "C. 湮于沙上(埋没) 啮沙为坎穴(咬，这里是冲刷)", "D. 溯流逆上(逆流) 但知其一(只)"], correct: "A,C,D", multiple: true, explanation: "B项‘竟不可得’的‘竟’意为‘最终’，不是‘竟然’。故B错误，ACD正确。" },
+        { id: 11, pageId: 3, type: "文言翻译", question: "下列对‘然则天下之事，但知其一，不知其二者多矣，可据理臆断欤？’翻译正确的一项是？", options: ["A. 然而天下的事情，只知道其中一方面，不知道另一方面的人很多，可以根据某个道理就主观判断吗？", "B. 既然这样，那么天下的事情，只知道表面，不知道本质的人很多，怎么可以凭空臆断呢？", "C. 既然这样，那么天下的事，只知道其一，不知道其二的情况太多了，怎么能根据某个道理就主观判断呢？", "D. 天下的事情，只知道一方面不知道另一方面，不可以主观判断。"], correct: "C", multiple: false, explanation: "C项准确翻译了‘然则’（既然这样）、‘但’（只）、‘臆断’（主观判断）。" },
+        { id: 12, pageId: 3, type: "内容理解", question: "《河中石兽》告诉我们的道理是？（多选）", options: ["A. 实践出真知，不能只凭主观臆断。", "B. 事物的变化是复杂的，要综合考虑各种因素。", "C. 我们要学习老河兵的经验丰富，嘲笑讲学家的空谈。", "D. 遇事要独立思考，不能人云亦云。"], correct: "A,B,D", multiple: true, explanation: "C项‘嘲笑’不准确，课文告诉我们应尊重实践经验而非一味否定。ABD正确。" },
+        // ========== 探险精神与科学素养（主题整合）page4 ==========
+        { id: 13, pageId: 4, type: "主题理解", question: "下列对‘探险精神’理解正确的有？（多选）", options: ["A. 斯科特一行虽然失败，但展现了勇于探索、为科学献身的精神。", "B. 杨利伟作为航天员，体现了中国航天人不畏艰险的进取精神。", "C. 探险精神只属于科学家和冒险家，与普通人无关。", "D. 科幻小说中的探索精神激发人们对未知世界的好奇与想象。"], correct: "A,B,D", multiple: true, explanation: "C错误，探险精神是每个人都应具备的勇气与探索欲。ABD正确。" },
+        { id: 14, pageId: 4, type: "人文内涵", question: "《带上她的眼睛》中，‘她’虽然被困地心，依然热爱生命、向往阳光。这给我们的启示是？（多选）", options: ["A. 即使身处绝境也要保持乐观与希望。", "B. 科技可以跨越时空，传递情感与温暖。", "C. 要珍惜生活中的美好，关爱他人。", "D. 面对困难应该绝望放弃。"], correct: "A,B,C", multiple: true, explanation: "D错误，文章鼓励人们坚强乐观。ABC正确。" },
+        // ========== 阅读答题模板——传记文学特点 page5 ==========
+        { id: 15, pageId: 5, type: "阅读答题模板", question: "关于传记文学的特点，下列说法正确的有？（多选）", options: ["A. 以真实人物和事件为基础，允许适当文学加工。", "B. 通过典型事例刻画人物性格和精神。", "C. 语言生动形象，富有感染力。", "D. 完全虚构，不受事实约束。"], correct: "A,B,C", multiple: true, explanation: "D错误，传记必须以真实性为基础。ABC正确。" },
+        { id: 16, pageId: 5, type: "写作手法", question: "《伟大的悲剧》中，茨威格没有为胜利者阿蒙森作传，却为失败者斯科特立传。这体现了什么？", options: ["A. 作者对失败者的同情", "B. 悲剧更能震撼人心，表现人类精神的高贵", "C. 作者不认同成功者的价值观", "D. 只是为了增加故事的戏剧性"], correct: "B", multiple: false, explanation: "作者通过斯科特一行的悲剧，颂扬了人类勇于探索、为事业献身的伟大精神。B正确。" },
+        // ========== 科幻小说与想象力 page6 ==========
+        { id: 17, pageId: 6, type: "科幻阅读", question: "下列对科幻小说的理解正确的有？（多选）", options: ["A. 科幻小说是‘科学+幻想’，基于科学进行想象。", "B. 科幻小说可以激发读者的科学兴趣和创造力。", "C. 《带上她的眼睛》属于硬科幻，注重技术细节。", "D. 科幻小说完全脱离现实，没有阅读价值。"], correct: "A,B", multiple: true, explanation: "C《带上她的眼睛》更偏人文科幻；D错误，科幻具有重要文学和思想价值。AB正确。" },
+        // ========== 综合性学习——语文与科技 page7 ==========
+        { id: 18, pageId: 7, type: "综合实践", question: "下列标语不适合用于‘航天科技展’的一项是？", options: ["A. 逐梦九天，探索宇宙", "B. 星辰大海，永不止步", "C. 书山有路勤为径", "D. 扬帆起航，筑梦太空"], correct: "C", multiple: false, explanation: "C是学习励志名言，与航天科技展主题不贴切。ABD均适合。" },
+        // ========== 课内重点细节与精神品质 page8 ==========
+        { id: 19, pageId: 8, type: "人物精神", question: "下列对斯科特一行人的精神品质概括正确的有？（多选）", options: ["A. 坚毅执着，面对死亡泰然自若", "B. 诚实守信，为失败者作证", "C. 团结互助，在绝境中互相鼓励", "D. 自私怯懦，逃避责任"], correct: "A,B,C", multiple: true, explanation: "D与课文内容相反。斯科特一行展现了崇高的品质。" },
+        { id: 20, pageId: 8, type: "课文细节", question: "在《太空一日》中，杨利伟在太空中遇到‘神秘的敲击声’，他的反应是？", options: ["A. 极度恐慌，手足无措", "B. 保持镇定，沉着判断，继续执行任务", "C. 立即返航", "D. 忽略不计，当作幻觉"], correct: "B", multiple: false, explanation: "杨利伟凭借过硬心理素质，镇定分析，继续飞行，体现了航天员的专业素养。" },
+        // ========== 文言文拓展与实词 page9 ==========
+        { id: 21, pageId: 9, type: "文言实词", question: "下列加点词意义相同的一组是？", options: ["A. 二石兽并沉焉/可远观而不可亵玩焉", "B. 以为顺流下矣/其印为予群从所得", "C. 必于石下迎水处啮沙为坎穴/何陋之有", "D. 众服为确论/惟手熟尔"], correct: "D", multiple: false, explanation: "D项‘尔’都是‘罢了’；A焉: 于此/语气词；B为: 认为/被；C结构不同。故D正确。" }
+    ];
+
+    const TOTAL_QS = QUESTION_SET.length;
+    document.getElementById('totalCounter').innerText = TOTAL_QS;
+
+    // 页面分组（第六单元逐课+专项）
+    const pagesData = [
+        { id: 0, name: "🏔️ 第21课《伟大的悲剧》", questions: [] },
+        { id: 1, name: "🚀 第22课《太空一日》", questions: [] },
+        { id: 2, name: "👁️ 第23课《带上她的眼睛》", questions: [] },
+        { id: 3, name: "🪨 第24课《河中石兽》", questions: [] },
+        { id: 4, name: "✨ 探险精神·科学素养", questions: [] },
+        { id: 5, name: "📝 阅读模板·传记文学", questions: [] },
+        { id: 6, name: "🔭 科幻小说·想象力", questions: [] },
+        { id: 7, name: "📚 综合实践·科技人文", questions: [] },
+        { id: 8, name: "💡 人物精神·细节品析", questions: [] },
+        { id: 9, name: "📜 文言文实词专项", questions: [] }
+    ];
+
+    QUESTION_SET.forEach(q => {
+        const page = pagesData.find(p => p.id === q.pageId);
+        if(page) page.questions.push(q);
+    });
+
+    let userAnswers = {}; // { qid: { selectedValues, isCorrect } }
+    let currentPageId = 0;
+
+    function renderNav() {
+        const container = document.getElementById('pageNavContainer');
+        container.innerHTML = '';
+        pagesData.forEach(page => {
+            const answeredCount = page.questions.filter(q => userAnswers[q.id] && userAnswers[q.id].selectedValues).length;
+            const totalCount = page.questions.length;
+            const btn = document.createElement('div');
+            btn.className = `page-btn ${currentPageId === page.id ? 'active' : ''}`;
+            btn.innerHTML = `<span>${page.name}</span><span class="page-status">${answeredCount}/${totalCount}</span>`;
+            btn.onclick = () => {
+                currentPageId = page.id;
+                renderNav();
+                renderQuestionsForPage();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    function checkCorrect(q, selectedVals) {
+        const correctSet = q.correct.split(',').map(s => s.trim());
+        if(q.multiple) {
+            if(selectedVals.length !== correctSet.length) return false;
+            return selectedVals.every(v => correctSet.includes(v)) && correctSet.every(c => selectedVals.includes(c));
+        } else {
+            return selectedVals.length === 1 && selectedVals[0] === q.correct;
+        }
+    }
+
+    function renderQuestionsForPage() {
+        const currentPage = pagesData.find(p => p.id === currentPageId);
+        document.getElementById('currentPageTitle').innerHTML = currentPage.name;
+        const qCount = currentPage.questions.length;
+        document.getElementById('pageQCount').innerText = `${qCount} 题`;
+        const container = document.getElementById('questionsContainer');
+        if(qCount === 0) { container.innerHTML = '<div style="padding:40px;text-align:center;">✨ 精选题目，马上解锁</div>'; updateGlobalProgress(); return; }
+        let html = '';
+        currentPage.questions.forEach((q, idx) => {
+            const answer = userAnswers[q.id];
+            const selected = answer ? answer.selectedValues : [];
+            const isAnswered = !!answer;
+            const isCorrect = answer ? answer.isCorrect : false;
+            html += `<div class="question-card" data-qid="${q.id}">
+                        <div class="question-text"><strong>${idx+1}. 【${q.type}】${q.multiple ? '（多选）' : '（单选）'}</strong> ${q.question}</div>
+                        <div class="options" id="options-${q.id}">`;
+            q.options.forEach(opt => {
+                const letter = opt.charAt(0);
+                const text = opt.substring(1).trim();
+                const lockedClass = isAnswered ? 'locked-option' : '';
+                let checkedStyle = '';
+                if(isAnswered && selected.includes(letter)) checkedStyle = 'style="background:#e0f0e6;border-color:#2b7a4b;"';
+                html += `<div class="option ${lockedClass}" data-qid="${q.id}" data-value="${letter}" ${checkedStyle}>
+                            <span class="option-letter">${letter}</span>
+                            <span class="option-text">${text}</span>
+                        </div>`;
+            });
+            let fbHtml = '';
+            if(isAnswered) {
+                const fbClass = isCorrect ? 'correct' : 'wrong';
+                fbHtml = `<div class="feedback show ${fbClass}"><strong>${isCorrect ? '✓ 回答正确' : '✗ 回答错误'}</strong><br>你的答案：${selected.join(',')} | 正确答案：${q.correct}<br>📖 解析：${q.explanation}</div>`;
+            } else {
+                fbHtml = `<div class="feedback"></div>`;
+            }
+            html += `</div>${fbHtml}</div>`;
+        });
+        container.innerHTML = html;
+        // 绑定点击事件（未锁定的）
+        document.querySelectorAll('.option:not(.locked-option)').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const qid = parseInt(el.dataset.qid);
+                const questionObj = QUESTION_SET.find(q => q.id === qid);
+                if(!questionObj) return;
+                const selectedVal = el.dataset.value;
+                let currentSelected = userAnswers[qid] ? [...userAnswers[qid].selectedValues] : [];
+                if(questionObj.multiple) {
+                    if(currentSelected.includes(selectedVal)) {
+                        currentSelected = currentSelected.filter(v => v !== selectedVal);
+                    } else {
+                        currentSelected.push(selectedVal);
+                    }
+                } else {
+                    currentSelected = [selectedVal];
+                }
+                const isCorrect = checkCorrect(questionObj, currentSelected);
+                userAnswers[qid] = { selectedValues: currentSelected, isCorrect: isCorrect };
+                renderQuestionsForPage();
+                updateGlobalProgress();
+                renderNav();
+            });
+        });
+        updateGlobalProgress();
+    }
+
+    function updateGlobalProgress() {
+        const answered = Object.keys(userAnswers).length;
+        document.getElementById('completedCounter').innerText = answered;
+        if(answered === TOTAL_QS) {
+            const correctCount = Object.values(userAnswers).filter(a => a.isCorrect).length;
+            const rate = Math.round((correctCount/TOTAL_QS)*100);
+            let tipDiv = document.getElementById('completeToast');
+            if(!tipDiv) {
+                tipDiv = document.createElement('div');
+                tipDiv.id = 'completeToast';
+                tipDiv.style = 'background:#2b7a4b;color:white;text-align:center;padding:8px;border-radius:30px;margin-top:12px;';
+                document.querySelector('.report-footer').prepend(tipDiv);
+            }
+            tipDiv.innerText = `🎉 恭喜！第六单元通关！总正确率 ${rate}% (${correctCount}/${TOTAL_QS}) 继续加油！`;
+        }
+    }
+
+    // 下载报告
+    document.getElementById('downloadReportBtn').addEventListener('click', () => {
+        let report = '【赢未来国雅·即学即练】七下语文第六单元学习报告\n';
+        report += `生成时间：${new Date().toLocaleString()}\n已完成：${Object.keys(userAnswers).length}/${TOTAL_QS}\n`;
+        const correctTotal = Object.values(userAnswers).filter(a => a.isCorrect).length;
+        const rate = Object.keys(userAnswers).length===0?0:Math.round((correctTotal/Object.keys(userAnswers).length)*100);
+        report += `当前正确率：${rate}% (${correctTotal}/${Object.keys(userAnswers).length})\n\n详细答题记录：\n`;
+        QUESTION_SET.forEach(q => {
+            const ans = userAnswers[q.id];
+            const userChoice = ans ? ans.selectedValues.join(',') : '未作答';
+            const status = ans ? (ans.isCorrect ? '✔' : '✘') : '⚪';
+            report += `\n[${status}] 【${q.type}】${q.question}\n    你的答案: ${userChoice}   正确答案: ${q.correct}\n    解析: ${q.explanation}\n`;
+        });
+        const blob = new Blob([report], {type: 'text/plain'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = '七下语文第六单元学习报告.txt';
+        link.click();
+        URL.revokeObjectURL(link.href);
+    });
+
+    renderNav();
+    renderQuestionsForPage();
+    updateGlobalProgress();
+</script>
+</body>
+</html>

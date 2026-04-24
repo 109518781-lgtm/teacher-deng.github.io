@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>赢未来国雅 · 即学即练 | 七下语文第一单元精练</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f7f3;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 20px;
+            color: #1e2f2c;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2b7a4b, #1e5a3a);
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 32px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .title-section p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 6px;
+        }
+
+        .progress-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border-radius: 48px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .progress-card span:first-child {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .progress-card .counter {
+            font-size: 1.9rem;
+            font-weight: 800;
+        }
+
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .page-nav {
+            flex: 1.2;
+            min-width: 240px;
+            background: white;
+            border-radius: 32px;
+            padding: 20px 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .page-nav h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-left: 5px solid #2b7a4b;
+            padding-left: 14px;
+            margin-bottom: 18px;
+            color: #1a3e32;
+        }
+
+        .page-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .page-btn {
+            background: #f8faf7;
+            border: 1px solid #dde8e0;
+            border-radius: 60px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #2c5a47;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn:hover {
+            background: #e9f3ed;
+            border-color: #9bc0ab;
+            transform: translateX(4px);
+        }
+
+        .page-btn.active {
+            background: #2b7a4b;
+            border-color: #2b7a4b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(43, 122, 75, 0.2);
+        }
+
+        .page-status {
+            margin-left: auto;
+            font-size: 0.7rem;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 40px;
+            padding: 2px 8px;
+        }
+
+        .quiz-area {
+            flex: 3;
+            min-width: 280px;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 28px 28px 32px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #e6f0ea;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2b7a4b, #328f58);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .question-card {
+            background: #fefefe;
+            border-radius: 28px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eef3ef;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.45;
+            margin-bottom: 20px;
+            color: #1c2f2a;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fafdfb;
+            padding: 12px 18px;
+            border-radius: 48px;
+            border: 1px solid #e2ede6;
+            cursor: pointer;
+            transition: 0.1s linear;
+        }
+
+        .option:hover:not(.locked-option) {
+            background: #eef6f1;
+            border-color: #bdd8cb;
+        }
+
+        .option-letter {
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #cde0d6;
+        }
+
+        .locked-option {
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: #f9f9f9;
+            border-left: 5px solid;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #e6f9ef;
+            border-left-color: #2b7a4b;
+            color: #155a3a;
+        }
+
+        .feedback.wrong {
+            background: #fff0f0;
+            border-left-color: #dc6b5c;
+            color: #a03d2e;
+        }
+
+        .report-footer {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-btn {
+            background: #1f543f;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .download-btn:hover {
+            background: #0f3e2e;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 780px) {
+            body { padding: 16px; }
+            .quiz-area { padding: 20px; }
+            .question-card { padding: 18px; }
+            .page-title { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header">
+        <div class="title-section">
+            <h1>📖 赢未来国雅 · 即学即练</h1>
+            <p>七下语文第一单元 | 一课一练 · 中考题型智能闯关</p>
+        </div>
+        <div class="progress-card">
+            <span>已完成</span>
+            <span class="counter" id="completedCounter">0</span>
+            <span>/ <span id="totalCounter">0</span></span>
+        </div>
+    </div>
+
+    <div class="two-columns">
+        <div class="page-nav">
+            <h3>📚 第一单元 · 逐课复习</h3>
+            <div class="page-buttons" id="pageNavContainer"></div>
+            <div style="margin-top: 20px; font-size: 0.7rem; color: #6f8b7c; padding-left: 10px;">✅ 单选/多选均有标识 | 即时解析 | 锁定答案</div>
+        </div>
+
+        <div class="quiz-area" id="quizArea">
+            <div class="quiz-header">
+                <span class="page-title" id="currentPageTitle">第1课《邓稼先》</span>
+                <span class="question-count-badge" id="pageQCount"></span>
+            </div>
+            <div id="questionsContainer"></div>
+            <div class="report-footer">
+                <button class="download-btn" id="downloadReportBtn">📥 下载学习报告</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // 七下语文第一单元（部编版）核心篇目：
+    // 1 邓稼先 / 2 说和做——记闻一多先生言行片段 / 3* 回忆鲁迅先生（节选）/ 4 孙权劝学
+    // 涵盖字音字形、成语运用、文学常识、文言文实词/翻译、人物精神
+    // 每课4~5题，支持单选/多选，完整解析锁定。
+    // --------------------------------------------------------------
+    const QUESTION_SET = [
+        // ========== 第1课《邓稼先》page0 ==========
+        { id: 1, pageId: 0, type: "字音字形", question: "下列加点字注音和字形全部正确的一项是？", options: ["A. 元勋(xūn) 奠基(diàn) 选聘(pìn)", "B. 谣言(yáo) 昼夜(zhòu) 昆仑(lún)", "C. 挚友(zhì) 可歌可泣(qì) 鲜为人知(xiǎn)", "D. 至死不谢(xiè) 妇孺皆知(rú) 锋芒毕露(lù)"], correct: "A,B,C", multiple: true, explanation: "A、B、C正确；D项‘至死不谢’应为‘至死不懈’。故ABC正确。" },
+        { id: 2, pageId: 0, type: "文学常识", question: "关于《邓稼先》及作者杨振宁，说法正确的有？（多选）", options: ["A. 杨振宁是著名理论物理学家，与邓稼先同获‘两弹一星’功勋奖章。", "B. 邓稼先被称为‘两弹元勋’，为我国核武器事业作出重大贡献。", "C. 本文是一篇回忆性散文，将邓稼先的生平与中华民族崛起相结合。", "D. 文章运用对比手法，突出邓稼先的品质和贡献。"], correct: "B,C,D", multiple: true, explanation: "A错误，杨振宁是物理学家，但‘两弹一星’功勋奖章授予邓稼先等科学家，杨振宁未获此奖。BCD正确。" },
+        { id: 3, pageId: 0, type: "成语运用", question: "下列句子中加点成语使用恰当的一项是？", options: ["A. 邓稼先鞠躬尽瘁，死而后已，是当之无愧的民族英雄。", "B. 他平时沉默寡言，但在辩论会上却锋芒毕露，令人惊叹。", "C. 这个秘密鲜为人知，只有少数几个人知道。", "D. 事情已经过去了，你就不要可歌可泣了。"], correct: "A,B,C", multiple: true, explanation: "A鞠躬尽瘁、当之无愧正确；B锋芒毕露有时带贬义，但此处中性可用；C鲜为人知正确；D可歌可泣用于悲壮事迹，不能用于劝慰。故ABC正确。" },
+        // ========== 第2课《说和做》page1 ==========
+        { id: 4, pageId: 1, type: "字音字形", question: "下列加点字注音正确的一项是？", options: ["A. 仰之弥高(mí) 锲而不舍(qiè) 迥乎不同(jiǒng)", "B. 气冲斗牛(dǒu) 梳头(shū) 抱歉(qiàn)", "C. 秩序(zhì xù) 深宵(xiāo) 伴侣(lǚ)", "D. 小楷(kǎi) 硕果(shuò) 澎湃(péng pài)"], correct: "A,B,C,D", multiple: true, explanation: "所有选项注音均正确。" },
+        { id: 5, pageId: 1, type: "文学常识", question: "关于《说和做》及作者臧克家，说法正确的有？（多选）", options: ["A. 臧克家是我国现代著名诗人，代表作《有的人》。", "B. 闻一多先生既是学者又是民主战士。", "C. 作为学者，闻一多‘做了再说，做了不说’；作为民主战士，他‘说了就做’。", "D. 闻一多的代表诗集有《红烛》《死水》。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合课文及文学常识，正确。" },
+        { id: 6, pageId: 1, type: "人物精神", question: "下列对闻一多先生形象分析正确的有？（多选）", options: ["A. 潜心学术，不畏艰辛，锲而不舍。", "B. 言行一致，为革命事业献身。", "C. 作为民主战士，他勇敢无畏，大声疾呼。", "D. 只顾学术，不问政治。"], correct: "A,B,C", multiple: true, explanation: "D错误，闻一多后期积极投身民主运动。ABC正确。" },
+        // ========== 第3课《回忆鲁迅先生》page2 ==========
+        { id: 7, pageId: 2, type: "字音字形", question: "下列加点字注音完全正确的一项是？", options: ["A. 咳嗽(sou) 调羹(gēng) 绞肉(jiǎo)", "B. 薪金(xīn) 校对(jiào) 草率(shuài)", "C. 揩桌子(kāi) 悠然(yōu) 吩咐(fēn fù)", "D. 深恶痛绝(è) 阖眼(hé) 碟子(dié)"], correct: "A,B,C", multiple: true, explanation: "D项‘深恶痛绝’应读wù。故ABC正确。" },
+        { id: 8, pageId: 2, type: "文学常识", question: "关于《回忆鲁迅先生》及作者萧红，说法正确的有？", options: ["A. 萧红是‘民国四大才女’之一，代表作《呼兰河传》。", "B. 本文通过生活琐事展现鲁迅先生平凡而伟大的一面。", "C. 鲁迅先生原名周树人，代表作《呐喊》《彷徨》。", "D. 文章语言细腻，刻画了鲁迅爽朗、热情、关爱青年的形象。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均符合文学常识和课文内容。" },
+        { id: 9, pageId: 2, type: "细节描写", question: "下列对《回忆鲁迅先生》中细节描写的作用分析正确的有？（多选）", options: ["A. ‘鲁迅先生的笑声是明朗的’表现其爽朗性格。", "B. ‘海婴公子’的细节表现鲁迅作为父亲的慈爱。", "C. 写鲁迅包书皮、走路轻捷等表现其认真、干练。", "D. 细节描写可有可无，不影响主题。"], correct: "A,B,C", multiple: true, explanation: "D错误，细节描写是本文精妙之处，能生动刻画人物。ABC正确。" },
+        // ========== 第4课《孙权劝学》文言文 page3 ==========
+        { id: 10, pageId: 3, type: "文言实词", question: "下列《孙权劝学》加点词解释正确的一组是？", options: ["A. 当涂掌事(当道，当权) 辞以军中多务(推托)", "B. 孤岂欲卿治经为博士邪(研究) 但当涉猎(只，只是)", "C. 见往事耳(了解) 及鲁肃过寻阳(到，等到)", "D. 即更刮目相待(重新) 肃遂拜蒙母(于是，就)"], correct: "A,B,C,D", multiple: true, explanation: "所有选项解释均与课下注释一致，正确。" },
+        { id: 11, pageId: 3, type: "文言翻译", question: "下列对‘士别三日，即更刮目相待’翻译正确的一项是？", options: ["A. 士人分别三天，就要改变看法对待。", "B. 读书人分别几天，就要重新另眼相看了。", "C. 分别三天后，就要用新的眼光看待。", "D. 读书人分别三日，应该刮擦眼睛等待。"], correct: "B", multiple: false, explanation: "B项准确译出‘士’（读书人）、‘更’（重新）、‘刮目相待’（另眼相看）。" },
+        { id: 12, pageId: 3, type: "内容理解", question: "《孙权劝学》告诉我们的道理是？（多选）", options: ["A. 只要肯学习，就能有所长进。", "B. 要用发展的眼光看待别人。", "C. 学习可以改变一个人的气质和才能。", "D. 年纪大了就不适合学习了。"], correct: "A,B,C", multiple: true, explanation: "D错误，孙权劝吕蒙学习时吕蒙已成年，说明学习永远不晚。ABC正确。" },
+        { id: 13, pageId: 3, type: "文学常识", question: "关于《孙权劝学》的文学常识，说法正确的有？", options: ["A. 本文选自《资治通鉴》，是司马光主持编纂的编年体通史。", "B. 孙权是三国时期吴国的建立者。", "C. 吕蒙后来‘非复吴下阿蒙’，成为一代名将。", "D. 鲁肃的话从侧面表现了吕蒙的进步之大。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均正确。" },
+        // ========== 人物精神整合：科学精神与文人风骨 page4 ==========
+        { id: 14, pageId: 4, type: "综合理解", question: "下列对第一单元人物精神品质概括正确的有？（多选）", options: ["A. 邓稼先：无私奉献、以身许国的科学家精神。", "B. 闻一多：严谨治学、敢说敢做的民主战士精神。", "C. 鲁迅：平易近人、关爱青年的导师风范。", "D. 吕蒙：勤奋学习、知错就改的进取精神。"], correct: "A,B,C,D", multiple: true, explanation: "所有选项均正确概括了单元人物精神。" },
+        // ========== 阅读答题模板——人物形象分析 page5 ==========
+        { id: 15, pageId: 5, type: "阅读答题模板", question: "分析人物形象时，可以从哪些角度入手？（多选）", options: ["A. 典型事例", "B. 语言、动作、神态等细节描写", "C. 侧面描写（他人评价）", "D. 只凭主观想象"], correct: "A,B,C", multiple: true, explanation: "D错误，分析人物形象必须依据文本。ABC正确。" },
+        // ========== 病句辨析与成语运用 page6 ==========
+        { id: 16, pageId: 6, type: "病句辨析", question: "下列句子没有语病的一项是？", options: ["A. 通过阅读《邓稼先》，使我明白了什么是真正的奉献精神。", "B. 闻一多先生的研究成果，得到了国内外学术界的广泛认可。", "C. 鲁迅先生之所以让人怀念，是因为他关爱青年的原因。", "D. 吕蒙的变化告诉我们，学习可以提升人的才能和修养。"], correct: "B,D", multiple: true, explanation: "A缺主语；C‘之所以……是因为’与‘原因’重复。BD正确。" },
+        { id: 17, pageId: 6, type: "成语运用", question: "下列句子中加点成语使用正确的一项是？", options: ["A. 他平时学习不努力，考试前才目不窥园地复习。", "B. 邓稼先的一生是鞠躬尽瘁、死而后已的一生。", "C. 在辩论赛中，他慷慨淋漓地发表观点，赢得掌声。", "D. 看到这一幕，大家都气冲斗牛，无法平静。"], correct: "B,C", multiple: true, explanation: "A目不窥园形容专心致志，与考前突击不符；D气冲斗牛形容气势旺盛，此处不合语境。BC正确。" },
+        // ========== 孙权劝学对比阅读 page7 ==========
+        { id: 18, pageId: 7, type: "文言对比", question: "下列与《孙权劝学》中‘孤岂欲卿治经为博士邪’一句语气最接近的一项是？", options: ["A. 学而时习之，不亦说乎？", "B. 尔安敢轻吾射！", "C. 但当涉猎，见往事耳。", "D. 岂能为暴涨携之去？"], correct: "D", multiple: false, explanation: "'孤岂欲……邪'是反问语气，D项'岂能……'也是反问。A是反问但语气略异；B是感叹；C是陈述。D最接近。" },
+        // ========== 课文细节与情感 page8 ==========
+        { id: 19, pageId: 8, type: "细节理解", question: "《回忆鲁迅先生》中，多次写到鲁迅先生的笑声，这说明了什么？（多选）", options: ["A. 鲁迅先生性格爽朗，平易近人。", "B. 打破世人眼中‘冷酷’的传统印象。", "C. 表现作者对鲁迅先生的怀念与爱戴。", "D. 鲁迅先生经常嘲笑别人。"], correct: "A,B,C", multiple: true, explanation: "D错误，文中笑声是真诚爽朗的，并非嘲笑。ABC正确。" },
+        // ========== 综合性学习——爱国与奉献 page9 ==========
+        { id: 20, pageId: 9, type: "综合实践", question: "下列名言与邓稼先精神最契合的一项是？", options: ["A. 先天下之忧而忧，后天下之乐而乐。", "B. 人生自古谁无死，留取丹心照汗青。", "C. 苟利国家生死以，岂因祸福避趋之。", "D. 采菊东篱下，悠然见南山。"], correct: "A,B,C", multiple: true, explanation: "A、B、C都表现了为国奉献、不惧生死的精神，与邓稼先一致；D是隐逸思想。故ABC正确。" }
+    ];
+
+    const TOTAL_QS = QUESTION_SET.length;
+    document.getElementById('totalCounter').innerText = TOTAL_QS;
+
+    // 页面分组（第一单元逐课+专项）
+    const pagesData = [
+        { id: 0, name: "🔬 第1课《邓稼先》", questions: [] },
+        { id: 1, name: "📢 第2课《说和做》", questions: [] },
+        { id: 2, name: "✍️ 第3课《回忆鲁迅先生》", questions: [] },
+        { id: 3, name: "📜 第4课《孙权劝学》", questions: [] },
+        { id: 4, name: "💡 人物精神·时代风骨", questions: [] },
+        { id: 5, name: "📝 阅读模板·人物分析", questions: [] },
+        { id: 6, name: "⚡ 病句·成语专练", questions: [] },
+        { id: 7, name: "🪶 文言文对比·语气", questions: [] },
+        { id: 8, name: "🎭 细节·情感品析", questions: [] },
+        { id: 9, name: "🏆 爱国·奉献综合", questions: [] }
+    ];
+
+    QUESTION_SET.forEach(q => {
+        const page = pagesData.find(p => p.id === q.pageId);
+        if(page) page.questions.push(q);
+    });
+
+    let userAnswers = {}; // { qid: { selectedValues, isCorrect } }
+    let currentPageId = 0;
+
+    function renderNav() {
+        const container = document.getElementById('pageNavContainer');
+        container.innerHTML = '';
+        pagesData.forEach(page => {
+            const answeredCount = page.questions.filter(q => userAnswers[q.id] && userAnswers[q.id].selectedValues).length;
+            const totalCount = page.questions.length;
+            const btn = document.createElement('div');
+            btn.className = `page-btn ${currentPageId === page.id ? 'active' : ''}`;
+            btn.innerHTML = `<span>${page.name}</span><span class="page-status">${answeredCount}/${totalCount}</span>`;
+            btn.onclick = () => {
+                currentPageId = page.id;
+                renderNav();
+                renderQuestionsForPage();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    function checkCorrect(q, selectedVals) {
+        const correctSet = q.correct.split(',').map(s => s.trim());
+        if(q.multiple) {
+            if(selectedVals.length !== correctSet.length) return false;
+            return selectedVals.every(v => correctSet.includes(v)) && correctSet.every(c => selectedVals.includes(c));
+        } else {
+            return selectedVals.length === 1 && selectedVals[0] === q.correct;
+        }
+    }
+
+    function renderQuestionsForPage() {
+        const currentPage = pagesData.find(p => p.id === currentPageId);
+        document.getElementById('currentPageTitle').innerHTML = currentPage.name;
+        const qCount = currentPage.questions.length;
+        document.getElementById('pageQCount').innerText = `${qCount} 题`;
+        const container = document.getElementById('questionsContainer');
+        if(qCount === 0) { container.innerHTML = '<div style="padding:40px;text-align:center;">✨ 精选题目，马上解锁</div>'; updateGlobalProgress(); return; }
+        let html = '';
+        currentPage.questions.forEach((q, idx) => {
+            const answer = userAnswers[q.id];
+            const selected = answer ? answer.selectedValues : [];
+            const isAnswered = !!answer;
+            const isCorrect = answer ? answer.isCorrect : false;
+            html += `<div class="question-card" data-qid="${q.id}">
+                        <div class="question-text"><strong>${idx+1}. 【${q.type}】${q.multiple ? '（多选）' : '（单选）'}</strong> ${q.question}</div>
+                        <div class="options" id="options-${q.id}">`;
+            q.options.forEach(opt => {
+                const letter = opt.charAt(0);
+                const text = opt.substring(1).trim();
+                const lockedClass = isAnswered ? 'locked-option' : '';
+                let checkedStyle = '';
+                if(isAnswered && selected.includes(letter)) checkedStyle = 'style="background:#e0f0e6;border-color:#2b7a4b;"';
+                html += `<div class="option ${lockedClass}" data-qid="${q.id}" data-value="${letter}" ${checkedStyle}>
+                            <span class="option-letter">${letter}</span>
+                            <span class="option-text">${text}</span>
+                        </div>`;
+            });
+            let fbHtml = '';
+            if(isAnswered) {
+                const fbClass = isCorrect ? 'correct' : 'wrong';
+                fbHtml = `<div class="feedback show ${fbClass}"><strong>${isCorrect ? '✓ 回答正确' : '✗ 回答错误'}</strong><br>你的答案：${selected.join(',')} | 正确答案：${q.correct}<br>📖 解析：${q.explanation}</div>`;
+            } else {
+                fbHtml = `<div class="feedback"></div>`;
+            }
+            html += `</div>${fbHtml}</div>`;
+        });
+        container.innerHTML = html;
+        // 绑定点击事件（未锁定的）
+        document.querySelectorAll('.option:not(.locked-option)').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const qid = parseInt(el.dataset.qid);
+                const questionObj = QUESTION_SET.find(q => q.id === qid);
+                if(!questionObj) return;
+                const selectedVal = el.dataset.value;
+                let currentSelected = userAnswers[qid] ? [...userAnswers[qid].selectedValues] : [];
+                if(questionObj.multiple) {
+                    if(currentSelected.includes(selectedVal)) {
+                        currentSelected = currentSelected.filter(v => v !== selectedVal);
+                    } else {
+                        currentSelected.push(selectedVal);
+                    }
+                } else {
+                    currentSelected = [selectedVal];
+                }
+                const isCorrect = checkCorrect(questionObj, currentSelected);
+                userAnswers[qid] = { selectedValues: currentSelected, isCorrect: isCorrect };
+                renderQuestionsForPage();
+                updateGlobalProgress();
+                renderNav();
+            });
+        });
+        updateGlobalProgress();
+    }
+
+    function updateGlobalProgress() {
+        const answered = Object.keys(userAnswers).length;
+        document.getElementById('completedCounter').innerText = answered;
+        if(answered === TOTAL_QS) {
+            const correctCount = Object.values(userAnswers).filter(a => a.isCorrect).length;
+            const rate = Math.round((correctCount/TOTAL_QS)*100);
+            let tipDiv = document.getElementById('completeToast');
+            if(!tipDiv) {
+                tipDiv = document.createElement('div');
+                tipDiv.id = 'completeToast';
+                tipDiv.style = 'background:#2b7a4b;color:white;text-align:center;padding:8px;border-radius:30px;margin-top:12px;';
+                document.querySelector('.report-footer').prepend(tipDiv);
+            }
+            tipDiv.innerText = `🎉 恭喜！第一单元通关！总正确率 ${rate}% (${correctCount}/${TOTAL_QS}) 继续加油！`;
+        }
+    }
+
+    // 下载报告
+    document.getElementById('downloadReportBtn').addEventListener('click', () => {
+        let report = '【赢未来国雅·即学即练】七下语文第一单元学习报告\n';
+        report += `生成时间：${new Date().toLocaleString()}\n已完成：${Object.keys(userAnswers).length}/${TOTAL_QS}\n`;
+        const correctTotal = Object.values(userAnswers).filter(a => a.isCorrect).length;
+        const rate = Object.keys(userAnswers).length===0?0:Math.round((correctTotal/Object.keys(userAnswers).length)*100);
+        report += `当前正确率：${rate}% (${correctTotal}/${Object.keys(userAnswers).length})\n\n详细答题记录：\n`;
+        QUESTION_SET.forEach(q => {
+            const ans = userAnswers[q.id];
+            const userChoice = ans ? ans.selectedValues.join(',') : '未作答';
+            const status = ans ? (ans.isCorrect ? '✔' : '✘') : '⚪';
+            report += `\n[${status}] 【${q.type}】${q.question}\n    你的答案: ${userChoice}   正确答案: ${q.correct}\n    解析: ${q.explanation}\n`;
+        });
+        const blob = new Blob([report], {type: 'text/plain'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = '七下语文第一单元学习报告.txt';
+        link.click();
+        URL.revokeObjectURL(link.href);
+    });
+
+    renderNav();
+    renderQuestionsForPage();
+    updateGlobalProgress();
+</script>
+</body>
+</html>
