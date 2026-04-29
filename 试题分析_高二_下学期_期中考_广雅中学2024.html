@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习 | 广雅中学高二期中考试精析（完整版）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+        .container { max-width: 1280px; margin: 0 auto; }
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero h1 { font-size: 1.9rem; background: linear-gradient(135deg, #216e48, #368f5c); background-clip: text; -webkit-background-clip: text; color: transparent; letter-spacing: -0.3px; }
+        .hero p { color: #517a66; font-size: 0.9rem; border-bottom: 2px solid #cde2d6; display: inline-block; padding-bottom: 8px; }
+        .meta-info { display: flex; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; font-size: 0.8rem; color: #5e7a6b; }
+        .card { background: white; border-radius: 32px; box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05); margin-bottom: 28px; overflow: hidden; }
+        .question-panel { padding: 24px 22px 12px 22px; }
+        .reading-passage, .cloze-passage, .grammar-passage {
+            background: #fefaf0; padding: 18px 20px; border-radius: 28px; line-height: 1.68; font-size: 0.96rem;
+            margin-bottom: 24px; border: 1px solid #e9e0cb; white-space: pre-line;
+        }
+        .question-text {
+            font-size: 1rem; font-weight: 550; background: #f9fff9; padding: 10px 16px; border-radius: 24px;
+            border-left: 6px solid #3b9b6e; margin-bottom: 20px; line-height: 1.45; color: #1f3b31;
+        }
+        .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+        .option {
+            display: flex; align-items: flex-start; gap: 14px; padding: 10px 16px; background: #fefef8;
+            border: 1px solid #e1efe6; border-radius: 60px; cursor: pointer; transition: all 0.2s;
+        }
+        .option:hover:not(.disabled-opt) { background: #e9f3ec; border-color: #9ac2ab; }
+        .option-letter { font-weight: 800; background: #e3f0e9; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 40px; color: #2b6e4c; flex-shrink: 0; }
+        .option-text { font-size: 0.95rem; line-height: 1.4; color: #2a423a; }
+        .feedback-area { background: #f9fcf5; margin: 0 20px 20px 20px; border-radius: 24px; padding: 16px 20px; border: 1px solid #d9ebdf; }
+        .result-badge { display: inline-block; font-weight: 700; padding: 5px 16px; border-radius: 40px; font-size: 0.85rem; margin-bottom: 14px; }
+        .correct-badge { background: #cbefdf; color: #146b3a; }
+        .wrong-badge { background: #ffe1de; color: #bc4a3a; }
+        .answer-compare { background: #ffffffcc; padding: 10px 14px; border-radius: 20px; margin-top: 8px; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 18px; border-left: 4px solid #88b8a0; }
+        .detail-explanation { margin: 12px 0 0 0; padding: 12px 14px; background: #f3f8f1; border-radius: 20px; font-size: 0.88rem; line-height: 1.5; }
+        .lock-message { margin-top: 12px; font-size: 0.7rem; text-align: right; color: #89b69c; font-style: italic; }
+        .disabled-opt { opacity: 0.65; pointer-events: none; background: #f2f5ef; cursor: default; }
+        .analysis-special { background: #fefbed; border-radius: 32px; padding: 0px 0px 12px 0px; border: 1px solid #f0e2bc; margin: 20px 0; }
+        .analysis-title { font-weight: 800; font-size: 1rem; padding: 20px 24px 8px 24px; color: #b17f2e; background: #fff8e7; border-bottom: 1px dashed #efdfb2; }
+        .phrase-list, .sentence-list { padding: 8px 24px 20px 24px; }
+        .phrase-item, .sentence-item { margin-bottom: 18px; padding: 10px 14px; background: #fffcf0; border-radius: 24px; border-left: 4px solid #cfb87c; }
+        .phrase-text { font-weight: 700; color: #3c6e47; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+        .phrase-en { background: #e8f0e3; padding: 2px 10px; border-radius: 40px; }
+        .phrase-zh { color: #b45f1b; font-weight: 500; font-size: 0.85rem; }
+        .phrase-example { font-size: 0.85rem; color: #5c6e5a; margin-top: 8px; padding-left: 8px; border-left: 2px solid #dfcca2; }
+        .sentence-grammar { background: #fef7e6; padding: 10px 14px; border-radius: 20px; margin-top: 10px; font-size: 0.85rem; }
+        .sentence-en { font-weight: 600; color: #2f6042; }
+        .sentence-zh { color: #a5651e; margin-top: 6px; font-size: 0.85rem; }
+        .clickable-word { border-bottom: 1px dashed #6f9a82; cursor: pointer; font-weight: 500; display: inline-block; }
+        .clickable-word:active { background: #d9f0e4; border-radius: 8px; }
+        .word-toast { position: fixed; bottom: 25%; left: 50%; transform: translateX(-50%) translateY(20px); background: #fffffff2; backdrop-filter: blur(8px); color: #2c5a44; padding: 12px 24px; border-radius: 50px; font-size: 1rem; font-weight: 600; z-index: 1000; max-width: 85vw; white-space: normal; text-align: center; box-shadow: 0 8px 24px rgba(0, 32, 0, 0.15), 0 0 0 1px rgba(100, 150, 120, 0.3); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; opacity: 0; border: 1px solid #bdd8ca; }
+        .word-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .method-card { background: #eef3f0; border-radius: 28px; padding: 18px 22px; margin: 20px 0; }
+        .badge-method { background: #d9e6de; display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; color: #2f6b48; }
+        @media (max-width: 640px) { body { padding: 16px 12px; } .question-panel { padding: 18px 16px 6px 16px; } .feedback-area { margin: 0 12px 16px 12px; } }
+        footer { text-align: center; font-size: 0.7rem; color: #86a694; margin: 32px 0 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>广雅中学高二期中考试 | 点击任意英文单词查释义 | 答案对比 | 完整试题</p>
+        <div class="meta-info">阅读理解 A/B/C + 七选五 + 完形填空 + 语法填空 + 词汇 + 写作 | 完整释义库</div>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项立即锁定答案。<span style="background:#e8f0e3;padding:2px 10px;border-radius:20px;">🔍 点击任意英文单词 → 弹出中文释义</span></footer>
+</div>
+<div id="wordToast" class="word-toast"></div>
+
+<script>
+    // ========== 超大释义库 ==========
+    const meaningMap = {
+        // 人物/组织
+        "Taylor Swift": "泰勒·斯威夫特", "Mona Lisa": "蒙娜丽莎", "Leonardo da Vinci": "达芬奇", "Louvre": "卢浮宫",
+        "Rochelle Gurstein": "罗谢尔·格斯坦", "Johann Sebastian Bach": "约翰·塞巴斯蒂安·巴赫", "Felix Mendelssohn": "菲利克斯·门德尔松",
+        "Herman Melville": "赫尔曼·梅尔维尔", "Moby Dick": "白鲸记", "Raymond Weaver": "雷蒙德·韦弗", "Yashaswi Bista": "亚沙斯维·比斯塔",
+        "Stanford": "斯坦福", "Macgan Cross": "麦根·克罗斯", "Michelangelo": "米开朗基罗", "David": "大卫", "Moses": "摩西",
+        "Venus de Milo": "米洛的维纳斯", "Venus de Medici": "美第奇的维纳斯", "Columbia University": "哥伦比亚大学",
+        // 疾病/健康
+        "malaria": "疟疾", "pregnant": "怀孕的", "infectious": "传染性的", "disease": "疾病", "health": "健康", "global": "全球的",
+        "treatment": "治疗", "prevention": "预防", "research": "研究", "funding": "资金", "advocacy": "倡导", "inequities": "不平等",
+        "symptoms": "症状", "vaccine": "疫苗", "mosquitoes": "蚊子", "outbreak": "爆发", "epidemic": "流行病",
+        // 动作/状态
+        "empowered": "获得动力的", "claiming": "夺走", "hosted": "举办", "partnership": "合作", "tabling": "设摊", "aware": "意识到的",
+        "emissions": "排放物", "outbreaks": "爆发", "advocate": "倡导", "congressional": "国会的", "representatives": "代表",
+        "initiatives": "倡议", "fulfilling": "令人满足的", "encouraged": "鼓励", "involved": "参与的", "spread": "传播",
+        "awareness": "意识", "stole": "偷走", "viewers": "观众", "flooded": "涌入", "enormous": "巨大的", "horrific": "可怕的",
+        "gaping": "裂开的", "void": "空白", "endures": "持久", "evolve": "进化", "rediscovered": "重新发现",
+        "rescued": "拯救", "celebrated": "著名的", "attracted": "吸引", "preferred": "更喜欢", "discovered": "发现",
+        // 艺术/经典
+        "classics": "经典作品", "literature": "文学", "mysterious": "神秘的", "appeal": "吸引力", "historian": "历史学家",
+        "timeless": "永恒的", "sculpture": "雕塑", "delicate": "精致的", "compositions": "作品", "critics": "评论家",
+        "relativism": "相对主义", "awakening": "觉醒", "silence": "沉默", "masterpiece": "杰作", "painting": "画作",
+        "master": "大师", "status": "地位", "passionate": "热情的",
+        // 植物/生态
+        "baobab": "猴面包树", "Madagascar": "马达加斯加", "landscape": "景观", "extinction": "灭绝", "seed-distributing": "种子传播的",
+        "monitored": "监测", "feces": "粪便", "convincing": "令人信服的", "irony": "讽刺", "introduced species": "引入物种",
+        "essential": "至关重要的", "ecological": "生态的", "rats": "老鼠", "bush pigs": "野猪", "digestive": "消化的",
+        "survival": "生存", "native": "本地的", // 修正 native
+        // 七选五/生态旅游
+        "ecotourism": "生态旅游", "responsible": "负责任的", "heritages": "遗产", "definition": "定义",
+        "ecology": "生态学", "culture": "文化", "familiar": "熟悉的", "activities": "活动", "resources": "资源",
+        "conflict": "冲突", "nature": "自然", "human beings": "人类", "unavoidable": "不可避免的",
+        // 完形填空
+        "addicted": "上瘾的", "consequence": "后果", "scrolling": "滚屏", "contrast": "对比", "self-criticism": "自我批评",
+        "redirecting": "重定向", "notifications": "通知", "resilience": "适应力", "dedication": "奉献", "efficiency": "效率",
+        "purpose": "目标感", "sensitive": "敏感的", "mean": "吝啬的", "similar": "相似的", "repeated": "重复的",
+        "suffered": "遭受", "average": "平庸的", "fueled": "激发的", "shift": "改变", "limited": "限制",
+        "turned to": "转向", "challenging": "有挑战的", "resist": "抵制", "progress": "进步", "noticeably": "显著地",
+        // 语法填空词汇
+        "graduated": "毕业", "orthopedics": "骨科", "acupuncture": "针灸", "herbal": "草药的", "patches": "贴片",
+        "knee injuries": "膝盖损伤", "aching muscles": "肌肉酸痛", "sharp pains": "剧痛", "herding practices": "放牧习惯",
+        "tough environment": "艰苦环境", "unhealthy": "不健康的", "relieve": "缓解", "fundamental": "根本的",
+        "surgeries": "手术", "heart failure": "心力衰竭", "pressure": "压力", "quality of life": "生活质量",
+        "hands-on training": "实践培训", "conveniently": "方便地",
+        // 词汇填空
+        "sustainability": "可持续性", "innocence": "纯真", "repeatedly": "反复地", "sympathetically": "同情地",
+        "influential": "有影响力的", "submission": "提交", "decent": "体面的", "complicated": "复杂的",
+        "humble": "谦逊的", "worthy of": "值得", "consisting of": "由...组成", "give off": "散发出",
+        // 写作相关
+        "journey": "旅程", "healthier": "更健康的", "addicted to": "沉迷于", "junk food": "垃圾食品",
+        "fatigue": "疲劳", "transformation": "转变", "mental well-being": "心理健康",
+        // 读后续写
+        "frustration": "沮丧", "surged": "涌起", "annoyed": "恼怒的", "sinking feeling": "下沉的感觉",
+        "preoccupied": "全神贯注的", "sincerity": "真诚", "gratitude": "感激", "anticipation": "期待",
+        "commitment": "承诺", "mischievous grin": "调皮的笑容", "engraved": "铭记",
+        // 通用词
+        "the": "这/那", "and": "和", "of": "的", "to": "向/到", "in": "在...里", "for": "为了",
+        "with": "和/带有", "on": "在...上", "at": "在", "by": "通过/被", "from": "从", "as": "作为/当",
+        "is": "是", "are": "是", "was": "是(过去)", "were": "是(过去)", "has": "有", "have": "有",
+        "had": "有(过去)", "be": "是", "been": "被/已经", "being": "存在/正在", "can": "能", "could": "可以",
+        "will": "将", "would": "会", "should": "应该", "may": "可能", "might": "可能", "must": "必须",
+        "this": "这个", "that": "那个", "these": "这些", "those": "那些", "it": "它", "they": "他们",
+        "we": "我们", "you": "你/你们", "he": "他", "she": "她", "not": "不", "no": "没有", "so": "所以",
+        "but": "但是", "however": "然而", "therefore": "因此", "also": "也", "too": "也", "very": "非常",
+        "really": "真正地", "quite": "相当", "just": "只是", "even": "甚至", "only": "只有", "more": "更多",
+        "most": "最多", "such": "这样的", "same": "相同的", "different": "不同的", "important": "重要的"
+    };
+    
+    // 智能释义查找：先精确匹配，再小写匹配，再尝试去掉常见后缀
+    function lookupMeaning(word) {
+        if (meaningMap[word]) return meaningMap[word];
+        var lower = word.toLowerCase();
+        if (meaningMap[lower]) return meaningMap[lower];
+        // 尝试去掉末尾常见后缀进行匹配
+        var withoutS = lower.replace(/s$/, '');
+        if (meaningMap[withoutS]) return meaningMap[withoutS];
+        var withoutEd = lower.replace(/ed$/, '');
+        if (meaningMap[withoutEd]) return meaningMap[withoutEd];
+        var withoutIng = lower.replace(/ing$/, '');
+        if (meaningMap[withoutIng]) return meaningMap[withoutIng];
+        return null;
+    }
+    
+    function showWordMeaning(word) {
+        var meaning = lookupMeaning(word);
+        if (!meaning) meaning = "✨ 可自行补充笔记";
+        var toast = document.getElementById("wordToast");
+        toast.innerText = word + "  ·  " + meaning;
+        toast.classList.add("show");
+        setTimeout(function() { toast.classList.remove("show"); }, 1500);
+    }
+    
+    function makeWordsClickable(container) {
+        if (!container) return;
+        var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+            acceptNode: function(node) {
+                if (node.parentElement && (node.parentElement.classList && node.parentElement.classList.contains('clickable-word')) ||
+                    (node.parentElement && node.parentElement.closest && node.parentElement.closest('.option, .disabled-opt, .feedback-area, .result-badge, .answer-compare, .detail-explanation')))
+                    return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(function(textNode) {
+            var text = textNode.nodeValue;
+            if (!text || !text.trim()) return;
+            var regex = /\b([A-Za-z][A-Za-z\-']{1,35})\b/g;
+            var last = 0, match;
+            var frag = document.createDocumentFragment();
+            while ((match = regex.exec(text)) !== null) {
+                if (match.index > last) frag.appendChild(document.createTextNode(text.substring(last, match.index)));
+                var word = match[1];
+                var span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.innerText = word;
+                span.addEventListener('click', (function(w) { return function(e) { e.stopPropagation(); showWordMeaning(w); }; })(word));
+                frag.appendChild(span);
+                last = match.index + match[0].length;
+            }
+            if (last < text.length) frag.appendChild(document.createTextNode(text.substring(last)));
+            if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+        });
+    }
+    
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+
+    // ========== 文章内容 ==========
+    var passageA = "After taking an introductory course in global health last winter, Yashaswi Bista, president of Stanford SupplyHer, was empowered to take action against malaria — a disease that has been claiming hundreds of thousands of lives every year for centuries.\n\nStanford SupplyHer, a student group supporting women's health through art, hosted an event in partnership with United to Beat Malaria (UBM) to encourage funding for malaria prevention, treatment and research initiatives while tabling at White Plaza last Monday. \"Knowing that malaria is especially dangerous to pregnant individuals and children makes advocacy for malaria funding and research essential for our mission,\" said Bista.\n\n\"We in the U.S. need to be aware of the impact of global warming on malaria because less developed countries in other parts of the world are more heavily affected by our emissions,\" Bista said. Last year, the U.S. experienced its first local outbreaks of malaria since 2003. Infectious disease experts have warned that climate change will spread malaria and other diseases carried by mosquitoes to areas that were once free of malaria.\n\nThis summer, after discovering the work of UBM, a global grassroots campaign of the UN Foundation, Bista met with her congressional representatives to advocate for malaria treatment and research. To support continued funding for global malaria programs, Bista wrote to officials in Congress. \"It's easy for people to feel like they are powerless with issues as big as malaria. But any person can give input to their decision makers on issues as big as these,\" wrote Macgan Cross, a senior advocate at UBM. \"By sending messages to your elected officials in support of global health funding, you are making sure your voice is heard.\"\n\nBista encouraged students to become involved in initiatives on campus to spread awareness of malaria and other global health issues. \"Global health is important to me because there are so many health inequities around the world and health itself is important to live a fulfilling life,\" Bista said.";
+
+    var passageB = "After Taylor Swift, the \"Mona Lisa\" is probably the most recognizable female face in the world. Every day around 20,000 people stare at the Leonardo da Vinci's painting in the Louvre. Yet it became famous not because of a tempting semi-smile. Until a worker stole the masterpiece in 1911, it was still mostly unknown; viewers flooded in to see what a French newspaper called \"an enormous, horrific, gaping void\".\n\nClassics of art, literature and music are supposed to carry some mysterious appeal that endures across the ages. But as Rochelle Gurstein, a historian, writes in a new book, the \"timeless classic\" is anything but. \"What I believed was written in stone was actually written in water\", she argues. Classics come and go.\n\nTake other celebrated works of art. Until the end of the 19th century Michelangelo's \"David\" had only his fig leaf to protect him from the weather in Piazza della Signoria in Florence. He attracted more pigeons than visitors; visitors preferred the artist's sculpture of Moses in Rome. Before the famous \"Venus de Milo\" was discovered in 1820, viewers were crazy about \"Venus de Medici\", a delicate sculpture most people alive today have never heard of.\n\nMuch as in art, the classics of music and literature have not always been set in stone either. Today, Johann Sebastian Bach is often regarded as the master of classical music. But after his death in 1750, Bach's compositions fell out of fashion until Felix Mendelssohn, a German composer, rediscovered them in the 1820s. Herman Melville's masterpiece \"Moby Dick\" was largely forgotten until critics such as Raymond Weaver, a professor at Columbia University rescued him from the depth of a nobody around the centenary of his birth in 1919.\n\n\"The status of classics\" depends on critics and shows the power of passionate writers to change the way people look at art. Tastes evolve, and they should. But culture lives on only as long as people continue to argue over what counts as a classic today. The true enemy of the classic is not relativism or awakening. It is silence.";
+
+    var passageC = "The Malagasy baobab trees, a typical feature of Madagascar's landscape, should have disappeared long ago due to the extinction of its former seed-distributing animals. However, it did not. Seheno Andriantsaralaza at the University of Antananarivo in Madagascar and Onja Razafindratsima at the University of California, Berkeley, now think they may know the reason.\n\nTogether with their colleagues, the scientists monitored 15 trees to find new baobab seed-distributing animals in a western Madagascar region. They also set up camera traps around seed-containing fruits, and searched any feces along the way for the presence of seeds.\n\nThey report in the journal Biotropica that a native rat was caught on camera handling whole fruits on four occasions. Although there was no record of the rat breaking the fruits open, the team found 13 fruits that had been chewed into and had their seeds removed. They then found convincing evidence: baobab seeds in seven different piles of bush-pig feces.\n\nThe discovery is not without irony. Scientists believe bush pigs were brought to Madagascar by humans sometime between 1,000 and 5,000 years ago, just as the former seed-distributing animals were going extinct. Their arrival was a lucky break for the baobabs, especially as scientists have determined a seed's journey through the pig-like digestive system doesn't reduce its ability to grow.\n\nWhile the finding is important in its own right, it also provides valuable evidence that introduced species may not be entirely harmful. Madagascar's pigs, for example, though not native, have made themselves essential to the survival of truly native species. Similar relationships are suspected to hold in South America between rabbits native to Europe and plants with no seed distributors.";
+
+    // 为每篇文章生成高频短语分析
+    function getPhrasesForPassage(passageName) {
+        if (passageName === 'A') {
+            return [
+                { phrase: "take action against", meaning: "采取行动反对", example: "take action against malaria" },
+                { phrase: "be aware of", meaning: "意识到", example: "be aware of the impact" },
+                { phrase: "in partnership with", meaning: "与...合作", example: "in partnership with UBM" },
+                { phrase: "make sure your voice is heard", meaning: "确保你的声音被听到", example: "send messages to elected officials" }
+            ];
+        } else if (passageName === 'B') {
+            return [
+                { phrase: "be supposed to", meaning: "应该/被认为", example: "are supposed to carry mysterious appeal" },
+                { phrase: "set in stone", meaning: "一成不变", example: "not always been set in stone" },
+                { phrase: "fall out of fashion", meaning: "过时", example: "fell out of fashion" },
+                { phrase: "live on", meaning: "继续存在", example: "culture lives on" }
+            ];
+        } else {
+            return [
+                { phrase: "due to", meaning: "由于", example: "due to the extinction" },
+                { phrase: "camera traps", meaning: "相机陷阱", example: "set up camera traps" },
+                { phrase: "in its own right", meaning: "本身", example: "important in its own right" },
+                { phrase: "introduced species", meaning: "引入物种", example: "introduced species may not be entirely harmful" }
+            ];
+        }
+    }
+
+    // 题目数据
+    var readingA = [
+        { id: 1, text: "What inspired Bista to engage in actions against malaria?", options: ["A. A learning experience.", "B. A health crisis.", "C. A grassroots campaign.", "D. A tabling event."], correct: "A", exp: "第一段：修完全球健康入门课程后获得动力。", note: "细节理解题，定位introductory course。" },
+        { id: 2, text: "What did Bista do to support malaria prevention?", options: ["A. She organized a charity sale.", "B. She launched a research project.", "C. She campaigned for fundraising.", "D. She budgeted for malaria treatment."], correct: "C", exp: "第二段：举办活动鼓励为疟疾预防、治疗和研究提供资金支持。", note: "campaign for fundraising 筹款倡导。" },
+        { id: 3, text: "What is the message Maegan Cross intends to convey?", options: ["A. Community voices secure health funding.", "B. Malaria outbreaks are difficult to prevent.", "C. The public needs more knowledge about health.", "D. Individual efforts matter in government decisions."], correct: "D", exp: "第四段：任何人可以向决策者表达意见。", note: "individual efforts matter" },
+        { id: 4, text: "Which of the following best describes Bista?", options: ["A. A health advocate.", "B. A club founder.", "C. A woman pioneer.", "D. A disease specialist."], correct: "A", exp: "全文描述她为疟疾防治奔走倡导。", note: "health advocate 健康倡导者。" }
+    ];
+    var readingB = [
+        { id: 5, text: "What made the painting 'Mona Lisa' famous?", options: ["A. The painter.", "B. The theft.", "C. The report.", "D. The semi-smile."], correct: "B", exp: "第一段：工人偷走后才变得出名。", note: "细节理解题。" },
+        { id: 6, text: "What does Rochelle think of classics?", options: ["A. Changeable.", "B. Fading.", "C. Enduring.", "D. Admirable."], correct: "A", exp: "第二段：写在水里——经典来来去去。", note: "changeable 多变。" },
+        { id: 7, text: "How does the author use the examples of Bach and 'Moby Dick'?", options: ["A. To prove true classics never lose value.", "B. To suggest only music can become timeless.", "C. To argue modern audiences have better taste.", "D. To show forgotten works can regain fame through critical reevaluation."], correct: "D", exp: "第四段：被遗忘的作品通过评论家重新发现。", note: "critical reevaluation" },
+        { id: 8, text: "What might ultimately discourage the development of classics?", options: ["A. The ignorance of culture.", "B. The course of time.", "C. The lack of criticism.", "D. The evolution of tastes."], correct: "C", exp: "最后一段：真正的敌人是沉默。", note: "lack of criticism" }
+    ];
+    var readingC = [
+        { id: 9, text: "Why did researchers conduct the study?", options: ["A. To identify the seed carriers for baobabs.", "B. To explore how baobab trees survived.", "C. To study how animals distribute baobab seeds.", "D. To find out if baobab trees are endangered."], correct: "A", exp: "第二段：找到新的种子传播动物。", note: "identify seed carriers" },
+        { id: 10, text: "What convinced the researchers of the real seed carrier?", options: ["A. The way a rat handled the fruits.", "B. The presence of chewed seeds.", "C. The seeds found in animal feces.", "D. The marks on the baobab fruits."], correct: "C", exp: "第三段：在野猪粪便中发现种子。", note: "feces 粪便" },
+        { id: 11, text: "What is the author's attitude toward humans introducing new species?", options: ["A. Optimistic.", "B. Reflective.", "C. Critical.", "D. Neutral."], correct: "B", exp: "最后一段：需反思生态作用。", note: "reflective 反思性的" },
+        { id: 12, text: "What is the author's purpose in mentioning rabbits?", options: ["A. To argue against introducing new species.", "B. To show that rabbits benefit native species.", "C. To highlight the importance of seed carriers.", "D. To suggest that introduced species may help."], correct: "D", exp: "类似关系暗示引入物种可能有帮助。", note: "introduced species may help" }
+    ];
+    
+    var sevenOptions = ["A. The definition of ecotourism is beyond words.", "B. It takes ecology and culture into consideration.", "C. You may not be very familiar with 'ecotourism'.", "D. More than 80 activities have been listed for ecotourism.", "E. People can have great fun enjoying nature through ecotourism.", "F. Big cities are still the major places that attract tourists in our society today.", "G. How to protect natural resources while taking advantage of them is of great importance."];
+    var sevenQs = [
+        { id: 13, text: "______ it is a new term in today's tourism industry...", correct: "C", exp: "下文暗示不太熟悉。", note: "上下文衔接" },
+        { id: 14, text: "Ecotourism... is typically defined... ______ therefore, programs concerning protection...", correct: "B", exp: "考虑生态和文化两方面。", note: "takes ecology and culture" },
+        { id: 15, text: "Ecotourism is developing at great speed... ______ They include bird watching, hiking...", correct: "D", exp: "列出80多种活动。", note: "more than 80 activities" },
+        { id: 16, text: "______ However, it looks like some smaller towns...", correct: "F", exp: "与后文小城镇形成转折。", note: "big cities still major" },
+        { id: 17, text: "However, a conflict between nature and human beings is unavoidable. ______", correct: "G", exp: "如何保护资源同时利用资源。", note: "保护与利用的平衡" }
+    ];
+    
+    var clozeData = [
+        { id: 18, correct: "B", exp: "对社交媒体上瘾", note: "addicted to" },{ id: 19, correct: "A", exp: "重复同样的模式", note: "repeated" },{ id: 20, correct: "D", exp: "睡眠质量受损", note: "suffered" },
+        { id: 21, correct: "A", exp: "变得平庸", note: "average" },{ id: 22, correct: "C", exp: "激发自我批评", note: "fueled" },{ id: 23, correct: "A", exp: "做出改变", note: "shift" },
+        { id: 24, correct: "D", exp: "限制社交媒体曝光", note: "limited" },{ id: 25, correct: "D", exp: "转而阅读和锻炼", note: "turned to" },{ id: 26, correct: "C", exp: "沉睡的夜晚", note: "sound sleep" },
+        { id: 27, correct: "B", exp: "保持正轨很有挑战", note: "challenging" },{ id: 28, correct: "A", exp: "无法抵制通知", note: "resist" },{ id: 29, correct: "B", exp: "进步", note: "progress" },
+        { id: 30, correct: "C", exp: "情绪明显好转", note: "noticeably" },{ id: 31, correct: "C", exp: "工作效率提高", note: "efficiency" },{ id: 32, correct: "D", exp: "生活目标感", note: "purpose" }
+    ];
+    var clozeOpts = {
+        18: ["A. sensitive", "B. addicted", "C. mean", "D. similar"],19: ["A. repeated", "B. identified", "C. broke", "D. analyzed"],20: ["A. improved", "B. restored", "C. stabilized", "D. suffered"],
+        21: ["A. average", "B. experienced", "C. confident", "D. critical"],22: ["A. relieved", "B. voiced", "C. fueled", "D. ended"],23: ["A. shift", "B. competition", "C. discussion", "D. trial"],
+        24: ["A. assessed", "B. measured", "C. increased", "D. limited"],25: ["A. gave up", "B. put off", "C. carried on", "D. turned to"],26: ["A. light", "B. typical", "C. sound", "D. restless"],
+        27: ["A. inspiring", "B. challenging", "C. amazing", "D. thrilling"],28: ["A. resist", "B. withdraw", "C. interpret", "D. receive"],29: ["A. history", "B. progress", "C. efforts", "D. sense"],
+        30: ["A. slightly", "B. suddenly", "C. noticeably", "D. temporarily"],31: ["A. precision", "B. standard", "C. efficiency", "D. flexibility"],32: ["A. security", "B. humor", "C. curiosity", "D. purpose"]
+    };
+    
+    var grammarAnswers = {
+        33: "had worked", 34: "the", 35: "herbal", 36: "primarily", 37: "where",
+        38: "or", 39: "be cancelled", 40: "under", 41: "ridding", 42: "to provide"
+    };
+    var grammarExps = {
+        33: "过去完成时：by the time I took part in... had worked", 34: "特指中国医疗志愿者巡诊", 35: "形容词修饰patches",
+        36: "副词修饰caused", 37: "where引导定语从句", 38: "or表示选择", 39: "被动语态", 40: "under pressure固定搭配", 
+        41: "ridding与前面并列", 42: "不定式作表语"
+    };
+    
+    var vocabAnswers = {
+        43: "sustainability", 44: "innocence", 45: "repeatedly", 46: "sympathetically", 47: "influential",
+        48: "submission", 49: "decent", 50: "complicated", 51: "humble", 52: "worthy of", 53: "Consisting of", 54: "give off"
+    };
+    
+    var vocabExps = {
+        43: "名词作宾语", 44: "名词作主语", 45: "副词修饰reminded", 46: "副词修饰nodded", 47: "形容词修饰leader",
+        48: "名词作主语", 49: "形容词修饰education", 50: "形容词修饰instructions", 51: "形容词作表语", 
+        52: "worthy of doing", 53: "现在分词作状语", 54: "动词短语give off"
+    };
+
+    var root = document.getElementById("questionsRoot");
+    var html = '';
+    
+    // 阅读理解A
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 阅读理解 A · 抗击疟疾倡导者</div><div class="reading-passage" id="passageA">' + escapeHtml(passageA) + '</div></div></div>';
+    for (var i = 0; i < readingA.length; i++) { var q = readingA[i];
+        html += '<div class="card" data-qid="ra_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.options.length; j++) { var opt = q.options[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt.slice(1).trim()) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    // 阅读理解A的短语分析
+    var phrasesA = getPhrasesForPassage('A');
+    html += '<div class="analysis-special"><div class="analysis-title">📚 阅读理解A · 高频短语 & 核心表达</div><div class="phrase-list">';
+    for (var i = 0; i < phrasesA.length; i++) { var p = phrasesA[i];
+        html += '<div class="phrase-item"><div class="phrase-text"><span class="phrase-en">' + escapeHtml(p.phrase) + '</span><span class="phrase-zh">' + escapeHtml(p.meaning) + '</span></div><div class="phrase-example">💬 ' + escapeHtml(p.example) + '</div></div>';
+    }
+    html += '</div></div>';
+    
+    // 阅读理解B
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 阅读理解 B · 经典的变迁</div><div class="reading-passage" id="passageB">' + escapeHtml(passageB) + '</div></div></div>';
+    for (var i = 0; i < readingB.length; i++) { var q = readingB[i];
+        html += '<div class="card" data-qid="rb_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.options.length; j++) { var opt = q.options[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt.slice(1).trim()) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    var phrasesB = getPhrasesForPassage('B');
+    html += '<div class="analysis-special"><div class="analysis-title">📚 阅读理解B · 高频短语 & 核心表达</div><div class="phrase-list">';
+    for (var i = 0; i < phrasesB.length; i++) { var p = phrasesB[i];
+        html += '<div class="phrase-item"><div class="phrase-text"><span class="phrase-en">' + escapeHtml(p.phrase) + '</span><span class="phrase-zh">' + escapeHtml(p.meaning) + '</span></div><div class="phrase-example">💬 ' + escapeHtml(p.example) + '</div></div>';
+    }
+    html += '</div></div>';
+    
+    // 阅读理解C
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 阅读理解 C · 猴面包树的种子传播者</div><div class="reading-passage" id="passageC">' + escapeHtml(passageC) + '</div></div></div>';
+    for (var i = 0; i < readingC.length; i++) { var q = readingC[i];
+        html += '<div class="card" data-qid="rc_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.options.length; j++) { var opt = q.options[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt.slice(1).trim()) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    var phrasesC = getPhrasesForPassage('C');
+    html += '<div class="analysis-special"><div class="analysis-title">📚 阅读理解C · 高频短语 & 核心表达</div><div class="phrase-list">';
+    for (var i = 0; i < phrasesC.length; i++) { var p = phrasesC[i];
+        html += '<div class="phrase-item"><div class="phrase-text"><span class="phrase-en">' + escapeHtml(p.phrase) + '</span><span class="phrase-zh">' + escapeHtml(p.meaning) + '</span></div><div class="phrase-example">💬 ' + escapeHtml(p.example) + '</div></div>';
+    }
+    html += '</div></div>';
+    
+    // 七选五
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📌 七选五 · 生态旅游</div></div></div>';
+    for (var i = 0; i < sevenQs.length; i++) { var q = sevenQs[i];
+        html += '<div class="card" data-qid="seven_' + i + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < sevenOptions.length; j++) { var opt = sevenOptions[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    
+    // 完形填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 完形填空 · 戒除社交媒体瘾</div><div class="cloze-passage">' + escapeHtml("When I created my social media account, I was unaware that I would be so engaged in it. Over the years, I have become [18] to it. The consequence is imaginable - my sleep quality [20] as I stayed up late. Worse still, my classmates were making progress while I became [21]. So I decided it was time for a [23]. I [24] my social media exposure. Rather than mindlessly scrolling, I [25] reading. But staying on track is [27]. Sometimes I couldn't [28] notifications. Now my spirits have [30] risen. I feel proud with a sense of [32] in life.") + '</div></div></div>';
+    for (var i = 18; i <= 32; i++) { var idx = i - 18; var q = clozeData[idx];
+        html += '<div class="card" data-qid="cloze_' + i + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + i + '. </div><div class="options-list">';
+        var opts = clozeOpts[i];
+        for (var j = 0; j < opts.length; j++) { var opt = opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    
+    // 语法填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 语法填空 (33-42)</div><div class="grammar-passage">' + escapeHtml("I graduated from the Shanxi University of Chinese Medicine in 1994, and [33] (work) in orthopedics for 26 years by the time I took part in [34] Chinese Medical Volunteers tour in Yushu, Qinghai province in August 2020. Then, I used TCM approaches, such as acupuncture and [35] (herb) patches on acupuncture points to treat a variety of health problems. These conditions are [36] (primary) caused by the local people's herding practices and the tough environment [37] they live. So, I suggested that Chinese Medical Volunteers perform surgeries locally [38] bring the patients to better developed regions for treatment. One surgery had to [39] (cancel) because the patient had severe heart failure. As the head of the surgical team, I was [40] a lot of pressure. The goal of our action was not just to conduct surgeries, but also [42] (provide) local medical workers with hands-on training.") + '</div></div></div>';
+    for (var i = 33; i <= 42; i++) {
+        html += '<div class="card" data-qid="gram_' + i + '" data-correct="' + grammarAnswers[i] + '" data-exp="' + escapeHtml(grammarExps[i]) + '" data-note="语法填空考点"><div class="question-panel"><div class="question-text">' + i + '. </div><div class="options-list"><div class="option" data-val="' + grammarAnswers[i] + '"><div class="option-letter">📝</div><div class="option-text">点击填写答案: ' + escapeHtml(grammarAnswers[i]) + '</div></div></div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    
+    // 词汇填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 词汇填空 (43-54)</div></div></div>';
+    for (var i = 43; i <= 54; i++) {
+        html += '<div class="card" data-qid="vocab_' + i + '" data-correct="' + vocabAnswers[i] + '" data-exp="' + escapeHtml(vocabExps[i]) + '" data-note="词汇变形"><div class="question-panel"><div class="question-text">' + i + '. </div><div class="options-list"><div class="option" data-val="' + vocabAnswers[i] + '"><div class="option-letter">📝</div><div class="option-text">点击填写答案: ' + escapeHtml(vocabAnswers[i]) + '</div></div></div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    
+    // 写作提示
+    html += '<div class="card"><div class="question-panel"><div class="question-text">✍️ 应用文写作 · My Journey to a Healthier Life</div><div class="grammar-passage">' + escapeHtml("写作要点：1.过去不健康的生活习惯及负面影响；2.促使改变的契机及措施；3.现在的健康生活方式带来的积极变化。词数100左右。") + '</div></div></div>';
+    html += '<div class="card"><div class="question-panel"><div class="question-text">✍️ 读后续写 · 陌生少年的帮助</div><div class="grammar-passage">' + escapeHtml("阅读材料：作者将车钥匙和手机锁在车内，一位骑自行车的少年主动帮忙。续写要点：1.少年微笑坚定地说去帮忙取钥匙；2.作者深受感动想要给钱，少年拒绝并骑车离去。") + '</div></div></div>';
+    
+    html += '<div class="method-card"><div class="badge-method">🎯 解题策略总结</div><ul style="margin-left:20px;color:#375e4c;"><li><strong>1. 细节定位法</strong> — 返回原文定位关键词。</li><li><strong>2. 词义猜测</strong> — 上下文逻辑推断。</li><li><strong>3. 七选五衔接</strong> — 关注代词、逻辑连词。</li><li><strong>4. 完形上下文复现</strong> — 注意情感色彩和固定搭配。</li><li><strong>5. 语法填空</strong> — 注意时态、语态、非谓语、词性转换。</li></ul></div>';
+    
+    root.innerHTML = html;
+    document.querySelectorAll(".reading-passage, .cloze-passage, .grammar-passage, .question-text, .option-text, .phrase-item, .sentence-item, .method-card").forEach(function(el) { makeWordsClickable(el); });
+    
+    // 绑定答案事件
+    document.querySelectorAll('.card[data-qid]').forEach(function(card) {
+        var correct = card.getAttribute('data-correct');
+        var exp = card.getAttribute('data-exp') || "根据上下文分析得出。";
+        var note = card.getAttribute('data-note') || "注意固定搭配与逻辑。";
+        var optsDiv = card.querySelector('.options-list');
+        if (!optsDiv) return;
+        var opts = optsDiv.querySelectorAll('.option');
+        opts.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                if (card.classList.contains('answered')) return;
+                var selected = opt.getAttribute('data-val');
+                var isCorrect = (selected === correct);
+                var fb = card.querySelector('.feedback-area');
+                if (!fb) return;
+                var yourFull = selected, correctFull = correct;
+                opts.forEach(function(o) { if(o.getAttribute('data-val') === selected) yourFull = o.querySelector('.option-text')?.innerText || selected; if(o.getAttribute('data-val') === correct) correctFull = o.querySelector('.option-text')?.innerText || correct; });
+                fb.innerHTML = '<div class="result-badge ' + (isCorrect ? 'correct-badge' : 'wrong-badge') + '">' + (isCorrect ? '✔ 回答正确' : '❌ 回答错误') + '</div><div class="answer-compare"><div class="your-answer">📌 你的答案：' + selected + '. ' + escapeHtml(yourFull) + '</div><div class="correct-answer">✅ 正确答案：' + correct + '. ' + escapeHtml(correctFull) + '</div></div><div class="detail-explanation"><strong>🔎 详细解析：</strong> ' + escapeHtml(exp) + '<br/><strong>📘 考点笔记：</strong> ' + escapeHtml(note) + '</div><div class="lock-message">🔒 答案已锁定</div>';
+                fb.style.display = 'block';
+                card.classList.add('answered');
+                opts.forEach(function(o) { o.classList.add('disabled-opt'); });
+            });
+        });
+    });
+</script>
+</body>
+</html>
