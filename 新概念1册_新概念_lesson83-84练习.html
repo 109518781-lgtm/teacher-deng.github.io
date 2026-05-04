@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>赢未来国雅 · 新概念即学即练 | Lesson 83 Going on holiday 现在完成时</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f4faf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: #1a2c3e;
+            padding: 24px 20px 48px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .hero {
+            background: linear-gradient(135deg, #1a6b46, #2e8b5e);
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .hero h1 { font-size: 1.7rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .hero p { margin-top: 8px; opacity: 0.92; font-size: 0.9rem; }
+        .summary-section { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+        .summary-card {
+            flex: 1; min-width: 260px; background: white; border-radius: 28px;
+            padding: 20px 24px; border: 1px solid #deede7;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+        }
+        .summary-card h3 {
+            font-size: 1.2rem; font-weight: 700; border-left: 5px solid #2e8b5e;
+            padding-left: 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+        .dialogue {
+            background: #e8f5e9;
+            border-radius: 20px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #2c3e2f;
+        }
+        .highlight { background: #fef7e0; padding: 12px 16px; border-radius: 20px; line-height: 1.5; font-size: 0.9rem; }
+        .tag {
+            display: inline-block; background: #e1f0ea; color: #1a6b46; border-radius: 40px;
+            padding: 4px 14px; font-size: 0.75rem; font-weight: 600; margin-right: 8px; margin-bottom: 8px;
+        }
+        .grammar-box {
+            background: #e8f0fe;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+        .questions-container {
+            background: white; border-radius: 28px; padding: 24px;
+            border: 1px solid #deede7;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+        }
+        .questions-header {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e2ece6;
+        }
+        .questions-header h2 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+        .question-item {
+            background: #fefefe; border-radius: 20px; padding: 18px;
+            margin-bottom: 18px; border: 1px solid #e8f0ec;
+            transition: all 0.2s;
+        }
+        .question-text { font-weight: 600; margin-bottom: 14px; line-height: 1.45; font-size: 0.95rem; }
+        .hover-word {
+            border-bottom: 1px dashed #2e8b5e; cursor: help; position: relative; display: inline-block;
+        }
+        .tooltip-def {
+            display: none; position: absolute; background: #2c3e33; color: white;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; white-space: nowrap;
+            z-index: 200; bottom: 140%; left: 0; pointer-events: none;
+        }
+        .hover-word:hover .tooltip-def { display: block; }
+        @media (max-width: 640px) { .tooltip-def { white-space: normal; max-width: 160px; } }
+        .options { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 8px; }
+        .opt-btn {
+            background: #f2f6f4; border-radius: 40px; padding: 8px 20px;
+            border: 1px solid #cde0d8; cursor: pointer; font-size: 0.85rem;
+            transition: all 0.15s; user-select: none;
+        }
+        .opt-btn:hover:not(.disabled) { background: #e2ece6; }
+        .opt-btn.selected { background: #cde8de; border-color: #2e8b5e; color: #1a5a3c; font-weight: 500; }
+        .opt-btn.disabled { cursor: not-allowed; opacity: 0.7; }
+        .feedback { margin-top: 12px; padding: 10px 14px; border-radius: 18px; font-size: 0.85rem; line-height: 1.4; }
+        .correct-fb { background: #dcfce7; color: #15803d; border-left: 4px solid #15803d; }
+        .wrong-fb { background: #ffe6e5; color: #b91c1c; border-left: 4px solid #b91c1c; }
+        .detail-exp {
+            background: #f0f6fa;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            border-left: 4px solid #2e8b5e;
+        }
+        .score-area {
+            background: #eaf3ef; border-radius: 28px; padding: 14px;
+            margin-top: 20px; text-align: center; font-weight: bold;
+        }
+        .download-section { text-align: center; margin-top: 32px; }
+        .download-btn {
+            background: #2e8b5e; color: white; border: none; padding: 12px 32px;
+            border-radius: 40px; cursor: pointer; font-size: 1rem; font-weight: 600;
+            transition: 0.2s;
+        }
+        .download-btn:hover { background: #1f6e46; transform: translateY(-2px); }
+        footer { text-align: center; margin-top: 32px; font-size: 0.7rem; color: #6c8b7c; }
+        .progress-stats { background: #eef3f0; border-radius: 20px; padding: 8px 16px; font-size: 0.85rem; }
+        .knowledge-tip { background: #e8f0fe; border-radius: 12px; padding: 8px 12px; margin-bottom: 8px; font-weight: 500; }
+        .option-analysis { background: white; border-radius: 12px; padding: 8px 12px; margin: 6px 0; font-size: 0.8rem; }
+        .correct-option { background: #e6f7e6; border-left: 3px solid #2e8b5e; }
+        .wrong-option { background: #fff3f0; border-left: 3px solid #e74c3c; }
+        .neutral-option { background: #f8f9fa; border-left: 3px solid #bdc3c7; }
+        @media (max-width: 700px) { body { padding: 16px; } .summary-card { padding: 16px; } .opt-btn { padding: 6px 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1><i class="fas fa-leaf"></i> 赢未来国雅 · 新概念即学即练</h1>
+        <p>📖 新概念第1册 Lesson 83 · Going on holiday | 现在完成时 · 度假与打包行李 | 鼠标悬停查词 | 每道题选择后立即获得选项级解析</p>
+    </div>
+
+    <!-- 课文原文 + 词汇短语总结 -->
+    <div class="summary-section">
+        <div class="summary-card">
+            <h3><i class="fas fa-book-open"></i> 课文原文 · Lesson 83 Going on holiday</h3>
+            <div class="dialogue">
+                <strong>📖 Going on holiday (度假)</strong><br><br>
+                <em>CAROL: Hello, Sam. Come in.<br>
+                SAM: Hi, Sam. We're having lunch. Do you want to have lunch with us?<br>
+                TOM: No, thank you, Tom. I've already had lunch. I had lunch at half past twelve.<br>
+                SAM: Have a cup of coffee then.<br>
+                TOM: I've just had a cup, thank you. I had one after my lunch.<br>
+                CAROL: Let's go into the living room, Carol. We can have our coffee there.<br>
+                SAM: Excuse the mess, Sam. This room's very untidy. We're packing our suitcases. We're going to leave tomorrow. Tom and I are going to have a holiday.<br>
+                TOM: Aren't you lucky!<br>
+                CAROL: When are you going to have a holiday, Sam?<br>
+                SAM: I don't know. I've already had my holiday this year.<br>
+                TOM: Where did you go?<br>
+                SAM: I stayed at home!</em>
+            </div>
+            <div class="grammar-box" style="margin-top: 16px;">
+                <strong>✨ 现在完成时口诀：</strong> 已完成，影响现在；already肯定句，yet问与否；have/has+过分，时间标志需记熟。<br>
+                <strong>📌 语法对比：</strong> I've already had lunch (已完成，对现在的影响：不饿) vs I had lunch at half past twelve (只说明过去时间)
+            </div>
+        </div>
+        <div class="summary-card">
+            <h3><i class="fas fa-list-ul"></i> 词汇 & 短语总结 (Lesson 83-84)</h3>
+            <div class="highlight">
+                <strong>📌 核心词汇（与课文及考题匹配）</strong><br>
+                <span class="tag hover-word">pack<span class="tooltip-def">打包，包装</span></span>
+                <span class="tag hover-word">suitcase<span class="tooltip-def">手提箱</span></span>
+                <span class="tag hover-word">leave<span class="tooltip-def">离开</span></span>
+                <span class="tag hover-word">already<span class="tooltip-def">已经</span></span>
+                <span class="tag hover-word">just<span class="tooltip-def">刚刚</span></span>
+                <span class="tag hover-word">untidy<span class="tooltip-def">不整洁的</span></span>
+                <span class="tag hover-word">mess<span class="tooltip-def">杂乱</span></span>
+                <span class="tag hover-word">lucky<span class="tooltip-def">幸运的</span></span>
+                <span class="tag hover-word">holiday<span class="tooltip-def">假期</span></span>
+                <span class="tag hover-word">magazine<span class="tooltip-def">杂志</span></span>
+                <span class="tag hover-word">cigarette<span class="tooltip-def">香烟</span></span>
+                <span class="tag hover-word">blunt<span class="tooltip-def">钝的</span></span>
+                <div class="phrase-list" style="margin-top: 12px;">
+                    <strong>🔗 高频短语</strong><br>
+                    • have lunch / have a cup of coffee 吃午饭/喝杯咖啡<br>
+                    • have a holiday 度假 &nbsp; • pack one's suitcase 打包行李箱<br>
+                    • be going to leave 将要离开 &nbsp; • stay at home 待在家里<br>
+                    • make a shopping list 列购物清单 &nbsp; • already / just / yet 现在完成时标志词
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 所有题目区域 -->
+    <div class="questions-container">
+        <div class="questions-header">
+            <h2><i class="fas fa-puzzle-piece"></i> 在线练习 · 智能闯关 (Lesson 83-84 综合)</h2>
+            <div class="progress-stats" id="progressStats">已完成: 0 / 60</div>
+        </div>
+        <div id="questionsList"></div>
+        <div id="scoreArea" class="score-area" style="display: none;"></div>
+    </div>
+
+    <div class="download-section">
+        <button id="downloadBtn" class="download-btn"><i class="fas fa-download"></i> 下载学习报告</button>
+    </div>
+    <footer>✨ 鼠标悬停蓝色虚线单词查看释义 | 点击选项后立即锁定答案 | 每道题都有考点笔记和选项对比分析</footer>
+</div>
+
+<script>
+    // ======================= Lesson 83-84 完整题库（基于附件，课文完全匹配）=======================
+    const questions = [
+        // 第一大题：单词辨音 (1-10) — 完全依据附件
+        { id: 1, stem: "单词辨音：选出划线部分读音不同的单词 (a) pack (b) umbrella (c) Italian (d) mechanic", options: ["pack", "umbrella", "Italian", "mechanic"], correct: "pack", explanation: "pack中a发/æ/，其他发/ə/或/ɑː/。pack是重读闭音节。", point: "语音辨析", knowledgeNote: "重读闭音节中a发短音/æ/。" },
+        { id: 2, stem: "单词辨音：选出划线部分读音不同的单词 (a) already (b) pencil (c) very (d) ticket", options: ["already", "pencil", "very", "ticket"], correct: "already", explanation: "already中a发/ɔː/，其他'e'发/e/。", point: "语音辨析" },
+        { id: 3, stem: "单词辨音：选出划线部分读音不同的单词 (a) police (b) operator (c) job (d) hot", options: ["police", "operator", "job", "hot"], correct: "job", explanation: "job中o发/ɒ/，其他发/əʊ/或/ə/。", point: "语音辨析" },
+        { id: 4, stem: "单词辨音：选出划线部分读音不同的单词 (a) sorry (b) Ford (c) short (d) passport", options: ["sorry", "Ford", "short", "passport"], correct: "sorry", explanation: "sorry中o发/ɒ/，其他发/ɔː/。", point: "语音辨析" },
+        { id: 5, stem: "单词辨音：选出划线部分读音不同的单词 (a) this (b) ticket (c) miss (d) pencil", options: ["this", "ticket", "miss", "pencil"], correct: "this", explanation: "this中'th'发/ð/，其他's'发/s/或'c'发/s/。", point: "语音辨析" },
+        { id: 6, stem: "单词辨音：选出划线部分读音不同的单词 (a) book (b) school (c) good (d) goodbye", options: ["book", "school", "good", "goodbye"], correct: "school", explanation: "school中oo发/uː/，其他发/ʊ/。", point: "语音辨析" },
+        { id: 7, stem: "单词辨音：选出划线部分读音不同的单词 (a) young (b) lazy (c) busy (d) dirty", options: ["young", "lazy", "busy", "dirty"], correct: "young", explanation: "young中ou发/ʌ/，其他'y'发音不同。", point: "语音辨析" },
+        { id: 8, stem: "单词辨音：选出划线部分读音不同的单词 (a) handbag (b) good (c) engineer (d) goodbye", options: ["handbag", "good", "engineer", "goodbye"], correct: "engineer", explanation: "engineer中g发/dʒ/，其他发/g/。", point: "语音辨析" },
+        { id: 9, stem: "单词辨音：选出划线部分读音不同的单词 (a) mother (b) thin (c) father (d) brother", options: ["mother", "thin", "father", "brother"], correct: "thin", explanation: "thin中th发/θ/，其他发/ð/。", point: "语音辨析" },
+        { id: 10, stem: "单词辨音：选出划线部分读音不同的单词 (a) excuse (b) please (c) busy (d) suitcase", options: ["excuse", "please", "busy", "suitcase"], correct: "busy", explanation: "busy中u发/ɪ/，其他发/uː/或/juː/。", point: "语音辨析" },
+        
+        // 第二大题：单词拼写 (11-20) — 完全依据附件，加入课文词汇
+        { id: 11, stem: "【拼写】p_c_ (包装n./v.)", options: ["pack", "pake", "pac", "packe"], correct: "pack", explanation: "pack 打包，课文：We're packing our suitcases。", point: "词汇拼写" },
+        { id: 12, stem: "【拼写】s_tc_s_ (手提箱n.)", options: ["suitcase", "suitcase", "suitcase", "suit case"], correct: "suitcase", explanation: "suitcase 手提箱。", point: "词汇拼写" },
+        { id: 13, stem: "【拼写】l_v_ (离开v.)", options: ["leave", "leve", "lieve", "leav"], correct: "leave", explanation: "leave 离开，课文：We're going to leave tomorrow。", point: "词汇拼写" },
+        { id: 14, stem: "【拼写】m_g_zine (杂志n.)", options: ["magazine", "magizine", "magasine", "magzine"], correct: "magazine", explanation: "magazine 杂志。", point: "词汇拼写" },
+        { id: 15, stem: "【拼写】st_r_o (立体声音响n.)", options: ["stereo", "stereo", "stereo", "stereo"], correct: "stereo", explanation: "stereo 立体声音响。", point: "词汇拼写" },
+        { id: 16, stem: "【拼写】c_g_r_tte (香烟n.)", options: ["cigarette", "cigarete", "cigarett", "cigarette"], correct: "cigarette", explanation: "cigarette 香烟。", point: "词汇拼写" },
+        { id: 17, stem: "【拼写】bl_nt (钝的adj.)", options: ["blunt", "blunt", "blunt", "blunt"], correct: "blunt", explanation: "blunt 钝的，不锋利的。", point: "词汇拼写" },
+        { id: 18, stem: "【拼写】l_ght (轻的adj.)", options: ["light", "lite", "ligt", "ligh"], correct: "light", explanation: "light 轻的，浅色的。", point: "词汇拼写" },
+        { id: 19, stem: "【拼写】t_r_d (累的adj.)", options: ["tired", "tired", "tired", "tired"], correct: "tired", explanation: "tired 疲倦的。", point: "词汇拼写" },
+        { id: 20, stem: "【拼写】alr_dy (已经adv.)", options: ["already", "already", "already", "already"], correct: "already", explanation: "already 已经，课文：I've already had lunch。", point: "词汇拼写" },
+        
+        // 第三大题：语法词汇 (21-50) — 完全依据附件
+        { id: 21, stem: "When you want to go home, you should ask for ______.", options: ["left", "leave", "leaf", "legend"], correct: "leave", explanation: "ask for leave 请假。", point: "固定搭配" },
+        { id: 22, stem: "Look at those ______! They are busy.", options: ["housewives", "housewives", "housewife", "housewifs"], correct: "housewives", explanation: "housewife的复数形式是housewives。", point: "名词复数" },
+        { id: 23, stem: "What are their jobs? They are ______.", options: ["milkmen", "milkman", "milkmen", "milkman"], correct: "milkmen", explanation: "milkman的复数形式是milkmen。", point: "名词复数" },
+        { id: 24, stem: "______ children? We're tired and thirsty.", options: ["What's matter", "What's the matter", "What's thing", "How thing goes"], correct: "What's the matter", explanation: "What's the matter? 怎么啦？", point: "情景交际" },
+        { id: 25, stem: "I had ______ decided to take a coat when it started to rain.", options: ["already", "yet", "still", "always"], correct: "already", explanation: "already 已经，常用于肯定句。", point: "副词辨析" },
+        { id: 26, stem: "She ______ up her new dress with red ink.", options: ["messed", "dined", "troubled", "intervened"], correct: "messed", explanation: "mess up 弄脏，弄乱。", point: "动词短语" },
+        { id: 27, stem: "______ is fine today!", options: ["This", "That", "It", "What"], correct: "It", explanation: "It 指代天气。", point: "代词" },
+        { id: 28, stem: "There is ______ water in the bottle.", options: ["some", "any", "a", "many"], correct: "some", explanation: "some用于肯定句，修饰不可数名词。", point: "代词" },
+        { id: 29, stem: "The village is ______ a river.", options: ["in", "at", "between", "on"], correct: "between", explanation: "between 在...之间。", point: "介词" },
+        { id: 30, stem: "______ are doing our homework.", options: ["Jane and me", "Jane and I", "I and Jane", "Me and Jone"], correct: "Jane and I", explanation: "主语用主格，I放在后面表示礼貌。", point: "代词" },
+        { id: 31, stem: "Some children are looking ______ the window.", options: ["out of", "out", "of", "beside"], correct: "out of", explanation: "look out of the window 向窗外看。", point: "介词短语" },
+        { id: 32, stem: "You must work ______.", options: ["hard", "hardly", "careful", "hardy"], correct: "hard", explanation: "work hard 努力工作。hardly几乎不。", point: "副词辨析" },
+        { id: 33, stem: "When ______ to paint it?", options: ["are you", "are you going", "go to", "do you"], correct: "are you going", explanation: "be going to 将来时。", point: "将来时" },
+        { id: 34, stem: "What are you going to do ______ the flower?", options: ["do at", "do for", "do with", "do on"], correct: "do with", explanation: "do with 处理，对待。", point: "动词短语" },
+        { id: 35, stem: "Don't ______ matches. It's dangerous.", options: ["play", "play with", "playing", "to play with"], correct: "play with", explanation: "play with matches 玩火柴。", point: "动词短语" },
+        { id: 36, stem: "You mustn't ______. We are studying.", options: ["make a noise", "make the noise", "make noise", "making noise"], correct: "make a noise", explanation: "make a noise 制造噪音。", point: "固定搭配" },
+        { id: 37, stem: "How is Tom today? He is ______ than yesterday.", options: ["well", "better", "weller", "good"], correct: "better", explanation: "than 比较级，well的比较级是better。", point: "比较级" },
+        { id: 38, stem: "You are still ill. You mustn't get ______.", options: ["up", "down", "on", "above"], correct: "up", explanation: "get up 起床。", point: "动词短语" },
+        { id: 39, stem: "You must stay in bed ______ two days.", options: ["in", "for", "on", "with"], correct: "for", explanation: "for + 时间段。", point: "介词" },
+        { id: 40, stem: "He must be in bed ______.", options: ["each day", "each days", "every days", "each a day"], correct: "each day", explanation: "each day 每天。", point: "副词" },
+        { id: 41, stem: "It is cold. We must keep the room ______.", options: ["warmly", "warmly", "warm", "warmth"], correct: "warm", explanation: "keep + 宾语 + 形容词 保持...状态。", point: "形容词" },
+        { id: 42, stem: "______ Tom? He feels ill.", options: ["What's matter with", "What's the matter on", "What's matter about", "What's the matter with"], correct: "What's the matter with", explanation: "What's the matter with...? ...怎么了？", point: "句型" },
+        { id: 43, stem: "Tom ______ lunch for two hours.", options: ["had", "has", "has had", "had has"], correct: "has had", explanation: "for two hours 时间段，用现在完成时。", point: "现在完成时", knowledgeNote: "现在完成时表示过去发生的动作持续到现在。" },
+        { id: 44, stem: "He ______ at home for a week.", options: ["has", "has stayed", "stayed", "staying"], correct: "has stayed", explanation: "for a week 用现在完成时。", point: "现在完成时" },
+        { id: 45, stem: "I ______ already ______ a holiday this year.", options: ["have...have", "have...had", "has...have", "has...had"], correct: "have...had", explanation: "现在完成时，主语I用have，过去分词had。", point: "现在完成时" },
+        { id: 46, stem: "I have a lot of things to buy, so I ______.", options: ["make a shopping list", "write a shopping list", "make shop list", "write a list"], correct: "make a shopping list", explanation: "make a shopping list 列购物清单。", point: "固定搭配" },
+        { id: 47, stem: "We are going to have supper at 6 ______.", options: ["a.m.", "p.m.", "m.m.", "b.m."], correct: "p.m.", explanation: "p.m. 下午，6 p.m. 下午六点。", point: "时间表达" },
+        { id: 48, stem: "Tony often gets up ______ 9 a.m.", options: ["in", "on", "at", "by"], correct: "at", explanation: "具体时刻前用at。", point: "时间介词" },
+        { id: 49, stem: "Do you have any dresses ______ these?", options: ["like", "likes", "seem", "seems"], correct: "like", explanation: "like 像，介词。", point: "介词" },
+        { id: 50, stem: "He ______ his homework for an hour.", options: ["did", "does", "doing", "has done"], correct: "has done", explanation: "for an hour 时间段，用现在完成时。", point: "现在完成时" },
+        
+        // 第四大题：动词时态填空 (51-55)
+        { id: 51, stem: "I ______ (get) a letter from Tim last month.", options: ["get", "got", "have got", "getting"], correct: "got", explanation: "last month 一般过去时。", point: "时态" },
+        { id: 52, stem: "The dentist ______ (not be) here. He ______ (go) to Beijing three days ago.", options: ["isn't...went", "wasn't...has gone", "wasn't...went", "isn't...has gone"], correct: "wasn't...went", explanation: "three days ago 一般过去时。", point: "时态" },
+        { id: 53, stem: "I ______ (write) a book at the moment. I ______ (start) last month.", options: ["write...started", "am writing...started", "wrote...start", "have written...start"], correct: "am writing...started", explanation: "at the moment现在进行时，last month一般过去时。", point: "时态" },
+        { id: 54, stem: "The sun ______ (rise) in the east and ______ (set) in the west.", options: ["rise...set", "rises...sets", "rose...set", "rising...setting"], correct: "rises...sets", explanation: "客观真理用一般现在时。", point: "时态" },
+        { id: 55, stem: "My family often ______ (go) to town on Sunday.", options: ["go", "goes", "went", "going"], correct: "go", explanation: "often 一般现在时，family强调成员时用复数。", point: "主谓一致" },
+        
+        // 第五大题：翻译句子 (56-58)
+        { id: 56, stem: "【翻译】We want to catch eight nineteen to London.", options: ["我们想赶八点十九分的火车去伦敦。", "我们想乘八点十九分的飞机去伦敦。", "我们要在八点十九分到达伦敦。", "我们八点十九分离开伦敦。"], correct: "我们想赶八点十九分的火车去伦敦。", explanation: "catch the train 赶火车。", point: "翻译" },
+        { id: 57, stem: "【翻译】我要两张往返票。", options: ["I want two return tickets.", "I want two single tickets.", "I want two tickets return.", "I want return two tickets."], correct: "I want two return tickets.", explanation: "return ticket 往返票。", point: "翻译" },
+        { id: 58, stem: "【翻译】他们正在设法修理它。", options: ["They are trying to repair it.", "They try to repair it.", "They tried to repair it.", "They will try to repair it."], correct: "They are trying to repair it.", explanation: "正在...用现在进行时。", point: "翻译" },
+        
+        // 阅读理解 (59-60)
+        { id: 59, stem: "【阅读】From the story we know that John asked Henry ______.", options: ["to go to the cinema together", "to have supper with him", "to go to the bus stop", "to go to the big red house"], correct: "to have supper with him", explanation: "文中第一句：You are welcome to have dinner with me on Sunday。", point: "细节理解" },
+        { id: 60, stem: "Why did John ask Henry to open the door with his foot? Because Henry ______.", options: ["had no hands", "had nothing in his hands", "was afraid to open the door", "would carry a lot of things in both hands"], correct: "would carry a lot of things in both hands", explanation: "文中暗示Henry不会空手来，会带礼物，双手拿满东西。", point: "推理判断" }
+    ];
+    
+    // 生词库
+    const vocabMap = {
+        "pack":"打包","suitcase":"手提箱","leave":"离开","already":"已经","just":"刚刚",
+        "untidy":"不整洁的","mess":"杂乱","lucky":"幸运的","holiday":"假期","living room":"客厅",
+        "coffee":"咖啡","lunch":"午饭","magazine":"杂志","cigarette":"香烟","blunt":"钝的"
+    };
+    
+    let userAnswers = {};
+    
+    function addHoverToText(text) {
+        if (!text) return text;
+        let newText = text;
+        Object.keys(vocabMap).forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            if (regex.test(newText) && !newText.includes(`<span class="hover-word">${word}`)) {
+                newText = newText.replace(regex, match => `<span class="hover-word">${match}<span class="tooltip-def">${vocabMap[word]}</span></span>`);
+            }
+        });
+        return newText;
+    }
+    
+    function updateProgress() {
+        const answered = Object.keys(userAnswers).length;
+        document.getElementById("progressStats").innerHTML = `已完成: ${answered} / ${questions.length}`;
+        if (answered === questions.length) {
+            let correct = questions.filter(q => userAnswers[q.id] === q.correct).length;
+            let percent = Math.round((correct / questions.length) * 100);
+            document.getElementById("scoreArea").style.display = "block";
+            document.getElementById("scoreArea").innerHTML = `<i class="fas fa-trophy"></i> 恭喜！已完成全部 ${questions.length} 道题！正确率: ${correct}/${questions.length} (${percent}%) ${percent>=70 ? '🎉 表现优秀！' : '📚 继续加油！'}`;
+        }
+    }
+    
+    function generateOptionAnalysis(q, userAnswer) {
+        let analysis = `<div class="knowledge-tip"><i class="fas fa-graduation-cap"></i> <strong>📖 考点笔记：</strong> ${q.knowledgeNote || q.explanation}</div>`;
+        analysis += `<strong>🔍 各选项考点对比分析：</strong><br>`;
+        q.options.forEach(opt => {
+            let isCorrect = (opt === q.correct);
+            let isUser = (opt === userAnswer);
+            let bgClass = '';
+            let mark = '';
+            if (isCorrect && isUser) { bgClass = 'correct-option'; mark = ' ✅ 正确答案（你选对了！）'; }
+            else if (isCorrect && !isUser) { bgClass = 'correct-option'; mark = ' ✅ 正确答案'; }
+            else if (!isCorrect && isUser) { bgClass = 'wrong-option'; mark = ' ❌ 你的选择'; }
+            else { bgClass = 'neutral-option'; mark = ''; }
+            analysis += `<div class="option-analysis ${bgClass}">• <strong>${opt}</strong>${mark}</div>`;
+        });
+        if (userAnswer && userAnswer !== q.correct) {
+            analysis += `<div style="margin-top: 10px; padding: 8px; background: #fff3e0; border-radius: 10px;"><i class="fas fa-lightbulb"></i> <strong>💡 错误原因分析：</strong> 你选择了“${userAnswer}”。${q.explanation}</div>`;
+        } else if (userAnswer === q.correct) {
+            analysis += `<div style="margin-top: 10px; padding: 8px; background: #e6f7e6; border-radius: 10px;"><i class="fas fa-check-circle"></i> <strong>👍 掌握要点：</strong> ${q.knowledgeNote || q.explanation}</div>`;
+        }
+        return analysis;
+    }
+    
+    function showFeedback(q, userAnswer, isCorrect) {
+        const fbDiv = document.getElementById(`fb-${q.id}`);
+        const detailDiv = document.getElementById(`detail-${q.id}`);
+        if (isCorrect) { fbDiv.innerHTML = `<div class="correct-fb">✅ 正确！ ${q.explanation}</div>`; } 
+        else { fbDiv.innerHTML = `<div class="wrong-fb">❌ 错误。正确答案是“${q.correct}”。${q.explanation}</div>`; }
+        const optionAnalysis = generateOptionAnalysis(q, userAnswer);
+        detailDiv.style.display = "block";
+        detailDiv.innerHTML = optionAnalysis;
+    }
+    
+    function renderQuestions() {
+        let html = '';
+        questions.forEach((q, idx) => {
+            let stem = addHoverToText(q.stem);
+            let optsHtml = '';
+            q.options.forEach(opt => {
+                let optDisplay = addHoverToText(opt);
+                let isSelected = userAnswers[q.id] === opt;
+                let disabled = userAnswers[q.id] ? 'disabled' : '';
+                optsHtml += `<div class="opt-btn ${isSelected ? 'selected' : ''} ${disabled}" data-qid="${q.id}" data-val="${opt}">${optDisplay}</div>`;
+            });
+            html += `<div class="question-item"><div class="question-text">${idx+1}. ${stem}</div><div class="options" id="opts-${q.id}">${optsHtml}</div><div class="feedback" id="fb-${q.id}"></div><div class="detail-exp" id="detail-${q.id}" style="display:none;"></div></div>`;
+        });
+        document.getElementById("questionsList").innerHTML = html;
+        document.querySelectorAll('.opt-btn:not(.disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const qid = parseInt(this.getAttribute('data-qid'));
+                if (userAnswers[qid]) return;
+                const val = this.getAttribute('data-val');
+                const q = questions.find(qq => qq.id === qid);
+                userAnswers[qid] = val;
+                const isCorrect = val === q.correct;
+                const parentDiv = this.closest('.question-item');
+                parentDiv.querySelectorAll('.opt-btn').forEach(opt => opt.classList.add('disabled'));
+                this.classList.add('selected');
+                showFeedback(q, val, isCorrect);
+                updateProgress();
+            });
+        });
+        questions.forEach(q => { if (userAnswers[q.id]) { showFeedback(q, userAnswers[q.id], userAnswers[q.id] === q.correct); } });
+    }
+    
+    function downloadReport() {
+        let correct = questions.filter(q => userAnswers[q.id] === q.correct).length;
+        let percent = Math.round((correct / questions.length) * 100);
+        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>新概念Lesson83-84学习报告</title><style>body{font-family:sans-serif;padding:20px;max-width:800px;margin:0 auto;}.correct{color:green;}.wrong{color:red;}li{margin-bottom:12px;}</style></head><body>`;
+        html += `<h1>📚 赢未来国雅 · 新概念学习报告</h1><p>Lesson 83 Going on holiday | 生成时间: ${new Date().toLocaleString()}</p>`;
+        html += `<h2>📊 学习统计</h2><p>总题数: ${questions.length} | 正确数: ${correct} | 正确率: ${percent}%</p>`;
+        html += `<h2>📖 课文摘要</h2><p>Lesson 83 Going on holiday，重点现在完成时(have/has+过去分词)，already/just/yet用法，have的各种短语。</p>`;
+        html += `<h2>📚 核心词汇短语</h2><p>pack, suitcase, leave, already, just, lucky, holiday, mess, magazine, cigarette；短语：have lunch, have a holiday, pack one's suitcase, stay at home, make a shopping list</p>`;
+        html += `<h2>📝 答题详情</h2><ul>`;
+        questions.forEach(q => {
+            let user = userAnswers[q.id] || '未作答';
+            let isCorrect = user === q.correct;
+            html += `<li class="${isCorrect ? 'correct' : 'wrong'}"><strong>${q.id}. ${q.stem}</strong><br/>你的答案: ${user} ${isCorrect ? '✓' : '✗'} | 正确答案: ${q.correct}<br/>解析: ${q.explanation}</li>`;
+        });
+        html += `</ul><p>坚持练习，巩固现在完成时知识点！</p></body></html>`;
+        const blob = new Blob([html], { type: "text/html" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "NCE_Lesson83_84_Report.html";
+        link.click();
+    }
+    
+    renderQuestions();
+    updateProgress();
+    document.getElementById("downloadBtn").addEventListener("click", downloadReport);
+</script>
+</body>
+</html>
