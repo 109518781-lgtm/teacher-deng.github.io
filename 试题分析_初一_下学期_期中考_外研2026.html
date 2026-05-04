@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习 | 七年级英语期中模拟卷（外研版）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+        .container { max-width: 1280px; margin: 0 auto; }
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero h1 { font-size: 1.9rem; background: linear-gradient(135deg, #216e48, #368f5c); background-clip: text; -webkit-background-clip: text; color: transparent; letter-spacing: -0.3px; }
+        .hero p { color: #517a66; font-size: 0.9rem; border-bottom: 2px solid #cde2d6; display: inline-block; padding-bottom: 8px; }
+        .meta-info { display: flex; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; font-size: 0.8rem; color: #5e7a6b; }
+        .card { background: white; border-radius: 32px; box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05); margin-bottom: 28px; overflow: hidden; }
+        .question-panel { padding: 24px 22px 12px 22px; }
+        .reading-passage, .cloze-passage, .grammar-passage {
+            background: #fefaf0; padding: 18px 20px; border-radius: 28px; line-height: 1.68; font-size: 0.96rem;
+            margin-bottom: 24px; border: 1px solid #e9e0cb; white-space: pre-line;
+        }
+        .question-text {
+            font-size: 1rem; font-weight: 550; background: #f9fff9; padding: 10px 16px; border-radius: 24px;
+            border-left: 6px solid #3b9b6e; margin-bottom: 20px; line-height: 1.45; color: #1f3b31;
+        }
+        .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+        .option {
+            display: flex; align-items: flex-start; gap: 14px; padding: 10px 16px; background: #fefef8;
+            border: 1px solid #e1efe6; border-radius: 60px; cursor: pointer; transition: all 0.2s;
+        }
+        .option:hover:not(.disabled-opt) { background: #e9f3ec; border-color: #9ac2ab; }
+        .option-letter { font-weight: 800; background: #e3f0e9; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 40px; color: #2b6e4c; flex-shrink: 0; }
+        .option-text { font-size: 0.95rem; line-height: 1.4; color: #2a423a; }
+        .feedback-area { background: #f9fcf5; margin: 0 20px 20px 20px; border-radius: 24px; padding: 16px 20px; border: 1px solid #d9ebdf; }
+        .result-badge { display: inline-block; font-weight: 700; padding: 5px 16px; border-radius: 40px; font-size: 0.85rem; margin-bottom: 14px; }
+        .correct-badge { background: #cbefdf; color: #146b3a; }
+        .wrong-badge { background: #ffe1de; color: #bc4a3a; }
+        .answer-compare { background: #ffffffcc; padding: 10px 14px; border-radius: 20px; margin-top: 8px; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 18px; border-left: 4px solid #88b8a0; }
+        .detail-explanation { margin: 12px 0 0 0; padding: 12px 14px; background: #f3f8f1; border-radius: 20px; font-size: 0.88rem; line-height: 1.5; }
+        .lock-message { margin-top: 12px; font-size: 0.7rem; text-align: right; color: #89b69c; font-style: italic; }
+        .disabled-opt { opacity: 0.65; pointer-events: none; background: #f2f5ef; cursor: default; }
+        .analysis-special { background: #fefbed; border-radius: 32px; padding: 0px 0px 12px 0px; border: 1px solid #f0e2bc; margin: 20px 0; }
+        .analysis-title { font-weight: 800; font-size: 1rem; padding: 20px 24px 8px 24px; color: #b17f2e; background: #fff8e7; border-bottom: 1px dashed #efdfb2; }
+        .phrase-list, .sentence-list { padding: 8px 24px 20px 24px; }
+        .phrase-item, .sentence-item { margin-bottom: 18px; padding: 10px 14px; background: #fffcf0; border-radius: 24px; border-left: 4px solid #cfb87c; }
+        .phrase-text { font-weight: 700; color: #3c6e47; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+        .phrase-en { background: #e8f0e3; padding: 2px 10px; border-radius: 40px; }
+        .phrase-zh { color: #b45f1b; font-weight: 500; font-size: 0.85rem; }
+        .phrase-example { font-size: 0.85rem; color: #5c6e5a; margin-top: 8px; padding-left: 8px; border-left: 2px solid #dfcca2; }
+        .sentence-grammar { background: #fef7e6; padding: 10px 14px; border-radius: 20px; margin-top: 10px; font-size: 0.85rem; }
+        .sentence-en { font-weight: 600; color: #2f6042; }
+        .sentence-zh { color: #a5651e; margin-top: 6px; font-size: 0.85rem; }
+        .clickable-word { border-bottom: 1px dashed #6f9a82; cursor: pointer; font-weight: 500; display: inline-block; }
+        .clickable-word:active { background: #d9f0e4; border-radius: 8px; }
+        .word-toast { position: fixed; bottom: 25%; left: 50%; transform: translateX(-50%) translateY(20px); background: #fffffff2; backdrop-filter: blur(8px); color: #2c5a44; padding: 12px 24px; border-radius: 50px; font-size: 1rem; font-weight: 600; z-index: 1000; max-width: 85vw; white-space: normal; text-align: center; box-shadow: 0 8px 24px rgba(0, 32, 0, 0.15), 0 0 0 1px rgba(100, 150, 120, 0.3); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; opacity: 0; border: 1px solid #bdd8ca; }
+        .word-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .method-card { background: #eef3f0; border-radius: 28px; padding: 18px 22px; margin: 20px 0; }
+        .badge-method { background: #d9e6de; display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; color: #2f6b48; }
+        @media (max-width: 640px) { body { padding: 16px 12px; } .question-panel { padding: 18px 16px 6px 16px; } .feedback-area { margin: 0 12px 16px 12px; } }
+        footer { text-align: center; font-size: 0.7rem; color: #86a694; margin: 32px 0 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>七年级英语期中模拟卷（外研版）| 点击任意英文单词查释义 | 答案对比</p>
+        <div class="meta-info">语法选择 + 完形填空 + 阅读理解 + 短文填空 + 读写综合 | 完整释义库</div>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项立即锁定答案。<span style="background:#e8f0e3;padding:2px 10px;border-radius:20px;">🔍 点击任意英文单词 → 弹出中文释义</span></footer>
+</div>
+<div id="wordToast" class="word-toast"></div>
+
+<script>
+    // ========== 释义库 ==========
+    const meaningMap = {
+        "police": "警察", "artist": "艺术家", "criminal": "罪犯", "crime": "犯罪", "describe": "描述",
+        "height": "身高", "straight": "直的", "curly": "卷曲的", "blond": "金色的", "real": "真正的",
+        "AI": "人工智能", "DeepSeek": "深度求索", "engineers": "工程师", "practice": "练习", "smart": "聪明的",
+        "museum": "博物馆", "pool": "游泳池", "glassware": "玻璃制品", "socks": "袜子", "shower": "淋浴",
+        "space": "太空", "astronaut": "宇航员", "gravity": "重力", "zebrafish": "斑马鱼", "experiment": "实验",
+        "muscles": "肌肉", "healthy": "健康的", "vegetables": "蔬菜", "hamburgers": "汉堡包", "noodles": "面条",
+        "birthday": "生日", "luck": "运气", "Spring Festival": "春节", "exercise": "运动", "fit": "健康的",
+        "difficult": "困难的", "interesting": "有趣的", "tidy": "整洁的", "breakfast": "早餐", "short-sighted": "近视的",
+        "mummichogs": "花鳝", "Skylab": "天空实验室", "Tiangong": "天宫", "zero gravity": "零重力",
+        "part": "部分", "kinds": "种类", "making": "制作", "because": "因为", "with": "带有", "eggs": "鸡蛋",
+        "enjoy": "享受", "come": "来", "sounds": "听起来", "breath": "呼吸", "warmer": "更温暖的"
+    };
+    function lookupMeaning(word) {
+        if (meaningMap[word]) return meaningMap[word];
+        var lower = word.toLowerCase();
+        if (meaningMap[lower]) return meaningMap[lower];
+        var withoutS = lower.replace(/s$/, '');
+        if (meaningMap[withoutS]) return meaningMap[withoutS];
+        var withoutEd = lower.replace(/ed$/, '');
+        if (meaningMap[withoutEd]) return meaningMap[withoutEd];
+        return null;
+    }
+    function showWordMeaning(word) {
+        var meaning = lookupMeaning(word);
+        if (!meaning) meaning = "✨ 可自行补充笔记";
+        var toast = document.getElementById("wordToast");
+        toast.innerText = word + "  ·  " + meaning;
+        toast.classList.add("show");
+        setTimeout(function() { toast.classList.remove("show"); }, 1500);
+    }
+    function makeWordsClickable(container) {
+        if (!container) return;
+        var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+            acceptNode: function(node) {
+                if (node.parentElement && (node.parentElement.classList && node.parentElement.classList.contains('clickable-word')) ||
+                    (node.parentElement && node.parentElement.closest && node.parentElement.closest('.option, .disabled-opt, .feedback-area, .result-badge, .answer-compare, .detail-explanation')))
+                    return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(function(textNode) {
+            var text = textNode.nodeValue;
+            if (!text || !text.trim()) return;
+            var regex = /\b([A-Za-z][A-Za-z\-']{1,35})\b/g;
+            var last = 0, match;
+            var frag = document.createDocumentFragment();
+            while ((match = regex.exec(text)) !== null) {
+                if (match.index > last) frag.appendChild(document.createTextNode(text.substring(last, match.index)));
+                var word = match[1];
+                var span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.innerText = word;
+                span.addEventListener('click', (function(w) { return function(e) { e.stopPropagation(); showWordMeaning(w); }; })(word));
+                frag.appendChild(span);
+                last = match.index + match[0].length;
+            }
+            if (last < text.length) frag.appendChild(document.createTextNode(text.substring(last)));
+            if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+        });
+    }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+
+    // ========== 语法选择 (1-10) ==========
+    var grammarChoice = [
+        { id: 1, text: "Today we are going to learn something about ______ interesting job.", opts: ["A. a", "B. an", "C. the"], correct: "B", exp: "interesting以元音音素开头，用an。", note: "不定冠词an用于元音音素开头的单词" },
+        { id: 2, text: "His job is to draw a picture of ______ criminal.", opts: ["A. each", "B. some", "C. both"], correct: "A", exp: "给每个罪犯画像。", note: "each每个" },
+        { id: 3, text: "They will tell Joe ______ the criminal looks like.", opts: ["A. how", "B. what", "C. why"], correct: "B", exp: "what...look like询问外貌。", note: "what引导宾语从句" },
+        { id: 4, text: "He wants ______ the pictures well.", opts: ["A. draw", "B. to draw", "C. drew"], correct: "B", exp: "want to do sth想要做某事。", note: "不定式作宾语" },
+        { id: 5, text: "______ many people don't always see things the same way, they may describe the same person differently.", opts: ["A. So", "B. But", "C. Because"], correct: "C", exp: "前后为因果关系。", note: "because引导原因状语从句" },
+        { id: 6, text: "they may describe the same person ______.", opts: ["A. different", "B. difference", "C. differently"], correct: "C", exp: "副词修饰动词describe。", note: "副词differently" },
+        { id: 7, text: "The criminal is of middle ______ and young.", opts: ["A. height", "B. high", "C. highly"], correct: "A", exp: "of medium height中等身高。", note: "名词height" },
+        { id: 8, text: "But ______ woman says, 'He is tall and thin...'", opts: ["A. the other", "B. another", "C. other"], correct: "B", exp: "另一个女士。", note: "another另一个" },
+        { id: 9, text: "he ______ long curly blond hair.", opts: ["A. have", "B. has", "C. had"], correct: "B", exp: "主语he，一般现在时。", note: "has第三人称单数" },
+        { id: 10, text: "______ the end, the real criminal is a short and heavy old man.", opts: ["A. On", "B. At", "C. In"], correct: "C", exp: "in the end最后。", note: "固定短语" }
+    ];
+
+    // ========== 完形填空 (11-20) ==========
+    var clozeData = [
+        { id: 11, text: "It can ______ out math problems, write simple code.", opts: ["A. get", "B. make", "C. find", "D. work"], correct: "D", exp: "work out解决。", note: "work out" },
+        { id: 12, text: "Different from other AIs, it ______ by doing lots of tasks every day.", opts: ["A. changes", "B. learns", "C. plays", "D. enjoys"], correct: "B", exp: "通过学习来进步。", note: "learns学习" },
+        { id: 13, text: "Most AIs need many ______ from books to learn.", opts: ["A. examples", "B. games", "C. pictures", "D. questions"], correct: "A", exp: "从书本中学习示例。", note: "examples示例" },
+        { id: 14, text: "With more practice, it becomes ______.", opts: ["A. good", "B. interesting", "C. smart", "D. different"], correct: "C", exp: "变得更聪明。", note: "smart聪明的" },
+        { id: 15, text: "Schools and small shops can use it for ______.", opts: ["A. work", "B. exercise", "C. help", "D. free"], correct: "D", exp: "免费使用。", note: "for free免费" },
+        { id: 16, text: "We don't worry about ______ now.", opts: ["A. news", "B. time", "C. money", "D. books"], correct: "C", exp: "不用再担心钱。", note: "money钱" },
+        { id: 17, text: "It makes mistakes in languages ______ German.", opts: ["A. with", "B. from", "C. like", "D. for"], correct: "C", exp: "像德语这样的语言。", note: "like像" },
+        { id: 18, text: "Engineers try to ______ these mistakes and correct them.", opts: ["A. forget", "B. mark", "C. answer", "D. remember"], correct: "B", exp: "标记错误。", note: "mark标记" },
+        { id: 19, text: "We want R1 to help people ______ the world.", opts: ["A. at", "B. of", "C. on", "D. around"], correct: "D", exp: "世界各地的人们。", note: "around the world" },
+        { id: 20, text: "great things need to ______ more.", opts: ["A. love", "B. try", "C. help", "D. see"], correct: "B", exp: "伟大的事物需要更多尝试。", note: "try尝试" }
+    ];
+
+    // ========== 阅读理解 A篇 (21-25) ==========
+    var readingAQ = [
+        { id: 21, text: "What can people probably do in the train museum?", opts: ["A. Take photos.", "B. Run.", "C. Smoke.", "D. Get on the trains."], correct: "A", exp: "规则中没有禁止拍照，所以可能可以。", note: "细节推断" },
+        { id: 22, text: "What must people do before getting into the swimming pool?", opts: ["A. Brush their teeth.", "B. Eat some food.", "C. Take some drinks.", "D. Take a shower."], correct: "D", exp: "规则明确要求Take a shower。", note: "细节理解" },
+        { id: 23, text: "In Children's Play Area, children must wear", opts: ["A. hats", "B. glasses", "C. socks", "D. shoes"], correct: "C", exp: "No shoes. But wear socks.所以要穿袜子。", note: "细节理解" },
+        { id: 24, text: "How many rules of Children's Play Area are the same as rules of the swimming pool?", opts: ["A. One.", "B. Two.", "C. Three.", "D. Four."], correct: "C", exp: "禁止吸烟、禁止食物饮料、禁止玻璃制品，共三条。", note: "规则对比" },
+        { id: 25, text: "Who may be interested in the material?", opts: ["A. Sally—find a restaurant.", "B. Jack—swimming pool rules.", "C. Mark—buy shoes.", "D. Susan—reading place."], correct: "B", exp: "材料介绍了游泳池规则，Jack想知道。", note: "推理判断" }
+    ];
+
+    // ========== 阅读理解 B篇 (26-30) ==========
+    var readingBQ = [
+        { id: 26, text: "Why was 28th July, 1973 a big day for fish?", opts: ["A. Because mummichogs were first used.", "B. Because two mummichogs became the first fish in space.", "C. Because fish farming became successful.", "D. Because two mummichogs were hatched."], correct: "B", exp: "两条花鳝成为太空第一批鱼。", note: "细节理解" },
+        { id: 27, text: "What does the zebrafish study on Tiangong want to find out?", opts: ["A. How zebrafish get used to space life.", "B. If zebrafish live without gravity.", "C. How little gravity changes fish's grow and live.", "D. If zebrafish live the same in space."], correct: "C", exp: "观察微重力如何改变鱼的生长方式。", note: "细节理解" },
+        { id: 28, text: "What does the passage tell us?", opts: ["A. Fish are used in many studies in space.", "B. Fish are leading the way to explore space safely.", "C. Fish help check body changes in space.", "D. Fish are used to check gravity."], correct: "B", exp: "鱼类正在引领安全探索太空。", note: "主旨推断" },
+        { id: 29, text: "What does the writer think of these fish?", opts: ["A. Helpful.", "B. Interesting.", "C. Wonderful.", "D. Amazing."], correct: "A", exp: "有助于人类探索太空。", note: "态度题" },
+        { id: 30, text: "What is the main idea of the passage?", opts: ["A. Fish were taken into space successfully.", "B. Fish have many body parts like ours.", "C. Fish are see-through for scientists.", "D. Fish helps us learn about living in space."], correct: "D", exp: "鱼类帮助人类了解在太空生活。", note: "主旨大意" }
+    ];
+
+    // ========== 阅读理解 C篇 配对阅读 (31-35) ==========
+    var matchOptions = [
+        "A. Listening to English songs and watching English movies...", "B. Meat is healthy, but too much meat is not good for us...", "C. It's good for us to keep our room clean and tidy...", "D. Doing sports is a good way for us to keep healthy...", "E. It's not right to copy others' homework...", "F. We should go to bed early and get up early...", "G. It's important for us to keep a healthy habit when we read..."
+    ];
+    var matchQs = [
+        { id: 31, text: "Bill eats too much meat and drinks cola. He is very fat.", correct: "B", exp: "关于健康饮食的建议。", note: "少吃肉和甜饮料" },
+        { id: 32, text: "Kate never does sports because she doesn't like them.", correct: "D", exp: "关于运动的建议。", note: "做运动保持健康" },
+        { id: 33, text: "Lucy often reads in bed or on the bus. She is short-sighted.", correct: "G", exp: "关于阅读习惯的建议。", note: "不要在不良环境下阅读" },
+        { id: 34, text: "Tom always gets up late so he doesn't have time for breakfast.", correct: "F", exp: "关于作息和早餐的建议。", note: "早睡早起" },
+        { id: 35, text: "Betty isn't tidy. Her things are always here and there.", correct: "C", exp: "关于保持整洁的建议。", note: "保持房间整洁" }
+    ];
+
+    // 为每篇阅读生成高频短语
+    function getPhrasesForReading(part) {
+        if (part === 'A') return [
+            { phrase: "be quiet", meaning: "保持安静", example: "Rules: Be quiet in the museum." },
+            { phrase: "take a shower", meaning: "洗淋浴", example: "Take a shower before getting into the pool." },
+            { phrase: "wear socks", meaning: "穿袜子", example: "Wear socks all the time." }
+        ];
+        if (part === 'B') return [
+            { phrase: "in space", meaning: "在太空中", example: "became the first fish in space." },
+            { phrase: "zero gravity", meaning: "零重力", example: "swim in zero gravity." },
+            { phrase: "take care of", meaning: "照顾", example: "easy to take care of." },
+            { phrase: "help sb do sth", meaning: "帮助某人做某事", example: "help us learn to travel in space safely." }
+        ];
+        return [
+            { phrase: "too much", meaning: "太多", example: "too much meat" },
+            { phrase: "be good for", meaning: "对...有好处", example: "sports are good for health" },
+            { phrase: "get up", meaning: "起床", example: "get up late" },
+            { phrase: "here and there", meaning: "到处", example: "things are here and there" }
+        ];
+    }
+
+    // 短文填空答案 (36-45)
+    var passageFill = [
+        { id: 36, correct: "part", exp: "重要的一部分", note: "part部分" },
+        { id: 37, correct: "kinds", exp: "不同种类", note: "kinds种类" },
+        { id: 38, correct: "making", exp: "喜欢做面条", note: "like making" },
+        { id: 39, correct: "because", exp: "因为没有时间", note: "because因为" },
+        { id: 40, correct: "with", exp: "用...烹饪", note: "with用" },
+        { id: 41, correct: "eggs", exp: "鸡蛋和西红柿", note: "eggs鸡蛋" },
+        { id: 42, correct: "their", exp: "他们的家人", note: "their他们的" },
+        { id: 43, correct: "luck", exp: "有好运", note: "luck运气" },
+        { id: 44, correct: "enjoy", exp: "享受面条", note: "enjoy享受" },
+        { id: 45, correct: "come", exp: "来到中国", note: "come来" }
+    ];
+
+    // 回答问题 (46-50)
+    var qaQuestions = [
+        { id: 46, text: "What do many students know about sports?", answer: "Many students know that sports are good for their health.", exp: "从第一段第一句得出。" },
+        { id: 47, text: "What do many students only like doing?", answer: "Many students like watching sports on TV or playing computer games.", exp: "从第一段得出。" },
+        { id: 48, text: "What do students think about basketball?", answer: "It is difficult.", exp: "从第一段 'Play basketball? Oh, it sounds difficult.'" },
+        { id: 49, text: "What kind of exercise should young people try to do?", answer: "Young people should try to do some exercise that makes them breathe harder and feel warmer.", exp: "从第一段得出。" },
+        { id: 50, text: "What kind of food do boys and girls like to eat?", answer: "They like unhealthy food like hamburgers and ice-cream.", exp: "从第二段得出。" }
+    ];
+
+    var root = document.getElementById("questionsRoot");
+    var html = '';
+
+    // 语法选择
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 语法选择 (1-10) · 警察画像师</div><div class="grammar-passage">' + escapeHtml("What do you want to be when you grow up? A teacher, a doctor or an actor? Today we are going to learn something about an interesting job. Joe Brown is a police artist. His job is to draw a picture of each criminal. Some people see crimes and then talk to the police. They will tell Joe what the criminal looks like. Then he draws a picture of the criminal, and the police put it in newspapers or on TV to find him. He wants to draw the pictures well, but this job is sometimes difficult. Because many people don't always see things the same way, they may describe the same person differently. At the same time, they don't always remember well. 'The criminal is of medium height and young. He has long straight brown hair and big eyes.' But another woman says, 'He is tall and thin, and he has long curly blond hair. He's about thirty years old.' In the end, the real criminal is a short and heavy old man, and has short black hair.") + '</div></div></div>';
+    for (var i = 0; i < grammarChoice.length; i++) { var q = grammarChoice[i];
+        html += '<div class="card" data-qid="gram_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.opts.length; j++) { var opt = q.opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 完形填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 完形填空 (11-20) · DeepSeek AI</div><div class="cloze-passage">' + escapeHtml("DeepSeek-R1 is a new AI from China. It can work out math problems, write simple code, and talk like people in daily life. Different from other AIs, it learns by doing lots of tasks every day, not just reading examples. This makes it very special. Most AIs need many examples from books to learn, but R1 learns by itself. With more practice, it becomes smart. Engineers say, 'We let it try again and again, just like students do exercises. Soon, it can finish tasks well.' What is the best thing? Schools and small shops can use it for free. A village teacher says, 'We don't worry about money now. Even poor places can get help from this smart AI.' But R1 still has problems. It makes mistakes in languages like German. Engineers try to mark these mistakes and correct them. They say, 'We want R1 to help people around the world.' This AI teaches us an important lesson—great things need to try more. Just having money cannot make something amazing. Let's learn from R1!") + '</div></div></div>';
+    for (var i = 0; i < clozeData.length; i++) { var q = clozeData[i];
+        html += '<div class="card" data-qid="clz_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.opts.length; j++) { var opt = q.opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 阅读理解A
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 阅读理解 A · 场所规则</div><div class="reading-passage">' + escapeHtml("Train Museum Rules: Be quiet. No running. No smoking. Don't get on the trains. Swimming Pool Rules: No food or drinks. No smoking. Take a shower before getting into the pool. No glassware. Children's Play Area Rules: No smoking. No food or drinks. No glassware. No shoes. But wear socks all the time.") + '</div></div></div>';
+    for (var i = 0; i < readingAQ.length; i++) { var q = readingAQ[i];
+        html += '<div class="card" data-qid="rea_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.opts.length; j++) { var opt = q.opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    var pa = getPhrasesForReading('A');
+    html += '<div class="analysis-special"><div class="analysis-title">📚 阅读理解A · 高频短语</div><div class="phrase-list">';
+    for (var i = 0; i < pa.length; i++) { html += '<div class="phrase-item"><div class="phrase-text"><span class="phrase-en">' + escapeHtml(pa[i].phrase) + '</span><span class="phrase-zh">' + escapeHtml(pa[i].meaning) + '</span></div><div class="phrase-example">💬 ' + escapeHtml(pa[i].example) + '</div></div>'; }
+    html += '</div></div>';
+
+    // 阅读理解B
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 阅读理解 B · 太空中的鱼</div><div class="reading-passage">' + escapeHtml("28th July, 1973, is a big day for fish. Two little mummichogs became the first fish in space. They lived in a plastic bag aboard Skylab. Three weeks later, they learned how to swim in zero gravity. 51 years later, four zebrafish are now swimming aboard China's Tiangong Space Station. This is for a space experiment to see how very little gravity changes how fish live and grow. Zebrafish have helped us learn about living things. They have many similar body parts to us. Their bodies often work like ours. Zebrafish are also small and easy to take care of. And, they're clear before they are born. Scientists can look inside them while they're growing. Like astronauts, fish are carefully picked for space trips. Our little friends in water are helping us learn to travel in space safely.") + '</div></div></div>';
+    for (var i = 0; i < readingBQ.length; i++) { var q = readingBQ[i];
+        html += '<div class="card" data-qid="reb_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.opts.length; j++) { var opt = q.opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+    var pb = getPhrasesForReading('B');
+    html += '<div class="analysis-special"><div class="analysis-title">📚 阅读理解B · 高频短语</div><div class="phrase-list">';
+    for (var i = 0; i < pb.length; i++) { html += '<div class="phrase-item"><div class="phrase-text"><span class="phrase-en">' + escapeHtml(pb[i].phrase) + '</span><span class="phrase-zh">' + escapeHtml(pb[i].meaning) + '</span></div><div class="phrase-example">💬 ' + escapeHtml(pb[i].example) + '</div></div>'; }
+    html += '</div></div>';
+
+    // 阅读理解C 配对阅读
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📌 阅读理解 C · 配对阅读 (31-35)</div></div></div>';
+    for (var i = 0; i < matchQs.length; i++) { var q = matchQs[i];
+        html += '<div class="card" data-qid="match_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < matchOptions.length; j++) { var opt = matchOptions[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 短文填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 短文填空 (36-45) · 中国的面条文化</div><div class="grammar-passage">' + escapeHtml("Noodles are important food in China. People eat noodles every day. So noodles are the real Chinese food and they are a part of Chinese people's life. There are many different kinds of noodles. Many people like making noodles at home. But some people buy noodles in the shop because they have no time to make them. People can cook noodles with something they like. Children like noodles with eggs and tomatoes. Young people like noodles with meat and vegetables. Some people like to eat noodles with vinegar. When people are on their birthday, their family cook noodles with eggs as birthday food. They think people can have good luck and live a long life after eating it. Sometimes people enjoy noodles in the Spring Festival. When you come to China, welcome to eat the real Chinese food—noodles.") + '</div></div></div>';
+    for (var i = 0; i < passageFill.length; i++) { var q = passageFill[i];
+        html += '<div class="card" data-qid="fill_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. </div><div class="options-list"><div class="option" data-val="' + q.correct + '"><div class="option-letter">📝</div><div class="option-text">点击填写答案: ' + escapeHtml(q.correct) + '</div></div></div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 回答问题
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📌 回答问题 (46-50) · 健康生活方式</div><div class="grammar-passage">' + escapeHtml("Now many students know sports are good for their health. But they don't like playing sports. Some of them only watch them on TV. And many of them only like watching TV and playing computer games. They always say, 'Play soccer? Oh, it sounds nice. Play basketball? Oh, it sounds difficult.' It's really important for young people to keep fit. This doesn't mean they have to play football or go to the gym every day, but they should try to do some exercise that makes them breathe harder and feel warmer. Many boys and girls don't like vegetables. So they don't have carrots for lunch and they don't have potatoes for dinner. But vegetables are healthy food. They need to eat some of them every day. But they like unhealthy food. They like eating hamburgers, ice cream... Do you want to be healthy? Please eat vegetables and play sports every day!") + '</div></div></div>';
+    for (var i = 0; i < qaQuestions.length; i++) { var q = qaQuestions[i];
+        html += '<div class="card" data-qid="qa_' + q.id + '" data-correct="' + escapeHtml(q.answer) + '" data-exp="' + escapeHtml(q.exp) + '" data-note="回答问题"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list"><div class="option" data-val="' + escapeHtml(q.answer) + '"><div class="option-letter">📝</div><div class="option-text">点击显示参考答案: ' + escapeHtml(q.answer.substring(0, 60)) + '...</div></div></div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 写作提示
+    html += '<div class="card"><div class="question-panel"><div class="question-text">✍️ 书面表达 · I love sports</div><div class="grammar-passage">' + escapeHtml("生命在于运动！请根据主题'我爱运动'写一篇英语演讲稿。要求：1.介绍你喜欢的运动及原因；2.运动带来的好处；3.呼吁大家多运动。词数60左右。") + '</div></div></div>';
+    
+    html += '<div class="method-card"><div class="badge-method">🎯 解题策略总结</div><ul style="margin-left:20px;color:#375e4c;"><li><strong>1. 语法选择</strong> — 注意冠词、连词、非谓语动词等考点。</li><li><strong>2. 完形填空</strong> — 上下文逻辑、固定搭配、词义辨析。</li><li><strong>3. 阅读理解</strong> — 细节定位、推理判断、主旨概括。</li><li><strong>4. 短文填空</strong> — 词性转换、固定短语、上下文连贯。</li><li><strong>5. 回答问题</strong> — 定位原文、完整作答、语法正确。</li></ul></div>';
+    
+    root.innerHTML = html;
+    document.querySelectorAll(".reading-passage, .cloze-passage, .grammar-passage, .question-text, .option-text, .phrase-item, .sentence-item, .method-card").forEach(function(el) { makeWordsClickable(el); });
+    
+    document.querySelectorAll('.card[data-qid]').forEach(function(card) {
+        var correct = card.getAttribute('data-correct');
+        var exp = card.getAttribute('data-exp') || "根据上下文分析得出。";
+        var note = card.getAttribute('data-note') || "注意固定搭配与逻辑。";
+        var optsDiv = card.querySelector('.options-list');
+        if (!optsDiv) return;
+        var opts = optsDiv.querySelectorAll('.option');
+        opts.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                if (card.classList.contains('answered')) return;
+                var selected = opt.getAttribute('data-val');
+                var isCorrect = (selected === correct);
+                var fb = card.querySelector('.feedback-area');
+                if (!fb) return;
+                var yourFull = selected, correctFull = correct;
+                opts.forEach(function(o) { if(o.getAttribute('data-val') === selected) yourFull = o.querySelector('.option-text')?.innerText || selected; if(o.getAttribute('data-val') === correct) correctFull = o.querySelector('.option-text')?.innerText || correct; });
+                fb.innerHTML = '<div class="result-badge ' + (isCorrect ? 'correct-badge' : 'wrong-badge') + '">' + (isCorrect ? '✔ 回答正确' : '❌ 回答错误') + '</div><div class="answer-compare"><div class="your-answer">📌 你的答案：' + selected + '. ' + escapeHtml(yourFull) + '</div><div class="correct-answer">✅ 正确答案：' + correct + '. ' + escapeHtml(correctFull) + '</div></div><div class="detail-explanation"><strong>🔎 详细解析：</strong> ' + escapeHtml(exp) + '<br/><strong>📘 考点笔记：</strong> ' + escapeHtml(note) + '</div><div class="lock-message">🔒 答案已锁定</div>';
+                fb.style.display = 'block';
+                card.classList.add('answered');
+                opts.forEach(function(o) { o.classList.add('disabled-opt'); });
+            });
+        });
+    });
+</script>
+</body>
+</html>
