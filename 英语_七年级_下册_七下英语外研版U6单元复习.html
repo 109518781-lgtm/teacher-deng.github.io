@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>赢未来国雅 · 英语练习 | 初一英语U6单元复习（点词查义版）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f5fbf7;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 24px 18px;
+            color: #1e2f2a;
+        }
+        .container { max-width: 1280px; margin: 0 auto; }
+        .hero { text-align: center; margin-bottom: 32px; }
+        .hero h1 { font-size: 1.9rem; background: linear-gradient(135deg, #216e48, #368f5c); background-clip: text; -webkit-background-clip: text; color: transparent; letter-spacing: -0.3px; }
+        .hero p { color: #517a66; font-size: 0.9rem; border-bottom: 2px solid #cde2d6; display: inline-block; padding-bottom: 8px; }
+        .meta-info { display: flex; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; font-size: 0.8rem; color: #5e7a6b; }
+        .card { background: white; border-radius: 32px; box-shadow: 0 10px 24px rgba(0, 32, 0, 0.05); margin-bottom: 28px; overflow: hidden; }
+        .question-panel { padding: 24px 22px 12px 22px; }
+        .reading-passage, .cloze-passage {
+            background: #fefaf0; padding: 18px 20px; border-radius: 28px; line-height: 1.68; font-size: 0.96rem;
+            margin-bottom: 24px; border: 1px solid #e9e0cb; white-space: pre-line;
+        }
+        .question-text {
+            font-size: 1rem; font-weight: 550; background: #f9fff9; padding: 10px 16px; border-radius: 24px;
+            border-left: 6px solid #3b9b6e; margin-bottom: 20px; line-height: 1.45; color: #1f3b31;
+        }
+        .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+        .option {
+            display: flex; align-items: flex-start; gap: 14px; padding: 10px 16px; background: #fefef8;
+            border: 1px solid #e1efe6; border-radius: 60px; cursor: pointer; transition: all 0.2s;
+        }
+        .option:hover:not(.disabled-opt) { background: #e9f3ec; border-color: #9ac2ab; }
+        .option-letter { font-weight: 800; background: #e3f0e9; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 40px; color: #2b6e4c; flex-shrink: 0; }
+        .option-text { font-size: 0.95rem; line-height: 1.4; color: #2a423a; }
+        .feedback-area { background: #f9fcf5; margin: 0 20px 20px 20px; border-radius: 24px; padding: 16px 20px; border: 1px solid #d9ebdf; }
+        .result-badge { display: inline-block; font-weight: 700; padding: 5px 16px; border-radius: 40px; font-size: 0.85rem; margin-bottom: 14px; }
+        .correct-badge { background: #cbefdf; color: #146b3a; }
+        .wrong-badge { background: #ffe1de; color: #bc4a3a; }
+        .answer-compare { background: #ffffffcc; padding: 10px 14px; border-radius: 20px; margin-top: 8px; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 18px; border-left: 4px solid #88b8a0; }
+        .detail-explanation { margin: 12px 0 0 0; padding: 12px 14px; background: #f3f8f1; border-radius: 20px; font-size: 0.88rem; line-height: 1.5; }
+        .lock-message { margin-top: 12px; font-size: 0.7rem; text-align: right; color: #89b69c; font-style: italic; }
+        .disabled-opt { opacity: 0.65; pointer-events: none; background: #f2f5ef; cursor: default; }
+        .blank-input { width: 100%; padding: 10px 16px; border: 2px solid #cde0d4; border-radius: 60px; font-size: 0.95rem; margin-top: 8px; }
+        .submit-btn { margin-top: 12px; padding: 8px 24px; background: #3b9b6e; color: white; border: none; border-radius: 40px; cursor: pointer; }
+        .clickable-word { border-bottom: 1px dashed #6f9a82; cursor: pointer; font-weight: 500; display: inline-block; }
+        .clickable-word:active { background: #d9f0e4; border-radius: 8px; }
+        .word-toast { position: fixed; bottom: 25%; left: 50%; transform: translateX(-50%) translateY(20px); background: #fffffff2; backdrop-filter: blur(8px); color: #2c5a44; padding: 12px 24px; border-radius: 50px; font-size: 1rem; font-weight: 600; z-index: 1000; max-width: 85vw; white-space: normal; text-align: center; box-shadow: 0 8px 24px rgba(0, 32, 0, 0.15), 0 0 0 1px rgba(100, 150, 120, 0.3); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; opacity: 0; border: 1px solid #bdd8ca; }
+        .word-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .method-card { background: #eef3f0; border-radius: 28px; padding: 18px 22px; margin: 20px 0; }
+        .badge-method { background: #d9e6de; display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; color: #2f6b48; }
+        @media (max-width: 640px) { body { padding: 16px 12px; } .question-panel { padding: 18px 16px 6px 16px; } .feedback-area { margin: 0 12px 16px 12px; } }
+        footer { text-align: center; font-size: 0.7rem; color: #86a694; margin: 32px 0 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>✨ 赢未来国雅 · 英语练习考点精析 ✨</h1>
+        <p>初一英语 U6 单元复习 | 点击任意英文单词查释义 | 基础巩固</p>
+        <div class="meta-info">单项选择 + 语法填空 + 选词填空 + 完形填空 + 阅读理解 | 划词翻译已开启</div>
+    </div>
+    <div id="questionsRoot"></div>
+    <footer>💡 点击选项立即锁定答案。<span style="background:#e8f0e3;padding:2px 10px;border-radius:20px;">🔍 点击任意英文单词 → 弹出中文释义</span></footer>
+</div>
+<div id="wordToast" class="word-toast"></div>
+
+<script>
+    // ========== 完整释义库（覆盖初一所有词汇）==========
+    const meaningMap = {
+        "Victoria Falls": "维多利亚瀑布", "wide": "宽的", "high": "高的", "huge": "巨大的", "clean": "干净的", "quiet": "安静的", "dangerous": "危险的",
+        "sofa": "沙发", "soft": "柔软的", "comfortable": "舒适的", "beautiful": "美丽的", "receive": "收到", "accept": "接受", "present": "礼物",
+        "prefer": "更喜欢", "books": "书", "reading": "阅读", "listening": "听", "music": "音乐", "naughty": "顽皮的", "in general": "总的来说",
+        "in public": "公开地", "in person": "亲自", "in total": "总共", "award": "奖励", "message": "消息", "idea": "想法", "problem": "问题",
+        "discuss": "讨论", "shake": "摇晃", "mix": "混合", "plan": "计划", "achieve": "实现", "discover": "发现", "stop": "停止",
+        "fights": "打架", "forgets": "忘记", "tries": "尝试", "prefers": "更喜欢", "expected": "期待", "wondered": "想知道", "hoped": "希望", "burned": "燃烧",
+        "cleaner": "更干净的", "smaller": "更小的", "understanding": "理解", "famous": "著名的", "places of interest": "名胜", "truth": "真相", "discoveries": "发现",
+        "travelling": "旅行", "breakfast": "早餐", "drove": "开车", "fast": "快地", "careful": "小心的", "volleyball": "排球", "sunshine": "阳光",
+        "fishing": "钓鱼", "hard-working": "勤奋的", "luck": "运气", "umbrella": "雨伞", "sunny": "晴朗的", "foggy": "多雾的", "lucky": "幸运的",
+        "London Eye": "伦敦眼", "Big Ben": "大本钟", "Buckingham Palace": "白金汉宫", "Shakespeare": "莎士比亚", "Chinese": "中文/中国人",
+        "National Gallery": "国家美术馆", "British Museum": "大英博物馆", "Jingdezhen": "景德镇", "Porcelain": "瓷器", "capital": "首都/之都",
+        "museum": "博物馆", "restaurant": "餐厅", "delicious": "美味的", "street": "街道", "artists": "艺术家", "gifts": "礼物", "trip": "旅行"
+    };
+    function lookupMeaning(word) {
+        if (meaningMap[word]) return meaningMap[word];
+        var lower = word.toLowerCase();
+        if (meaningMap[lower]) return meaningMap[lower];
+        var withoutS = lower.replace(/s$/, '');
+        if (meaningMap[withoutS]) return meaningMap[withoutS];
+        var withoutEd = lower.replace(/ed$/, '');
+        if (meaningMap[withoutEd]) return meaningMap[withoutEd];
+        var withoutIng = lower.replace(/ing$/, '');
+        if (meaningMap[withoutIng]) return meaningMap[withoutIng];
+        return null;
+    }
+    function showWordMeaning(word) {
+        var meaning = lookupMeaning(word);
+        if (!meaning) meaning = "✨ 可自行补充笔记";
+        var toast = document.getElementById("wordToast");
+        toast.innerText = word + "  ·  " + meaning;
+        toast.classList.add("show");
+        setTimeout(function() { toast.classList.remove("show"); }, 1500);
+    }
+    function makeWordsClickable(container) {
+        if (!container) return;
+        var walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+            acceptNode: function(node) {
+                if (node.parentElement && (node.parentElement.classList && node.parentElement.classList.contains('clickable-word')) ||
+                    (node.parentElement && node.parentElement.closest && node.parentElement.closest('.option, .disabled-opt, .feedback-area, .result-badge, .answer-compare, .detail-explanation')))
+                    return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(function(textNode) {
+            var text = textNode.nodeValue;
+            if (!text || !text.trim()) return;
+            var regex = /\b([A-Za-z][A-Za-z\-']{1,35})\b/g;
+            var last = 0, match;
+            var frag = document.createDocumentFragment();
+            while ((match = regex.exec(text)) !== null) {
+                if (match.index > last) frag.appendChild(document.createTextNode(text.substring(last, match.index)));
+                var word = match[1];
+                var span = document.createElement('span');
+                span.className = 'clickable-word';
+                span.innerText = word;
+                span.addEventListener('click', (function(w) { return function(e) { e.stopPropagation(); showWordMeaning(w); }; })(word));
+                frag.appendChild(span);
+                last = match.index + match[0].length;
+            }
+            if (last < text.length) frag.appendChild(document.createTextNode(text.substring(last)));
+            if (frag.childNodes.length) textNode.parentNode.replaceChild(frag, textNode);
+        });
+    }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+
+    // ========== 单选题 ==========
+    var singleChoice = [
+        { id: 1, text: "Victoria Falls, about 1,700 metres wide and 100 metres high, is ______.", opts: ["A. huge", "B. clean", "C. quiet", "D. dangerous"], correct: "A", exp: "维多利亚瀑布又宽又高，所以是巨大的。", note: "huge巨大的" },
+        { id: 2, text: "The sofa is big and soft and it is very ______ to sit on.", opts: ["A. new", "B. beautiful", "C. comfortable", "D. high"], correct: "C", exp: "又大又软的沙发坐上去很舒服。", note: "comfortable舒适的" },
+        { id: 3, text: "I ______ a present yesterday, but I don't want to ______ it.", opts: ["A. received; accept", "B. received; receive", "C. accepted; accept", "D. accepted; receive"], correct: "A", exp: "received收到（客观收到），accept接受（主观愿意）。", note: "receive收到，accept接受" },
+        { id: 4, text: "He prefers ______ books to ______ to music.", opts: ["A. reading; listening", "B. read; listen", "C. reading; listen", "D. read; listening"], correct: "A", exp: "prefer doing A to doing B 喜欢做A胜过做B。", note: "prefer doing to doing" },
+        { id: 5, text: "He is naughty sometimes, but he is a good boy ______.", opts: ["A. in public", "B. in general", "C. in person", "D. in total"], correct: "B", exp: "总的来说，他是个好孩子。", note: "in general总的来说" },
+        { id: 6, text: "What did you get for your hard work? A free trip to Singapore.", opts: ["A. message", "B. idea", "C. award", "D. problem"], correct: "C", exp: "辛勤工作得到的奖励。", note: "award奖励" },
+        { id: 7, text: "I want to ______ this question with you.", opts: ["A. shake", "B. mix", "C. discuss", "D. plan"], correct: "C", exp: "讨论这个问题。", note: "discuss讨论" },
+        { id: 8, text: "Dreams are beautiful. However, to ______ them needs lots of time and work.", opts: ["A. achieve", "B. discover", "C. find", "D. stop"], correct: "A", exp: "实现梦想需要时间和努力。", note: "achieve实现" },
+        { id: 9, text: "Bruce ______ to play football. He likes playing football more than other sports.", opts: ["A. fights", "B. forgets", "C. tries", "D. prefers"], correct: "D", exp: "更喜欢踢足球。", note: "prefers更喜欢" },
+        { id: 10, text: "Everyone ______ us to win the basketball game, but we lost.", opts: ["A. expected", "B. wondered", "C. hoped", "D. burned"], correct: "A", exp: "期待我们赢。", note: "expect期待" }
+    ];
+
+    // ========== 语法填空/词形变换 ==========
+    var grammarFill = [
+        { id: 11, text: "The classroom is as ______ (clean) as that one, but it is ______ (small) than that one.", correct: "clean; smaller", exp: "as + 原级 + as; than用比较级。", note: "clean→cleaner" },
+        { id: 12, text: "It helps them have a better ______ (understand) of China.", correct: "understanding", exp: "better understanding 更好的理解。", note: "understanding名词" },
+        { id: 13, text: "There are many famous ______ (名胜) in Shenzhen.", correct: "places of interest", exp: "名胜古迹。", note: "places of interest" },
+        { id: 14, text: "Please tell us the ______ (true) about this event.", correct: "truth", exp: "真相。", note: "truth真相" },
+        { id: 15, text: "He will show us some of his latest ______ (discover).", correct: "discoveries", exp: "最新的发现。", note: "discoveries发现" }
+    ];
+
+    // ========== 选词填空 ==========
+    var wordBank = ["want", "say", "lucky", "at", "minute", "interest", "he", "fast", "and", "go", "if"];
+    var clozeFill = [
+        { id: 16, text: "Half an hour later, we ______ to Long Bay.", correct: "went", exp: "went去", note: "go的过去式" },
+        { id: 17, text: "My father drove very ______.", correct: "fast", exp: "开得很快", note: "fast快地" },
+        { id: 18, text: "I had to ______ the trip was a little long.", correct: "say", exp: "不得不说", note: "say说" },
+        { id: 19, text: "It took us fifty ______ to get to Long Bay!", correct: "minutes", exp: "五十分钟", note: "minutes分钟" },
+        { id: 20, text: "Volleyball is my favorite sport and I'm ______ in it.", correct: "interested", exp: "对...感兴趣", note: "interested感兴趣的" },
+        { id: 21, text: "We had a big lunch ______ a restaurant.", correct: "at", exp: "在餐厅", note: "at在" },
+        { id: 22, text: "He ______ to eat fish.", correct: "wanted", exp: "想要", note: "want想要" },
+        { id: 23, text: "He thought he had good ______.", correct: "luck", exp: "好运", note: "luck运气" },
+        { id: 24, text: "______ you want to take a trip, you can go to Long Bay.", correct: "If", exp: "如果", note: "if如果" }
+    ];
+
+    // ========== 完形填空 (第17题) ==========
+    var clozePassage = `Last summer, I went on a trip to England with my parents. It's much [1] than I expected. We all know it is always rainy and foggy in London. So each of us took an umbrella. But it was sunny during our stay in London. We were very [2]. On our first day in London, we [3] ourselves on the London Eye. We could see the whole city of London. After that, we [4] Big Ben and Buckingham Palace. Three days later, we visited Shakespeare's old house. I met a [5] there. The girl could sing and play the piano. She could even speak Chinese. I was excited to know she could [6] Chinese. She was happy to talk with me [7] Chinese. I also visited many other places of interest there, [8] the National Gallery and the British Museum. I [9] a lot about art and British history. The trip was [10]. I hope I can visit London again one day. I will never [11] the trip.`;
+    var clozeOptions = {
+        1: ["A. more exciting", "B. exciting", "C. most exciting", "D. the most exciting"],
+        2: ["A. windy", "B. sunny", "C. cloudy", "D. rainy"],
+        3: ["A. liked", "B. helped", "C. enjoyed", "D. played"],
+        4: ["A. missed", "B. moved", "C. followed", "D. visited"],
+        5: ["A. boy", "B. girl", "C. man", "D. woman"],
+        6: ["A. speak", "B. tell", "C. talk", "D. say"],
+        7: ["A. for", "B. in", "C. with", "D. at"],
+        8: ["A. according to", "B. such as", "C. because of", "D. as for"],
+        9: ["A. learned", "B. taught", "C. remembered", "D. followed"],
+        10: ["A. terrible", "B. boring", "C. wonderful", "D. expensive"],
+        11: ["A. feel", "B. remember", "C. enjoy", "D. forget"]
+    };
+    var clozeAnswers = {1:"A",2:"B",3:"C",4:"D",5:"B",6:"A",7:"B",8:"B",9:"A",10:"C",11:"D"};
+    var clozeExps = {
+        1:"much修饰比较级，more exciting", 2:"but表转折，之前以为下雨实际晴朗", 3:"enjoy oneself玩得开心", 4:"visited参观", 5:"根据后文the girl", 6:"speak Chinese说中文", 7:"in Chinese用中文", 8:"such as例如", 9:"learned学到", 10:"wonderful极好的", 11:"forget忘记"
+    };
+
+    // ========== 阅读理解 ==========
+    var readingPassage = `Jingdezhen, the "Porcelain Capital of the World", is a beautiful city in Jiangxi, China. It has a long history of 2000 years. Last summer holiday, my parents and I went to Jingdezhen. When I got there, it was sunny and hot. In the morning, we started our trip to Jingdezhen Porcelain Museum by bus. The blue and white porcelain from Jingdezhen became the symbol of China. For lunch, we went to an old restaurant to try some delicious Jiangxi dishes, such as oil fish and special bean noodles. In the afternoon, we walked along the Porcelain Street and Taoxichuan Block. Here, you could see many artists at work making different porcelains. We bought some cups and bowls in different colors. Jingdezhen is a must-visit place for anyone interested in Chinese art and history!`;
+    var readingQ = [
+        { id: 1, text: "What does the underlined word 'It' in paragraph 1 refer to?", opts: ["A. China.", "B. Jiangxi.", "C. Jingdezhen."], correct: "C", exp: "It指代前一句的Jingdezhen。", note: "指代题" },
+        { id: 2, text: "Where can you see artists making china according to the passage?", opts: ["A. In an old restaurant.", "B. In Jingdezhen Porcelain Museum.", "C. Along the Porcelain Street and Taoxichuan Block."], correct: "C", exp: "在陶溪川街区可以看到艺术家制作瓷器。", note: "细节题" },
+        { id: 3, text: "The right order of the following contents for ① ② and ③ is: a. The food here is delicious. b. We saw many porcelains there. c. It's a great place to shop.", opts: ["A. a-c-b", "B. b-a-c", "C. c-b-a"], correct: "B", exp: "博物馆看瓷器→午餐吃美食→街区购物。", note: "排序题" },
+        { id: 4, text: "What's the best title of the passage?", opts: ["A. A Must-visit Trip to Jingdezhen", "B. Welcome to Jingdezhen Museum", "C. The Special Porcelain in Jingdezhen"], correct: "A", exp: "全文介绍景德镇之旅，推荐必去。", note: "标题题" }
+    ];
+
+    var root = document.getElementById("questionsRoot");
+    var html = '';
+
+    // 单选题
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 一、单项选择 (1-10)</div></div></div>';
+    for (var i = 0; i < singleChoice.length; i++) { var q = singleChoice[i];
+        html += '<div class="card" data-qid="sc_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.opts.length; j++) { var opt = q.opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 语法填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 二、语法填空 (11-15)</div></div></div>';
+    for (var i = 0; i < grammarFill.length; i++) { var q = grammarFill[i];
+        html += '<div class="card" data-qid="gf_' + q.id + '" data-correct="' + escapeHtml(q.correct) + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list"><div class="option" data-val="' + escapeHtml(q.correct) + '"><div class="option-letter">📝</div><div class="option-text">点击显示答案: ' + escapeHtml(q.correct) + '</div></div></div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 选词填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📝 三、选词填空 (16-24) · 周末旅行</div><div class="cloze-passage">' + escapeHtml("I like travelling very much. Last Saturday, I had a lot of fun with my parents. We got up at 6:00 a.m. Half an hour later, we [16] to Long Bay. My father drove very [17]. But he was careful. I had to [18] the trip was a little long. It took us fifty [19] to get to Long Bay! First, we swam. Then we played volleyball. Volleyball is my favorite sport and I'm [20] in it. We had a big lunch [21] a restaurant. In the afternoon, we enjoyed the sunshine. My father went fishing. He [22] to eat fish. He caught a lot of fish. He thought he had good [23]. [24] you want to take a trip, you can go to Long Bay.") + '</div></div></div>';
+    for (var i = 0; i < clozeFill.length; i++) { var q = clozeFill[i];
+        html += '<div class="card" data-qid="cf_' + q.id + '" data-correct="' + escapeHtml(q.correct) + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list"><div class="option" data-val="' + escapeHtml(q.correct) + '"><div class="option-letter">📝</div><div class="option-text">点击显示答案: ' + escapeHtml(q.correct) + '</div></div></div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 完形填空
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 四、完形填空 · 伦敦之旅</div><div class="cloze-passage" id="clozePassage">' + escapeHtml(clozePassage) + '</div></div></div>';
+    for (var i = 1; i <= 11; i++) {
+        html += '<div class="card" data-qid="clz_' + i + '" data-correct="' + clozeAnswers[i] + '" data-exp="' + escapeHtml(clozeExps[i]) + '" data-note="完形填空"><div class="question-panel"><div class="question-text">' + i + '. </div><div class="options-list">';
+        var opts = clozeOptions[i];
+        for (var j = 0; j < opts.length; j++) { var opt = opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 阅读理解
+    html += '<div class="card"><div class="question-panel"><div class="question-text">📖 五、阅读理解 · 景德镇之旅</div><div class="reading-passage" id="readingPassage">' + escapeHtml(readingPassage) + '</div></div></div>';
+    for (var i = 0; i < readingQ.length; i++) { var q = readingQ[i];
+        html += '<div class="card" data-qid="rd_' + q.id + '" data-correct="' + q.correct + '" data-exp="' + escapeHtml(q.exp) + '" data-note="' + escapeHtml(q.note) + '"><div class="question-panel"><div class="question-text">' + q.id + '. ' + escapeHtml(q.text) + '</div><div class="options-list">';
+        for (var j = 0; j < q.opts.length; j++) { var opt = q.opts[j];
+            html += '<div class="option" data-val="' + opt[0] + '"><div class="option-letter">' + opt[0] + '</div><div class="option-text">' + escapeHtml(opt) + '</div></div>';
+        }
+        html += '</div></div><div class="feedback-area" style="display:none;"></div></div>';
+    }
+
+    // 解题策略
+    html += '<div class="method-card"><div class="badge-method">🎯 解题策略</div><ul style="margin-left:20px;color:#375e4c;"><li><strong>1. 固定搭配：</strong> prefer doing to doing, as...as, 比较级+than。</li><li><strong>2. 词义辨析：</strong> receive/accept, speak/tell/talk/say, hope/expect/want。</li><li><strong>3. 上下文逻辑：</strong> 注意转折词but, however等。</li><li><strong>4. 阅读理解技巧：</strong> 先读题再定位，注意指代和顺序。</li></ul></div>';
+
+    root.innerHTML = html;
+
+    // 使可点击
+    document.querySelectorAll(".reading-passage, .cloze-passage, .question-text, .option-text, .phrase-item, .method-card").forEach(function(el) { if (el) makeWordsClickable(el); });
+    // 绑定选择题事件
+    document.querySelectorAll('.card[data-qid]').forEach(function(card) {
+        var correct = card.getAttribute('data-correct');
+        var exp = card.getAttribute('data-exp') || "根据上下文分析得出。";
+        var note = card.getAttribute('data-note') || "注意固定搭配与逻辑。";
+        var optsDiv = card.querySelector('.options-list');
+        if (!optsDiv) return;
+        var opts = optsDiv.querySelectorAll('.option');
+        opts.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                if (card.classList.contains('answered')) return;
+                var selected = opt.getAttribute('data-val');
+                var isCorrect = (selected === correct);
+                var fb = card.querySelector('.feedback-area');
+                if (!fb) return;
+                var yourFull = selected, correctFull = correct;
+                opts.forEach(function(o) { if(o.getAttribute('data-val') === selected) yourFull = o.querySelector('.option-text')?.innerText || selected; if(o.getAttribute('data-val') === correct) correctFull = o.querySelector('.option-text')?.innerText || correct; });
+                fb.innerHTML = '<div class="result-badge ' + (isCorrect ? 'correct-badge' : 'wrong-badge') + '">' + (isCorrect ? '✔ 回答正确' : '❌ 回答错误') + '</div><div class="answer-compare"><div class="your-answer">📌 你的答案：' + selected + '. ' + escapeHtml(yourFull) + '</div><div class="correct-answer">✅ 正确答案：' + correct + '. ' + escapeHtml(correctFull) + '</div></div><div class="detail-explanation"><strong>🔎 详细解析：</strong> ' + escapeHtml(exp) + '<br/><strong>📘 考点笔记：</strong> ' + escapeHtml(note) + '</div><div class="lock-message">🔒 答案已锁定</div>';
+                fb.style.display = 'block';
+                card.classList.add('answered');
+                opts.forEach(function(o) { o.classList.add('disabled-opt'); });
+            });
+        });
+    });
+</script>
+</body>
+</html>
